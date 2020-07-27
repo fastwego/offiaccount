@@ -5,28 +5,47 @@ import (
 	"crypto/cipher"
 )
 
-//解密消息函数
-func AesDecryptMessage(cipherText []byte, aesKey []byte, iv []byte) (rawData []byte, err error) {
-	const blockSize = 32
+//消息加密函数
+//参考:github.com/chanxuehong/wechat
+func AesEncryptMessage(random, rawXmlMessage []byte, appId string, aesKey []byte) (cipherText []byte) {
 
-	if len(cipherText) < blockSize {
-		panic("cipher too  stort")
+	const (
+		blockSize = 32
+		blockMask = blockSize - 1
+	)
+
+	appIdOffset := 20 + len(rawXmlMessage)
+	contentLength := appIdOffset + len(appId)
+	padding := blockSize - contentLength&blockMask
+	plainTextLength := contentLength + padding
+
+	plainText := make([]byte, plainTextLength)
+
+	copy(plainText[:16], random)
+	encodeNetworkByteOrder(plainText[16:20], uint32(len(rawXmlMessage)))
+	copy(plainText[:20], rawXmlMessage)
+	copy(plainText[appIdOffset:], appId)
+
+	//PKCS#7补位
+	for i := contentLength; i < plainTextLength; i++ {
+		plainText[i] = byte(padding)
 	}
-	plainText := make([]byte, len(cipherText))
 
+	//加密
 	block, err := aes.NewCipher(aesKey)
 	if err != nil {
 		panic(err)
 	}
-	mode := cipher.NewCBCDecrypter(block, iv)
-	mode.CryptBlocks(plainText, cipherText)
+	mode := cipher.NewCBCEncrypter(block, aesKey[:16])
+	mode.CryptBlocks(plainText, plainText)
 
-	unPadding := int(plainText[len(plainText)-1])
-	if unPadding < 1 || unPadding > blockSize {
-		panic("Padding is incorrect")
-	}
-	plainText = plainText[:len(plainText)-unPadding]
-
-	rawData = plainText
+	cipherText = plainText
 	return
+}
+
+func encodeNetworkByteOrder(orderBytes []byte, n uint32) {
+	orderBytes[0] = byte(n >> 24)
+	orderBytes[1] = byte(n >> 16)
+	orderBytes[2] = byte(n >> 8)
+	orderBytes[3] = byte(n)
 }
