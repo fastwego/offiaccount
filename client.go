@@ -8,19 +8,21 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 	"sync"
 	"time"
 )
 
+var WXServerUrl = "https://api.weixin.qq.com"
+
 const (
-	WXServerUrl                = "https://api.weixin.qq.com"
 	ContentTypeApplicationJson = "application/json;charset=utf-8"
 )
 
 // HTTPGet GET 请求
-func HTTPGet(uri string, params url.Values) (resp []byte, err error) {
-	params.Add("access_token", getAccessToken())
-	response, err := http.Get(WXServerUrl + uri + "?" + params.Encode())
+func HTTPGet(uri string) (resp []byte, err error) {
+	uri = applyAccessToken(uri)
+	response, err := http.Get(WXServerUrl + uri)
 	if err != nil {
 		return
 	}
@@ -29,14 +31,22 @@ func HTTPGet(uri string, params url.Values) (resp []byte, err error) {
 }
 
 //HTTPPost POST 请求
-func HTTPPost(uri string, params url.Values, payload io.Reader, contentType string) (resp []byte, err error) {
-	params.Add("access_token", getAccessToken())
-	response, err := http.Post(WXServerUrl+uri+"?"+params.Encode(), contentType, payload)
+func HTTPPost(uri string, payload io.Reader, contentType string) (resp []byte, err error) {
+	uri = applyAccessToken(uri)
+	response, err := http.Post(WXServerUrl + uri, contentType, payload)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
 	return responseFilter(response)
+}
+
+func applyAccessToken(oldUrl string) (newUrl string) {
+	accessToken := getAccessToken()
+	if strings.Contains(oldUrl, "?") {
+		return oldUrl+"&access_token="+accessToken
+	}
+	return oldUrl+"?access_token="+accessToken
 }
 
 func responseFilter(response *http.Response) (resp []byte, err error) {

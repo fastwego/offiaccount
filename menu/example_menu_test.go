@@ -10,7 +10,8 @@ import (
 )
 
 func Example() {
-	offiaccount.Init("wx5430528a560c5a03", "5462c323b5d36a44e0007764e715964e")
+	offiaccount.Appid="wx5430528a560c5a03"
+	offiaccount.Secret="5462c323b5d36a44e0007764e715964e"
 	offiaccount.SetAccessTokenCache(filecache.New(os.TempDir())) // 开发模式 使用 文件缓存 access_token
 
 	buttons := []menu.Button{

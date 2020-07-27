@@ -1,5 +1,7 @@
 package server
 
+import "encoding/xml"
+
 const (
 	MsgTypeText       = "text"
 	MsgTypeImage      = "image"
@@ -12,6 +14,7 @@ const (
 )
 
 type Message struct {
+	XMLName      xml.Name `xml:"xml"`
 	ToUserName   string
 	FromUserName string
 	CreateTime   string
@@ -19,35 +22,36 @@ type Message struct {
 	MsgId        string
 }
 
-type TextMessage struct {
+type MessageText struct {
 	Message
 	Content string
 }
 
-type ImageMessage struct {
+type MessageImage struct {
 	Message
 	PicUrl  string
 	MediaId string
 }
 
-type VoiceMessage struct {
+type MessageVoice struct {
 	Message
 	Format      string
 	Recognition string
 }
 
-type VideoMessage struct {
-	Message
-	MediaId      string
-	ThumbMediaId string
-}
-type ShortVideoMessage struct {
+type MessageVideo struct {
 	Message
 	MediaId      string
 	ThumbMediaId string
 }
 
-type LocationMessage struct {
+type MessageShortVideo struct {
+	Message
+	MediaId      string
+	ThumbMediaId string
+}
+
+type MessageLocation struct {
 	Message
 	Location_X string
 	Location_Y string
@@ -55,14 +59,14 @@ type LocationMessage struct {
 	Label      string
 }
 
-type LinkMessage struct {
+type MessageLink struct {
 	Message
 	Title       string
 	Description string
 	Url         string
 }
 
-type EventMessage struct {
+type MessageEvent struct {
 	Message
 	Event string
 }

@@ -5,7 +5,6 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"sort"
 	"strings"
@@ -26,22 +25,18 @@ func EchoStr(writer http.ResponseWriter, req *http.Request) {
 
 	h := sha1.New()
 	_, _ = io.WriteString(h, strings.Join(strs, ""))
-	signature := fmt.Sprintf("% x", h.Sum(nil))
+	signature := fmt.Sprintf("%x", h.Sum(nil))
 
 	echoStr := req.URL.Query().Get("echostr")
 	if echoStr != "" && signature == req.URL.Query().Get("signature") {
 		_, _ = io.WriteString(writer, echoStr)
+		return
 	}
 
 	_, _ = io.WriteString(writer, SUCCESS)
 }
 
-func GetMessage(req *http.Request) (m interface{}, err error) {
-	body, err := ioutil.ReadAll(req.Body)
-	if err != nil {
-		return
-	}
-
+func ParseMessage(body []byte) (m interface{}, err error) {
 	message := Message{}
 	err = xml.Unmarshal(body, &message)
 	if err != nil {
@@ -50,56 +45,56 @@ func GetMessage(req *http.Request) (m interface{}, err error) {
 
 	switch message.MsgType {
 	case MsgTypeText:
-		msg := TextMessage{}
+		msg := MessageText{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeImage:
-		msg := ImageMessage{}
+		msg := MessageImage{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeVoice:
-		msg := VoiceMessage{}
+		msg := MessageVoice{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeVideo:
-		msg := VideoMessage{}
+		msg := MessageVideo{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeShortVideo:
-		msg := ShortVideoMessage{}
+		msg := MessageShortVideo{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeLocation:
-		msg := LocationMessage{}
+		msg := MessageLocation{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeLink:
-		msg := LinkMessage{}
+		msg := MessageLink{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
 	case MsgTypeEvent:
-		msg := EventMessage{}
+		msg := MessageEvent{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
