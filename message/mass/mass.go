@@ -17,7 +17,7 @@ const (
 	apiSend       = "/cgi-bin/message/mass/send"
 	apiDelete     = "/cgi-bin/message/mass/delete"
 	apiPreview    = "/cgi-bin/message/mass/preview"
-	apiGet        = "/message/mass/get"
+	apiGet        = "/cgi-bin/message/mass/get"
 	apiSpeedGet   = "/cgi-bin/message/mass/speed/get"
 	apiSpeedSet   = "/cgi-bin/message/mass/speed/set"
 )
