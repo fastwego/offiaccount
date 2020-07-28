@@ -1,138 +1,128 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net/url"
 	"path"
+	"regexp"
 	"strings"
 
 	"github.com/iancoleman/strcase"
 )
 
-type API struct {
-	request string
-	see     string
-}
-
 func main() {
-	fmt.Println("Start")
 
-	apis := [][]API{
-		{
-			// 素材管理
-			{
-				"POST/FORM https://API.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE",
-				"https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html",
-			},
-			{
-				"GET https://API.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID",
-				"https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html",
-			},
-			{
-				"POST https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=ACCESS_TOKEN",
-				"https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html",
-			},
-		},
-		{
-			{
-				"API",
-				"see",
-			},
-			{
-				"API",
-				"see",
-			},
-		},
+	var pkgFlag string
+	flag.StringVar(&pkgFlag, "package", "default", "")
+	flag.Parse()
+
+	for _, group := range apiConfig {
+		if group.Package == pkgFlag {
+			build(group)
+		}
 	}
-
-	fmt.Println(apis)
-
-	build(apis[0])
-
 }
 
-func build(apis []API) {
+func build(group ApiGroup) {
 	var funcs []string
 	var consts []string
 
-	for _, api := range apis {
-		tpl := postFunc
+	for _, api := range group.Apis {
+		tpl := postFuncTpl
+		_FUNC_NAME_ := ""
+		_UPLOAD_ := "media"
+		_FIELD_NAME_ := ""
+		_FIELDS_ := ""
+		_PAYLOAD_ := ""
 		switch {
-		case strings.Contains(api.request, "GET http"):
-			tpl = getFunc
-		case strings.Contains(api.request, "POST http"):
-			tpl = postFunc
-		case strings.Contains(api.request, "POST/FORM http"):
-			tpl = postFormFunc
+		case strings.Contains(api.Request, "GET http"):
+			tpl = getFuncTpl
+		case strings.Contains(api.Request, "POST http"):
+			tpl = postFuncTpl
+		case strings.Contains(api.Request, "POST(@media"):
+			tpl = postUploadFuncTpl
+			_UPLOAD_ = "media"
+
+			pattern := `POST\(@media\|field=(\S+)\) http`
+			reg := regexp.MustCompile(pattern)
+			matched := reg.FindAllStringSubmatch(api.Request, -1)
+			if matched != nil {
+				_FIELD_NAME_ = matched[0][1]
+				_PAYLOAD_ = ", payload []byte"
+			}
 		}
 
-		split := strings.Split(api.request, " ")
-		parse, _ := url.Parse(split[1])
+		split := strings.Split(api.Request, " ")
+		parseUrl, _ := url.Parse(split[1])
 
-		_FUNC_NAME_ := strcase.ToCamel(path.Base(parse.Path))
-		_REQUEST_ := api.request
-		_SEE_ := api.see
+		_TITLE_ := api.Name
+		_DESCRIPTION_ := api.Description
+		_REQUEST_ := api.Request
+		_SEE_ := api.See
+		if api.FuncName == "" {
+			_FUNC_NAME_ = strcase.ToCamel(path.Base(parseUrl.Path))
+		} else {
+			_FUNC_NAME_ = api.FuncName
+		}
 
-		funcCode := fmt.Sprintf(tpl, _FUNC_NAME_, _SEE_, _REQUEST_, _FUNC_NAME_, _FUNC_NAME_)
-		funcs = append(funcs, funcCode)
+		tpl = strings.ReplaceAll(tpl, "_TITLE_", _TITLE_)
+		tpl = strings.ReplaceAll(tpl, "_DESCRIPTION_", _DESCRIPTION_)
+		tpl = strings.ReplaceAll(tpl, "_REQUEST_", _REQUEST_)
+		tpl = strings.ReplaceAll(tpl, "_SEE_", _SEE_)
+		tpl = strings.ReplaceAll(tpl, "_FUNC_NAME_", _FUNC_NAME_)
+		tpl = strings.ReplaceAll(tpl, "_UPLOAD_", _UPLOAD_)
+		if _FIELD_NAME_ != "" {
+			_FIELDS_ = strings.ReplaceAll(fieldTpl, "_FIELD_NAME_", _FIELD_NAME_)
+		}
+		tpl = strings.ReplaceAll(tpl, "_FIELDS_", _FIELDS_)
+		tpl = strings.ReplaceAll(tpl, "_PAYLOAD_", _PAYLOAD_)
 
-		constCode := fmt.Sprintf(`api%s = "%s"`, _FUNC_NAME_, parse.Path)
-		consts = append(consts, constCode)
+		funcs = append(funcs, tpl)
+
+		tpl = strings.ReplaceAll(constTpl, "_FUNC_NAME_", _FUNC_NAME_)
+		tpl = strings.ReplaceAll(tpl, "_API_PATH_", parseUrl.Path)
+		consts = append(consts, tpl)
 	}
 
-	fmt.Printf(`
-const (
-	%s
-)
-
-%s
-`, strings.Join(consts, ``), strings.Join(funcs, ``))
+	fmt.Printf(fileTpl, group.Package, strings.Join(consts, ``), strings.Join(funcs, ``))
 }
 
-var postFunc = `
+var constTpl = `
+	api_FUNC_NAME_ = "_API_PATH_"`
+var commentTpl = `
 /*
-%s
+_TITLE_
 
-See: %s
+_DESCRIPTION_
 
-%s
-*/
-func %s(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(api%s, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
-}
-`
-var getFunc = `
-/*
-%s
+See: _SEE_
 
-See: %s
-
-%s
-*/
-func %s() (resp []byte, err error) {
-	return offiaccount.HTTPGet(api%s)
+_REQUEST_
+*/`
+var postFuncTpl = commentTpl + `
+func _FUNC_NAME_(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(api_FUNC_NAME_, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 `
-var postFormFunc = `
-/*
-%s
-
-See: %s
-
-%s
-*/
-func %s(mediaPath string) (resp []byte, err error) {
+var getFuncTpl = commentTpl + `
+func _FUNC_NAME_() (resp []byte, err error) {
+	return offiaccount.HTTPGet(api_FUNC_NAME_)
+}
+`
+var postUploadFuncTpl = commentTpl + `
+func _FUNC_NAME_(_UPLOAD_ string_PAYLOAD_) (resp []byte, err error) {
 	r, w := io.Pipe()
 	m := multipart.NewWriter(w)
 	go func() {
 		defer w.Close()
 		defer m.Close()
 
-		part, err := m.CreateFormFile("media", path.Base(mediaPath))
+		part, err := m.CreateFormFile("_UPLOAD_", path.Base(_UPLOAD_))
 		if err != nil {
 			return
 		}
-		file, err := os.Open(mediaPath)
+		file, err := os.Open(_UPLOAD_)
 		if err != nil {
 			return
 		}
@@ -140,7 +130,23 @@ func %s(mediaPath string) (resp []byte, err error) {
 		if _, err = io.Copy(part, file); err != nil {
 			return
 		}
+
+		_FIELDS_
 	}()
-	return offiaccount.HTTPPost(api%s, r, m.FormDataContentType())
+	return offiaccount.HTTPPost(api_FUNC_NAME_, r, m.FormDataContentType())
 }
 `
+
+var fieldTpl = `
+		// field
+		err = m.WriteField("_FIELD_NAME_", string(payload))
+		if err != nil {
+			return
+		}
+`
+
+var fileTpl = `package %s
+const (
+	%s
+)
+%s`
