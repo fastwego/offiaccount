@@ -3,6 +3,7 @@ package util
 import (
 	"crypto/aes"
 	"crypto/cipher"
+	"fmt"
 )
 
 //消息加密函数
@@ -34,7 +35,8 @@ func AesEncryptMessage(random, rawXmlMessage []byte, appId string, aesKey []byte
 	//加密
 	block, err := aes.NewCipher(aesKey)
 	if err != nil {
-		panic(err)
+		err = fmt.Errorf("aes new cipher fail: err=%v", err)
+		return
 	}
 	mode := cipher.NewCBCEncrypter(block, aesKey[:16])
 	mode.CryptBlocks(plainText, plainText)
