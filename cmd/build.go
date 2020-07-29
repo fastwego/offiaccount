@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"net/url"
 	"path"
 	"regexp"
@@ -18,6 +19,7 @@ func main() {
 	flag.Parse()
 
 	for _, group := range apiConfig {
+
 		if group.Package == pkgFlag {
 			build(group)
 		}
@@ -27,10 +29,13 @@ func main() {
 func build(group ApiGroup) {
 	var funcs []string
 	var consts []string
+	var testFuncs []string
 
 	for _, api := range group.Apis {
 		tpl := postFuncTpl
 		_FUNC_NAME_ := ""
+		_GET_PARAMS_ := ""
+		_GET_SUFFIX_PARAMS_ := ""
 		_UPLOAD_ := "media"
 		_FIELD_NAME_ := ""
 		_FIELDS_ := ""
@@ -52,6 +57,13 @@ func build(group ApiGroup) {
 				_PAYLOAD_ = ", payload []byte"
 			}
 		}
+		if len(api.GetParams) > 0 {
+			_GET_PARAMS_ = `params url.Values`
+			if strings.Contains(api.Request, "POST(@media") {
+				_GET_PARAMS_ = `, ` + _GET_PARAMS_
+			}
+			_GET_SUFFIX_PARAMS_ = `+ "?" + params.Encode()`
+		}
 
 		split := strings.Split(api.Request, " ")
 		parseUrl, _ := url.Parse(split[1])
@@ -72,6 +84,8 @@ func build(group ApiGroup) {
 		tpl = strings.ReplaceAll(tpl, "_SEE_", _SEE_)
 		tpl = strings.ReplaceAll(tpl, "_FUNC_NAME_", _FUNC_NAME_)
 		tpl = strings.ReplaceAll(tpl, "_UPLOAD_", _UPLOAD_)
+		tpl = strings.ReplaceAll(tpl, "_GET_PARAMS_", _GET_PARAMS_)
+		tpl = strings.ReplaceAll(tpl, "_GET_SUFFIX_PARAMS_", _GET_SUFFIX_PARAMS_)
 		if _FIELD_NAME_ != "" {
 			_FIELDS_ = strings.ReplaceAll(fieldTpl, "_FIELD_NAME_", _FIELD_NAME_)
 		}
@@ -82,10 +96,45 @@ func build(group ApiGroup) {
 
 		tpl = strings.ReplaceAll(constTpl, "_FUNC_NAME_", _FUNC_NAME_)
 		tpl = strings.ReplaceAll(tpl, "_API_PATH_", parseUrl.Path)
+
 		consts = append(consts, tpl)
+
+		// TestFunc
+		_TEST_ARGS_STRUCT_ := ""
+		switch {
+		case strings.Contains(api.Request, "GET http"):
+			_TEST_ARGS_STRUCT_ = _GET_PARAMS_
+		case strings.Contains(api.Request, "POST http"):
+			_TEST_ARGS_STRUCT_ = `payload []byte` + _GET_PARAMS_
+		case strings.Contains(api.Request, "POST(@media"):
+			_TEST_ARGS_STRUCT_ = _UPLOAD_ + ` string` + _PAYLOAD_ + _GET_PARAMS_
+		}
+		_TEST_ARGS_STRUCT_ = strings.ReplaceAll(_TEST_ARGS_STRUCT_, ",", "\n")
+
+		_TEST_FUNC_SIGNATURE_ := ""
+		if strings.TrimSpace(_TEST_ARGS_STRUCT_) != "" {
+			signatures := strings.Split(_TEST_ARGS_STRUCT_, "\n")
+			paramNames := []string{}
+			for _, signature := range signatures {
+				signature = strings.TrimSpace(signature)
+				tmp := strings.Split(signature, " ")
+				paramNames = append(paramNames, "tt.args."+tmp[0])
+			}
+			_TEST_FUNC_SIGNATURE_ = strings.Join(paramNames, ",")
+		}
+
+		tpl = strings.ReplaceAll(testFuncTpl, "_FUNC_NAME_", _FUNC_NAME_)
+		tpl = strings.ReplaceAll(tpl, "_TEST_ARGS_STRUCT_", _TEST_ARGS_STRUCT_)
+		tpl = strings.ReplaceAll(tpl, "_TEST_FUNC_SIGNATURE_", _TEST_FUNC_SIGNATURE_)
+		testFuncs = append(testFuncs, tpl)
 	}
 
-	fmt.Printf(fileTpl, group.Package, strings.Join(consts, ``), strings.Join(funcs, ``))
+	fmt.Printf(fileTpl, path.Base(group.Package), strings.Join(consts, ``), strings.Join(funcs, ``))
+
+	// output Test
+	testFileContent := fmt.Sprintf(testFileTpl, path.Base(group.Package), strings.Join(testFuncs, ``))
+	//fmt.Println(testFileContent)
+	ioutil.WriteFile("../"+group.Package+"/"+path.Base(group.Package)+"_test.go", []byte(testFileContent), 0644)
 }
 
 var constTpl = `
@@ -101,17 +150,17 @@ See: _SEE_
 _REQUEST_
 */`
 var postFuncTpl = commentTpl + `
-func _FUNC_NAME_(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(api_FUNC_NAME_, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func _FUNC_NAME_(payload []byte_GET_PARAMS_) (resp []byte, err error) {
+	return offiaccount.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 `
 var getFuncTpl = commentTpl + `
-func _FUNC_NAME_() (resp []byte, err error) {
-	return offiaccount.HTTPGet(api_FUNC_NAME_)
+func _FUNC_NAME_(_GET_PARAMS_) (resp []byte, err error) {
+	return offiaccount.HTTPGet(api_FUNC_NAME__GET_SUFFIX_PARAMS_)
 }
 `
 var postUploadFuncTpl = commentTpl + `
-func _FUNC_NAME_(_UPLOAD_ string_PAYLOAD_) (resp []byte, err error) {
+func _FUNC_NAME_(_UPLOAD_ string_PAYLOAD__GET_PARAMS_) (resp []byte, err error) {
 	r, w := io.Pipe()
 	m := multipart.NewWriter(w)
 	go func() {
@@ -133,7 +182,7 @@ func _FUNC_NAME_(_UPLOAD_ string_PAYLOAD_) (resp []byte, err error) {
 
 		_FIELDS_
 	}()
-	return offiaccount.HTTPPost(api_FUNC_NAME_, r, m.FormDataContentType())
+	return offiaccount.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, r, m.FormDataContentType())
 }
 `
 
@@ -150,3 +199,50 @@ const (
 	%s
 )
 %s`
+
+var testFileTpl = `package %s
+
+func TestMain(m *testing.M) {
+	test.Setup()
+	os.Exit(m.Run())
+}
+
+%s
+`
+
+var testFuncTpl = `
+func Test_FUNC_NAME_(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(api_FUNC_NAME_, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		_TEST_ARGS_STRUCT_
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := _FUNC_NAME_(_TEST_FUNC_SIGNATURE_)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("_FUNC_NAME_() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("_FUNC_NAME_() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}`

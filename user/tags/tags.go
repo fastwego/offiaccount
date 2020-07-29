@@ -1,4 +1,4 @@
-package tag
+package tags
 
 import (
 	"bytes"
@@ -11,10 +11,10 @@ const (
 	apiGet            = "/cgi-bin/tags/get"
 	apiUpdate         = "/cgi-bin/tags/update"
 	apiDelete         = "/cgi-bin/tags/delete"
-	apiGetUsers       = "/cgi-bin/user/tag/get"
+	apiGetUsersByTag  = "/cgi-bin/user/tag/get"
 	apiBatchTagging   = "/cgi-bin/tags/members/batchtagging"
-	apiBatchUntagging = "/cgi-bin/tags/members/batchuntagging"
-	apiGetIdList      = "/cgi-bin/tags/getidlist"
+	apiBatchUnTagging = "/cgi-bin/tags/members/batchuntagging"
+	apiGetTagIdList   = "/cgi-bin/tags/getidlist"
 )
 
 /*
@@ -76,10 +76,10 @@ func Delete(payload []byte) (resp []byte, err error) {
 
 See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html
 
-GET https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=ACCESS_TOKEN
+POST https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=ACCESS_TOKEN
 */
-func GetUsers() (resp []byte, err error) {
-	return offiaccount.HTTPGet(apiGetUsers)
+func GetUsersByTag(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUsersByTag, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
@@ -104,8 +104,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=ACCESS_TOKEN
 */
-func BatchUntagging(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiBatchUntagging, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func BatchUnTagging(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiBatchUnTagging, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
@@ -117,6 +117,6 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 
 POST https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=ACCESS_TOKEN
 */
-func GetIdList(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetIdList, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetTagIdList(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetTagIdList, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }

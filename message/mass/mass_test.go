@@ -1,4 +1,4 @@
-package menu
+package mass
 
 import (
 	"net/http"
@@ -14,12 +14,12 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestCreate(t *testing.T) {
+func TestMediaUploadNews(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiCreate, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiMediaUploadNews, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -37,28 +37,29 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := Create(tt.args.payload)
+			gotResp, err := MediaUploadNews(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Create() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("MediaUploadNews() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Create() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("MediaUploadNews() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestGetCurrentSelfmenuInfo(t *testing.T) {
+func TestSendAll(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiGetCurrentSelfmenuInfo, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiSendAll, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
 	type args struct {
+		payload []byte
 	}
 	tests := []struct {
 		name     string
@@ -71,14 +72,84 @@ func TestGetCurrentSelfmenuInfo(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := GetCurrentSelfmenuInfo()
+			gotResp, err := SendAll(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetCurrentSelfmenuInfo() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("SendAll() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("GetCurrentSelfmenuInfo() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("SendAll() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestMediaUploadVideo(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiMediaUploadVideo, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := MediaUploadVideo(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("MediaUploadVideo() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("MediaUploadVideo() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestSend(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiSend, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := Send(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Send() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("Send() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
@@ -93,6 +164,7 @@ func TestDelete(t *testing.T) {
 	})
 
 	type args struct {
+		payload []byte
 	}
 	tests := []struct {
 		name     string
@@ -105,7 +177,7 @@ func TestDelete(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := Delete()
+			gotResp, err := Delete(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
@@ -117,12 +189,12 @@ func TestDelete(t *testing.T) {
 		})
 	}
 }
-func TestAddConditional(t *testing.T) {
+func TestPreview(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiAddConditional, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiPreview, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -140,84 +212,14 @@ func TestAddConditional(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := AddConditional(tt.args.payload)
+			gotResp, err := Preview(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("AddConditional() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("Preview() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("AddConditional() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestDelConditional(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiDelConditional, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-		payload []byte
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := DelConditional(tt.args.payload)
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("DelConditional() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("DelConditional() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestTryMatch(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiTryMatch, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-		payload []byte
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := TryMatch(tt.args.payload)
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("TryMatch() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("TryMatch() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("Preview() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
@@ -253,6 +255,76 @@ func TestGet(t *testing.T) {
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
 				t.Errorf("Get() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestSpeedGet(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiSpeedGet, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := SpeedGet(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("SpeedGet() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("SpeedGet() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestSpeedSet(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiSpeedSet, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := SpeedSet(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("SpeedSet() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("SpeedSet() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}

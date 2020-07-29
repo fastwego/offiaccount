@@ -1,4 +1,4 @@
-package poi_miniprogram
+package miniprogram
 
 import (
 	"bytes"
@@ -7,9 +7,7 @@ import (
 )
 
 const (
-	apiGetwxastorecatelist  = "/wxa/getwxastorecatelist"
 	apiGetMerchantCategory  = "/wxa/get_merchant_category"
-	apiApplywxastore        = "/wxa/applywxastore "
 	apiApplyMerchant        = "/wxa/apply_merchant"
 	apiGetMerchantAuditInfo = "/wxa/get_merchant_audit_info"
 	apiModifyMerchant       = "/wxa/modify_merchant"
@@ -18,53 +16,26 @@ const (
 	apiCreateMapPoi         = "/wxa/create_map_poi"
 	apiAddStore             = "/wxa/add_store"
 	apiUpdateStore          = "/wxa/update_store"
-	apiGet                  = "/card/storewxa/get"
+	apiCardStorewxaGet      = "/card/storewxa/get"
 	apiGetStoreInfo         = "/wxa/get_store_info"
 	apiGetStoreList         = "/wxa/get_store_list"
 	apiDelStore             = "/wxa/del_store"
 )
 
 /*
-/wxa/getwxastorecatelist
-
-
-
-See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_Miniprogram_Interface.html
-
-POST https://api.weixin.qq.com/wxa/getwxastorecatelist?access_token=TOKEN
-*/
-func Getwxastorecatelist(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetwxastorecatelist, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
-}
-
-/*
-/wxa/get_merchant_category
-
+拉取门店小程序类目
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_Miniprogram_Interface.html
 
-POST https://api.weixin.qq.com/wxa/get_merchant_category?access_token=TOKEN
+GET https://api.weixin.qq.com/wxa/get_merchant_category?access_token=TOKEN
 */
-func GetMerchantCategory(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetMerchantCategory, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetMerchantCategory() (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiGetMerchantCategory)
 }
 
 /*
-/wxa/applywxastore
-
-
-
-See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_Miniprogram_Interface.html
-
-POST https://api.weixin.qq.com/wxa/applywxastore%20?access_token=TOKEN
-*/
-func Applywxastore(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiApplywxastore, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
-}
-
-/*
-/wxa/apply_merchant
+创建门店小程序
 
 
 
@@ -77,20 +48,20 @@ func ApplyMerchant(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/get_merchant_audit_info
+查询门店小程序审核结果
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_Miniprogram_Interface.html
 
-POST https://api.weixin.qq.com/wxa/get_merchant_audit_info?access_token=TOKEN
+GET https://api.weixin.qq.com/wxa/get_merchant_audit_info?access_token=TOKEN
 */
-func GetMerchantAuditInfo(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetMerchantAuditInfo, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetMerchantAuditInfo() (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiGetMerchantAuditInfo)
 }
 
 /*
-/wxa/modify_merchant
+修改门店小程序信息
 
 
 
@@ -103,20 +74,20 @@ func ModifyMerchant(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/get_district
+从腾讯地图拉取省市区信息
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_Miniprogram_Interface.html
 
-POST https://api.weixin.qq.com/wxa/get_district?access_token=TOKEN
+GET https://api.weixin.qq.com/wxa/get_district?access_token=TOKEN
 */
-func GetDistrict(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetDistrict, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetDistrict() (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiGetDistrict)
 }
 
 /*
-/wxa/search_map_poi
+在腾讯地图中搜索门店
 
 
 
@@ -129,7 +100,7 @@ func SearchMapPoi(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/create_map_poi
+在腾讯地图中创建门店
 
 
 
@@ -142,7 +113,7 @@ func CreateMapPoi(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/add_store
+添加门店
 
 
 
@@ -155,7 +126,7 @@ func AddStore(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/update_store
+更新门店信息
 
 
 
@@ -168,7 +139,7 @@ func UpdateStore(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/card/storewxa/get
+获取门店小程序配置的卡券
 
 
 
@@ -176,12 +147,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 
 POST https://api.weixin.qq.com/card/storewxa/get?access_token=ACCESS_TOKEN
 */
-func Get(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGet, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func CardStorewxaGet(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiCardStorewxaGet, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/wxa/get_store_info
+获取单个门店信息
 
 
 
@@ -194,7 +165,7 @@ func GetStoreInfo(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/get_store_list
+获取门店信息列表
 
 
 
@@ -207,7 +178,7 @@ func GetStoreList(payload []byte) (resp []byte, err error) {
 }
 
 /*
-/wxa/del_store
+删除门店
 
 
 

@@ -13,6 +13,7 @@ const (
 	apiGetAllPrivateTemplate = "/cgi-bin/template/get_all_private_template"
 	apiDelPrivateTemplate    = "/cgi-bin/template/del_private_template"
 	apiSend                  = "/cgi-bin/message/template/send"
+	apiSubscribe             = "/cgi-bin/message/template/subscribe"
 )
 
 /*
@@ -83,10 +84,24 @@ func DelPrivateTemplate(payload []byte) (resp []byte, err error) {
 /*
 发送模板消息
 
+
 See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html
 
 POST https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
 */
 func Send(payload []byte) (resp []byte, err error) {
 	return offiaccount.HTTPPost(apiSend, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+}
+
+/*
+推送订阅模板消息给到授权微信用户
+
+
+
+See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html
+
+POST https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=ACCESS_TOKEN
+*/
+func Subscribe(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiSubscribe, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }

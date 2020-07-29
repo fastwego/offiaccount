@@ -2,33 +2,34 @@ package datacube
 
 import (
 	"bytes"
+	"net/url"
 
 	"github.com/fastwego/offiaccount"
 )
 
 const (
-	apiGetusersummary          = "/datacube/getusersummary"
-	apiGetusercumulate         = "/datacube/getusercumulate"
-	apiGetarticlesummary       = "/datacube/getarticlesummary"
-	apiGetarticletotal         = "/datacube/getarticletotal"
-	apiGetuserread             = "/datacube/getuserread"
-	apiGetuserreadhour         = "/datacube/getuserreadhour"
-	apiGetusershare            = "/datacube/getusershare"
-	apiGetusersharehour        = "/datacube/getusersharehour"
-	apiGetupstreammsg          = "/datacube/getupstreammsg"
-	apiGetupstreammsghour      = "/datacube/getupstreammsghour"
-	apiGetupstreammsgweek      = "/datacube/getupstreammsgweek"
-	apiGetupstreammsgmonth     = "/datacube/getupstreammsgmonth"
-	apiGetupstreammsgdist      = "/datacube/getupstreammsgdist"
-	apiGetupstreammsgdistweek  = "/datacube/getupstreammsgdistweek"
-	apiGetupstreammsgdistmonth = "/datacube/getupstreammsgdistmonth"
-	apiStat                    = "/publisher/stat"
-	apiGetinterfacesummary     = "/datacube/getinterfacesummary"
-	apiGetinterfacesummaryhour = "/datacube/getinterfacesummaryhour"
+	apiGetUserSummary          = "/datacube/getusersummary"
+	apiGetUserCumulate         = "/datacube/getusercumulate"
+	apiGetArticleSummary       = "/datacube/getarticlesummary"
+	apiGetArticleTotal         = "/datacube/getarticletotal"
+	apiGetUserRead             = "/datacube/getuserread"
+	apiGetUserReadHour         = "/datacube/getuserreadhour"
+	apiGetUserShare            = "/datacube/getusershare"
+	apiGetUserShareHour        = "/datacube/getusersharehour"
+	apiGetUpstreamMsg          = "/datacube/getupstreammsg"
+	apiGetUpstreamMsgHour      = "/datacube/getupstreammsghour"
+	apiGetUpstreamMsgWeek      = "/datacube/getupstreammsgweek"
+	apiGetUpstreamMsgMonth     = "/datacube/getupstreammsgmonth"
+	apiGetUpstreamMsgDist      = "/datacube/getupstreammsgdist"
+	apiGetUpstreamMsgDistWeek  = "/datacube/getupstreammsgdistweek"
+	apiGetUpstreamMsgDistMonth = "/datacube/getupstreammsgdistmonth"
+	apiPublisherStat           = "/publisher/stat"
+	apiGetInterfaceSummary     = "/datacube/getinterfacesummary"
+	apiGetInterfaceSummaryHour = "/datacube/getinterfacesummaryhour"
 )
 
 /*
-/datacube/getusersummary
+获取用户增减数据
 
 
 
@@ -36,12 +37,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/User_Analysis_Da
 
 POST https://api.weixin.qq.com/datacube/getusersummary?access_token=ACCESS_TOKEN
 */
-func Getusersummary(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetusersummary, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUserSummary(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUserSummary, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getusercumulate
+获取累计用户数据
 
 
 
@@ -49,12 +50,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/User_Analysis_Da
 
 POST https://api.weixin.qq.com/datacube/getusercumulate?access_token=ACCESS_TOKEN
 */
-func Getusercumulate(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetusercumulate, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUserCumulate(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUserCumulate, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getarticlesummary
+获取图文群发每日数据
 
 
 
@@ -62,12 +63,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Graphic_Analysis
 
 POST https://api.weixin.qq.com/datacube/getarticlesummary?access_token=ACCESS_TOKEN
 */
-func Getarticlesummary(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetarticlesummary, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetArticleSummary(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetArticleSummary, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getarticletotal
+获取图文群发总数据
 
 
 
@@ -75,12 +76,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Graphic_Analysis
 
 POST https://api.weixin.qq.com/datacube/getarticletotal?access_token=ACCESS_TOKEN
 */
-func Getarticletotal(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetarticletotal, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetArticleTotal(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetArticleTotal, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getuserread
+获取图文统计数据
 
 
 
@@ -88,12 +89,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Graphic_Analysis
 
 POST https://api.weixin.qq.com/datacube/getuserread?access_token=ACCESS_TOKEN
 */
-func Getuserread(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetuserread, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUserRead(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUserRead, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getuserreadhour
+获取图文统计分时数据
 
 
 
@@ -101,12 +102,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Graphic_Analysis
 
 POST https://api.weixin.qq.com/datacube/getuserreadhour?access_token=ACCESS_TOKEN
 */
-func Getuserreadhour(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetuserreadhour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUserReadHour(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUserReadHour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getusershare
+获取图文分享转发数据
 
 
 
@@ -114,12 +115,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Graphic_Analysis
 
 POST https://api.weixin.qq.com/datacube/getusershare?access_token=ACCESS_TOKEN
 */
-func Getusershare(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetusershare, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUserShare(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUserShare, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getusersharehour
+获取图文分享转发分时数据
 
 
 
@@ -127,12 +128,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Graphic_Analysis
 
 POST https://api.weixin.qq.com/datacube/getusersharehour?access_token=ACCESS_TOKEN
 */
-func Getusersharehour(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetusersharehour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUserShareHour(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUserShareHour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsg
+获取消息发送概况数据
 
 
 
@@ -140,12 +141,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsg?access_token=ACCESS_TOKEN
 */
-func Getupstreammsg(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsg, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsg(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsg, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsghour
+获取消息分送分时数据
 
 
 
@@ -153,12 +154,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsghour?access_token=ACCESS_TOKEN
 */
-func Getupstreammsghour(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsghour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsgHour(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsgHour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsgweek
+获取消息发送周数据
 
 
 
@@ -166,12 +167,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsgweek?access_token=ACCESS_TOKEN
 */
-func Getupstreammsgweek(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsgweek, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsgWeek(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsgWeek, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsgmonth
+获取消息发送月数据
 
 
 
@@ -179,12 +180,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsgmonth?access_token=ACCESS_TOKEN
 */
-func Getupstreammsgmonth(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsgmonth, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsgMonth(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsgMonth, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsgdist
+获取消息发送分布数据
 
 
 
@@ -192,12 +193,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsgdist?access_token=ACCESS_TOKEN
 */
-func Getupstreammsgdist(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsgdist, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsgDist(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsgDist, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsgdistweek
+获取消息发送分布周数据
 
 
 
@@ -205,12 +206,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsgdistweek?access_token=ACCESS_TOKEN
 */
-func Getupstreammsgdistweek(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsgdistweek, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsgDistWeek(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsgDistWeek, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getupstreammsgdistmonth
+获取消息发送分布月数据
 
 
 
@@ -218,25 +219,25 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Message_analysis
 
 POST https://api.weixin.qq.com/datacube/getupstreammsgdistmonth?access_token=ACCESS_TOKEN
 */
-func Getupstreammsgdistmonth(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetupstreammsgdistmonth, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetUpstreamMsgDistMonth(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetUpstreamMsgDistMonth, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/publisher/stat
+获取公众号分广告位数据/公众号返佣商品数据/公众号结算收入数据及结算主体信息
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Ad_Analysis.html
 
-POST https://api.weixin.qq.com/publisher/stat?action=publisher_adpos_general&amp;access_token=ACCESS_TOKEN
+GET https://api.weixin.qq.com/publisher/stat?action=publisher_adpos_general&access_token=ACCESS_TOKEN
 */
-func Stat(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiStat, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func PublisherStat(params url.Values) (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiPublisherStat + "?" + params.Encode())
 }
 
 /*
-/datacube/getinterfacesummary
+获取接口分析数据
 
 
 
@@ -244,12 +245,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Analytics_API.ht
 
 POST https://api.weixin.qq.com/datacube/getinterfacesummary?access_token=ACCESS_TOKEN
 */
-func Getinterfacesummary(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetinterfacesummary, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetInterfaceSummary(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetInterfaceSummary, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/datacube/getinterfacesummaryhour
+获取接口分析分时数据
 
 
 
@@ -257,6 +258,6 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Analytics/Analytics_API.ht
 
 POST https://api.weixin.qq.com/datacube/getinterfacesummaryhour?access_token=ACCESS_TOKEN
 */
-func Getinterfacesummaryhour(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetinterfacesummaryhour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetInterfaceSummaryHour(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetInterfaceSummaryHour, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }

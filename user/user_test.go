@@ -1,7 +1,8 @@
-package menu
+package user
 
 import (
 	"net/http"
+	"net/url"
 	"os"
 	"reflect"
 	"testing"
@@ -14,12 +15,12 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestCreate(t *testing.T) {
+func TestUpdateRemark(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiCreate, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiUpdateRemark, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -37,28 +38,29 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := Create(tt.args.payload)
+			gotResp, err := UpdateRemark(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Create() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("UpdateRemark() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Create() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("UpdateRemark() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestGetCurrentSelfmenuInfo(t *testing.T) {
+func TestGetUserInfo(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiGetCurrentSelfmenuInfo, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiGetUserInfo, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
 	type args struct {
+		params url.Values
 	}
 	tests := []struct {
 		name     string
@@ -71,58 +73,24 @@ func TestGetCurrentSelfmenuInfo(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := GetCurrentSelfmenuInfo()
+			gotResp, err := GetUserInfo(tt.args.params)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("GetCurrentSelfmenuInfo() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetUserInfo() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("GetCurrentSelfmenuInfo() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("GetUserInfo() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestDelete(t *testing.T) {
+func TestBatchGetUserInfo(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiDelete, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := Delete()
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Delete() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestAddConditional(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiAddConditional, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiBatchGetUserInfo, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -140,84 +108,14 @@ func TestAddConditional(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := AddConditional(tt.args.payload)
+			gotResp, err := BatchGetUserInfo(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("AddConditional() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("BatchGetUserInfo() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("AddConditional() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestDelConditional(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiDelConditional, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-		payload []byte
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := DelConditional(tt.args.payload)
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("DelConditional() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("DelConditional() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestTryMatch(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiTryMatch, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-		payload []byte
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := TryMatch(tt.args.payload)
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("TryMatch() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("TryMatch() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("BatchGetUserInfo() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
@@ -232,6 +130,41 @@ func TestGet(t *testing.T) {
 	})
 
 	type args struct {
+		params url.Values
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := Get(tt.args.params)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("Get() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestGetBlackList(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiGetBlackList, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
 		payload []byte
 	}
 	tests := []struct {
@@ -245,14 +178,84 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := Get(tt.args.payload)
+			gotResp, err := GetBlackList(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetBlackList() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Get() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("GetBlackList() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestBatchBlackList(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiBatchBlackList, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := BatchBlackList(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("BatchBlackList() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("BatchBlackList() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestBatchUnBlackList(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiBatchUnBlackList, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := BatchUnBlackList(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("BatchUnBlackList() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("BatchUnBlackList() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}

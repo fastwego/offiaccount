@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 	"mime/multipart"
+	"net/url"
 	"os"
 	"path"
 
@@ -11,16 +12,16 @@ import (
 )
 
 const (
-	apiUpload           = "/cgi-bin/media/upload"
-	apiGet              = "/cgi-bin/media/get"
-	apiJssdk            = "/cgi-bin/media/get/jssdk"
+	apiMediaUpload      = "/cgi-bin/media/upload"
+	apiMediaGet         = "/cgi-bin/media/get"
+	apiMediaGetJssdk    = "/cgi-bin/media/get/jssdk"
 	apiAddNews          = "/cgi-bin/material/add_news"
-	apiUploadimg        = "/cgi-bin/media/uploadimg"
+	apiMediaUploadImg   = "/cgi-bin/media/uploadimg"
 	apiAddMaterial      = "/cgi-bin/material/add_material"
 	apiGetMaterial      = "/cgi-bin/material/get_material"
 	apiDelMaterial      = "/cgi-bin/material/del_material"
 	apiUpdateNews       = "/cgi-bin/material/update_news"
-	apiGetMaterialcount = "/cgi-bin/material/get_materialcount"
+	apiGetMaterialCount = "/cgi-bin/material/get_materialcount"
 	apiBatchgetMaterial = "/cgi-bin/material/batchget_material"
 )
 
@@ -33,7 +34,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_tempo
 
 POST(@media) https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE
 */
-func Upload(media string) (resp []byte, err error) {
+func MediaUpload(media string) (resp []byte, err error) {
 	r, w := io.Pipe()
 	m := multipart.NewWriter(w)
 	go func() {
@@ -54,7 +55,7 @@ func Upload(media string) (resp []byte, err error) {
 		}
 
 	}()
-	return offiaccount.HTTPPost(apiUpload, r, m.FormDataContentType())
+	return offiaccount.HTTPPost(apiMediaUpload, r, m.FormDataContentType())
 }
 
 /*
@@ -66,8 +67,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_tempo
 
 GET https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID
 */
-func Get() (resp []byte, err error) {
-	return offiaccount.HTTPGet(apiGet)
+func MediaGet() (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiMediaGet)
 }
 
 /*
@@ -79,8 +80,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_tempo
 
 GET https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=ACCESS_TOKEN&media_id=MEDIA_ID
 */
-func Jssdk() (resp []byte, err error) {
-	return offiaccount.HTTPGet(apiJssdk)
+func MediaGetJssdk(params url.Values) (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiMediaGetJssdk + "?" + params.Encode())
 }
 
 /*
@@ -105,7 +106,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Pe
 
 POST(@media) https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN
 */
-func Uploadimg(media string) (resp []byte, err error) {
+func MediaUploadImg(media string) (resp []byte, err error) {
 	r, w := io.Pipe()
 	m := multipart.NewWriter(w)
 	go func() {
@@ -126,7 +127,7 @@ func Uploadimg(media string) (resp []byte, err error) {
 		}
 
 	}()
-	return offiaccount.HTTPPost(apiUploadimg, r, m.FormDataContentType())
+	return offiaccount.HTTPPost(apiMediaUploadImg, r, m.FormDataContentType())
 }
 
 /*
@@ -216,8 +217,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_the_t
 
 GET https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=ACCESS_TOKEN
 */
-func GetMaterialcount() (resp []byte, err error) {
-	return offiaccount.HTTPGet(apiGetMaterialcount)
+func GetMaterialCount() (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiGetMaterialCount)
 }
 
 /*

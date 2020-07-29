@@ -15,7 +15,7 @@ const ServerUrl = `https://developers.weixin.qq.com`
 
 var apiUniqMap = map[string]bool{}
 
-func main() {
+func run() {
 
 	file, err := ioutil.ReadFile("./data/doc_links.html")
 	if err != nil {
@@ -90,10 +90,7 @@ func main() {
 			fmt.Println(tpl)
 		}
 
-		fmt.Println(`
-
-
-`)
+		fmt.Println(`-------------`)
 
 		//break
 	}

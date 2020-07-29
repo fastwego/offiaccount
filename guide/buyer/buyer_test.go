@@ -1,4 +1,4 @@
-package menu
+package buyer
 
 import (
 	"net/http"
@@ -14,12 +14,12 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestCreate(t *testing.T) {
+func TestAddGuideBuyerRelation(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiCreate, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiAddGuideBuyerRelation, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -37,92 +37,24 @@ func TestCreate(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := Create(tt.args.payload)
+			gotResp, err := AddGuideBuyerRelation(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Create() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("AddGuideBuyerRelation() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Create() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("AddGuideBuyerRelation() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestGetCurrentSelfmenuInfo(t *testing.T) {
+func TestDelGuideBuyerRelation(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiGetCurrentSelfmenuInfo, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := GetCurrentSelfmenuInfo()
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetCurrentSelfmenuInfo() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("GetCurrentSelfmenuInfo() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestDelete(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiDelete, func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte(resp))
-	})
-
-	type args struct {
-	}
-	tests := []struct {
-		name     string
-		args     args
-		wantResp []byte
-		wantErr  bool
-	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			resp = mockResp[tt.name]
-			gotResp, err := Delete()
-			//fmt.Println(string(gotResp), err)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Delete() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Delete() gotResp = %v, want %v", gotResp, tt.wantResp)
-			}
-		})
-	}
-}
-func TestAddConditional(t *testing.T) {
-	mockResp := map[string][]byte{
-		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
-	}
-	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiAddConditional, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiDelGuideBuyerRelation, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -140,24 +72,24 @@ func TestAddConditional(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := AddConditional(tt.args.payload)
+			gotResp, err := DelGuideBuyerRelation(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("AddConditional() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("DelGuideBuyerRelation() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("AddConditional() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("DelGuideBuyerRelation() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestDelConditional(t *testing.T) {
+func TestRebindGuideAcctForBuyer(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiDelConditional, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiRebindGuideAcctForBuyer, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -175,24 +107,24 @@ func TestDelConditional(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := DelConditional(tt.args.payload)
+			gotResp, err := RebindGuideAcctForBuyer(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("DelConditional() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("RebindGuideAcctForBuyer() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("DelConditional() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("RebindGuideAcctForBuyer() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestTryMatch(t *testing.T) {
+func TestUpdateGuideBuyerRelation(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiTryMatch, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiUpdateGuideBuyerRelation, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -210,24 +142,24 @@ func TestTryMatch(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := TryMatch(tt.args.payload)
+			gotResp, err := UpdateGuideBuyerRelation(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("TryMatch() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("UpdateGuideBuyerRelation() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("TryMatch() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("UpdateGuideBuyerRelation() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}
 }
-func TestGet(t *testing.T) {
+func TestGetGuideBuyerRelationByBuyer(t *testing.T) {
 	mockResp := map[string][]byte{
 		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
 	}
 	var resp []byte
-	test.MockSvrHandler.HandleFunc(apiGet, func(w http.ResponseWriter, r *http.Request) {
+	test.MockSvrHandler.HandleFunc(apiGetGuideBuyerRelationByBuyer, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
 
@@ -245,14 +177,49 @@ func TestGet(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := Get(tt.args.payload)
+			gotResp, err := GetGuideBuyerRelationByBuyer(tt.args.payload)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("Get() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetGuideBuyerRelationByBuyer() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotResp, tt.wantResp) {
-				t.Errorf("Get() gotResp = %v, want %v", gotResp, tt.wantResp)
+				t.Errorf("GetGuideBuyerRelationByBuyer() gotResp = %v, want %v", gotResp, tt.wantResp)
+			}
+		})
+	}
+}
+func TestGetGuideBuyerRelation(t *testing.T) {
+	mockResp := map[string][]byte{
+		"case1": []byte("{\"errcode\":0,\"errmsg\":\"ok\"}"),
+	}
+	var resp []byte
+	test.MockSvrHandler.HandleFunc(apiGetGuideBuyerRelation, func(w http.ResponseWriter, r *http.Request) {
+		w.Write([]byte(resp))
+	})
+
+	type args struct {
+		payload []byte
+	}
+	tests := []struct {
+		name     string
+		args     args
+		wantResp []byte
+		wantErr  bool
+	}{
+		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			resp = mockResp[tt.name]
+			gotResp, err := GetGuideBuyerRelation(tt.args.payload)
+			//fmt.Println(string(gotResp), err)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("GetGuideBuyerRelation() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if !reflect.DeepEqual(gotResp, tt.wantResp) {
+				t.Errorf("GetGuideBuyerRelation() gotResp = %v, want %v", gotResp, tt.wantResp)
 			}
 		})
 	}

@@ -1,4 +1,4 @@
-/**
+/*
 微信公众平台开发 SDK
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html

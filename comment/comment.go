@@ -10,8 +10,8 @@ const (
 	apiOpen        = "/cgi-bin/comment/open"
 	apiClose       = "/cgi-bin/comment/close"
 	apiList        = "/cgi-bin/comment/list"
-	apiMarkelect   = "/cgi-bin/comment/markelect"
-	apiUnmarkelect = "/cgi-bin/comment/unmarkelect"
+	apiMarkElect   = "/cgi-bin/comment/markelect"
+	apiUnMarkElect = "/cgi-bin/comment/unmarkelect"
 	apiDelete      = "/cgi-bin/comment/delete"
 	apiReplyAdd    = "/cgi-bin/comment/reply/add"
 	apiReplyDelete = "/cgi-bin/comment/reply/delete"
@@ -64,8 +64,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 
 POST https://api.weixin.qq.com/cgi-bin/comment/markelect?access_token=ACCESS_TOKEN
 */
-func Markelect(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiMarkelect, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func MarkElect(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiMarkElect, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
@@ -77,8 +77,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 
 POST https://api.weixin.qq.com/cgi-bin/comment/unmarkelect?access_token=ACCESS_TOKEN
 */
-func Unmarkelect(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiUnmarkelect, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func UnMarkElect(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiUnMarkElect, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*

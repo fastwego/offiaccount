@@ -1,4 +1,4 @@
-package materials
+package material
 
 import (
 	"bytes"
@@ -20,7 +20,6 @@ const (
 
 /*
 添加小程序卡片素材
-
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-account/shopping-guide.setGuideCardMaterial.html

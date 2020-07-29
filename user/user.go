@@ -2,18 +2,19 @@ package user
 
 import (
 	"bytes"
+	"net/url"
 
 	"github.com/fastwego/offiaccount"
 )
 
 const (
-	apiUpdateremark     = "/cgi-bin/user/info/updateremark"
-	apiInfo             = "/cgi-bin/user/info"
-	apiBatchget         = "/cgi-bin/user/info/batchget"
+	apiUpdateRemark     = "/cgi-bin/user/info/updateremark"
+	apiGetUserInfo      = "/cgi-bin/user/info"
+	apiBatchGetUserInfo = "/cgi-bin/user/info/batchget"
 	apiGet              = "/cgi-bin/user/get"
-	apiGetblacklist     = "/cgi-bin/tags/members/getblacklist"
-	apiBatchblacklist   = "/cgi-bin/tags/members/batchblacklist"
-	apiBatchunblacklist = "/cgi-bin/tags/members/batchunblacklist"
+	apiGetBlackList     = "/cgi-bin/tags/members/getblacklist"
+	apiBatchBlackList   = "/cgi-bin/tags/members/batchblacklist"
+	apiBatchUnBlackList = "/cgi-bin/tags/members/batchunblacklist"
 )
 
 /*
@@ -25,12 +26,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Configurin
 
 POST https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=ACCESS_TOKEN
 */
-func Updateremark(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiUpdateremark, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func UpdateRemark(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiUpdateRemark, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-获取用户基本信息(UnionID机制)
+获取用户基本信息
 
 在关注者与公众号产生消息交互后，公众号可获得关注者的OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的。对于不同公众号，同一用户的openid不同）。公众号可通过本接口来根据OpenID获取用户基本信息，包括昵称、头像、性别、所在城市、语言和关注时间
 
@@ -38,8 +39,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_
 
 GET https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN
 */
-func Info() (resp []byte, err error) {
-	return offiaccount.HTTPGet(apiInfo)
+func GetUserInfo(params url.Values) (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiGetUserInfo + "?" + params.Encode())
 }
 
 /*
@@ -51,12 +52,12 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_
 
 POST https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
 */
-func Batchget(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiBatchget, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func BatchGetUserInfo(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiBatchGetUserInfo, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-批量用户列表
+获取用户列表
 
 公众号可通过本接口来获取帐号的关注者列表，关注者列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。一次拉取调用最多拉取10000个关注者的OpenID，可以通过多次拉取的方式来满足需求
 
@@ -64,8 +65,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Getting_a_
 
 GET https://api.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&next_openid=NEXT_OPENID
 */
-func Get() (resp []byte, err error) {
-	return offiaccount.HTTPGet(apiGet)
+func Get(params url.Values) (resp []byte, err error) {
+	return offiaccount.HTTPGet(apiGet + "?" + params.Encode())
 }
 
 /*
@@ -77,8 +78,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_bla
 
 POST https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=ACCESS_TOKEN
 */
-func Getblacklist(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiGetblacklist, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func GetBlackList(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiGetBlackList, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
@@ -90,8 +91,8 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_bla
 
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=ACCESS_TOKEN
 */
-func Batchblacklist(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiBatchblacklist, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func BatchBlackList(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiBatchBlackList, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
@@ -103,6 +104,6 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_bla
 
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=ACCESS_TOKEN
 */
-func Batchunblacklist(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiBatchunblacklist, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func BatchUnBlackList(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiBatchUnBlackList, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }

@@ -7,22 +7,22 @@ import (
 )
 
 const (
-	apiSearch                 = "/semantic/semproxy/search"
-	apiAddvoicetorecofortext  = "/cgi-bin/media/voice/addvoicetorecofortext"
-	apiQueryrecoresultfortext = "/cgi-bin/media/voice/queryrecoresultfortext"
-	apiTranslatecontent       = "/cgi-bin/media/voice/translatecontent"
-	apiIdcard                 = "/cv/ocr/idcard"
-	apiOcr                    = "/cv/ocr/"
-	apiDrivinglicense         = "/cv/ocr/drivinglicense"
-	apiBizlicense             = "/cv/ocr/bizlicense"
+	apiSemantic               = "/semantic/semproxy/search"
+	apiAddVoiceToRecoForText  = "/cgi-bin/media/voice/addvoicetorecofortext"
+	apiQueryRecoResultForText = "/cgi-bin/media/voice/queryrecoresultfortext"
+	apiTranslateContent       = "/cgi-bin/media/voice/translatecontent"
+	apiIDCard                 = "/cv/ocr/idcard"
+	apiBankcard               = "/cv/ocr/bankcard"
+	apiDrivingLicense         = "/cv/ocr/drivinglicense"
+	apiBizLicense             = "/cv/ocr/bizlicense"
 	apiComm                   = "/cv/ocr/comm"
-	apiQrcode                 = "/cv/img/qrcode"
-	apiSuperresolution        = "/cv/img/superresolution"
-	apiAicrop                 = "/cv/img/aicrop"
+	apiQRCode                 = "/cv/img/qrcode"
+	apiSuperResolution        = "/cv/img/superresolution"
+	apiAICrop                 = "/cv/img/aicrop"
 )
 
 /*
-/semantic/semproxy/search
+语义理解
 
 
 
@@ -30,149 +30,148 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Natu
 
 POST https://api.weixin.qq.com/semantic/semproxy/search?access_token=YOUR_ACCESS_TOKEN
 */
-func Search(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiSearch, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func Semantic(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiSemantic, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cgi-bin/media/voice/addvoicetorecofortext
+提交语音
+
+
+See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html
+
+POST http://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN
+*/
+func AddVoiceToRecoForText(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiAddVoiceToRecoForText, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+}
+
+/*
+获取语音识别结果
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html
 
-POST http://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&amp;format=&amp;voice_id=xxxxxx&amp;lang=zh_CN
+POST http://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext?access_token=ACCESS_TOKEN&voice_id=xxxxxx&lang=zh_CN
 */
-func Addvoicetorecofortext(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiAddvoicetorecofortext, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func QueryRecoResultForText(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiQueryRecoResultForText, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cgi-bin/media/voice/queryrecoresultfortext
+微信翻译
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html
 
-POST http://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext?access_token=ACCESS_TOKEN&amp;voice_id=xxxxxx&amp;lang=zh_CN
+POST http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=ACCESS_TOKEN&lfrom=xxx&lto=xxx
 */
-func Queryrecoresultfortext(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiQueryrecoresultfortext, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func TranslateContent(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiTranslateContent, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cgi-bin/media/voice/translatecontent
-
-
-
-See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html
-
-POST http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=ACCESS_TOKEN&amp;lfrom=xxx&amp;lto=xxx
-*/
-func Translatecontent(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiTranslatecontent, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
-}
-
-/*
-/cv/ocr/idcard
+身份证OCR识别
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html
 
-POST https://api.weixin.qq.com/cv/ocr/idcard?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST https://api.weixin.qq.com/cv/ocr/idcard?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
-func Idcard(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiIdcard, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func IDCard(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiIDCard, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/ocr/
+银行卡OCR识别
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html
 
-POST https://api.weixin.qq.com/cv/ocr/
+POST https://api.weixin.qq.com/cv/ocr/bankcard
 */
-func Ocr(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiOcr, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func Bankcard(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiBankcard, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/ocr/drivinglicense
+行驶证/驾驶证 OCR识别
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html
 
-POST https://api.weixin.qq.com/cv/ocr/drivinglicense?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST https://api.weixin.qq.com/cv/ocr/drivinglicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
-func Drivinglicense(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiDrivinglicense, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func DrivingLicense(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiDrivingLicense, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/ocr/bizlicense
+营业执照OCR识别
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html
 
-POST http://api.weixin.qq.com/cv/ocr/bizlicense?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST http://api.weixin.qq.com/cv/ocr/bizlicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
-func Bizlicense(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiBizlicense, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func BizLicense(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiBizLicense, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/ocr/comm
+通用印刷体OCR识别
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html
 
-POST http://api.weixin.qq.com/cv/ocr/comm?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST http://api.weixin.qq.com/cv/ocr/comm?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func Comm(payload []byte) (resp []byte, err error) {
 	return offiaccount.HTTPPost(apiComm, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/img/qrcode
+二维码/条码识别
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_Proc.html
 
-POST https://api.weixin.qq.com/cv/img/qrcode?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST https://api.weixin.qq.com/cv/img/qrcode?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
-func Qrcode(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiQrcode, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func QRCode(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiQRCode, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/img/superresolution
+图片高清化
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_Proc.html
 
-POST https://api.weixin.qq.com/cv/img/superresolution?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST https://api.weixin.qq.com/cv/img/superresolution?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
-func Superresolution(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiSuperresolution, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func SuperResolution(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiSuperResolution, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
 
 /*
-/cv/img/aicrop
+图片智能裁剪
 
 
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_Proc.html
 
-POST http://api.weixin.qq.com/cv/img/aicrop?img_url=ENCODE_URL&amp;access_token=ACCESS_TOCKEN
+POST http://api.weixin.qq.com/cv/img/aicrop?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
-func Aicrop(payload []byte) (resp []byte, err error) {
-	return offiaccount.HTTPPost(apiAicrop, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func AICrop(payload []byte) (resp []byte, err error) {
+	return offiaccount.HTTPPost(apiAICrop, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
 }
