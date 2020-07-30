@@ -1,3 +1,17 @@
+// Copyright 2020 FastWeGo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package main
 
 import (
@@ -5,6 +19,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/url"
+	"os"
 	"path"
 	"regexp"
 	"strings"
@@ -20,9 +35,9 @@ func main() {
 
 	for _, group := range apiConfig {
 
-		if group.Package == pkgFlag {
-			build(group)
-		}
+		//if group.Package == pkgFlag {
+		build(group)
+		//}
 	}
 }
 
@@ -58,10 +73,10 @@ func build(group ApiGroup) {
 			}
 		}
 		if len(api.GetParams) > 0 {
-			_GET_PARAMS_ = `params url.Values`
-			if strings.Contains(api.Request, "POST(@media") {
-				_GET_PARAMS_ = `, ` + _GET_PARAMS_
-			}
+			_GET_PARAMS_ = `, params url.Values`
+			//if strings.Contains(api.Request, "POST") {
+			//	_GET_PARAMS_ = `, ` + _GET_PARAMS_
+			//}
 			_GET_SUFFIX_PARAMS_ = `+ "?" + params.Encode()`
 		}
 
@@ -103,11 +118,14 @@ func build(group ApiGroup) {
 		_TEST_ARGS_STRUCT_ := ""
 		switch {
 		case strings.Contains(api.Request, "GET http"):
-			_TEST_ARGS_STRUCT_ = _GET_PARAMS_
+			_TEST_ARGS_STRUCT_ = `ctx *offiaccount.OffiAccount, ` + _GET_PARAMS_
 		case strings.Contains(api.Request, "POST http"):
-			_TEST_ARGS_STRUCT_ = `payload []byte` + _GET_PARAMS_
+			_TEST_ARGS_STRUCT_ = `ctx *offiaccount.OffiAccount, payload []byte`
+			if _GET_PARAMS_ != "" {
+				_TEST_ARGS_STRUCT_ += `,` + _GET_PARAMS_
+			}
 		case strings.Contains(api.Request, "POST(@media"):
-			_TEST_ARGS_STRUCT_ = _UPLOAD_ + ` string` + _PAYLOAD_ + _GET_PARAMS_
+			_TEST_ARGS_STRUCT_ = `ctx *offiaccount.OffiAccount, ` + _UPLOAD_ + ` string` + _PAYLOAD_ + _GET_PARAMS_
 		}
 		_TEST_ARGS_STRUCT_ = strings.ReplaceAll(_TEST_ARGS_STRUCT_, ",", "\n")
 
@@ -118,7 +136,10 @@ func build(group ApiGroup) {
 			for _, signature := range signatures {
 				signature = strings.TrimSpace(signature)
 				tmp := strings.Split(signature, " ")
-				paramNames = append(paramNames, "tt.args."+tmp[0])
+				if len(tmp[0]) > 0 {
+					paramNames = append(paramNames, "tt.args."+tmp[0])
+				}
+
 			}
 			_TEST_FUNC_SIGNATURE_ = strings.Join(paramNames, ",")
 		}
@@ -129,12 +150,15 @@ func build(group ApiGroup) {
 		testFuncs = append(testFuncs, tpl)
 	}
 
-	fmt.Printf(fileTpl, path.Base(group.Package), strings.Join(consts, ``), strings.Join(funcs, ``))
+	fileContent := fmt.Sprintf(fileTpl, path.Base(group.Package), group.Name, path.Base(group.Package), strings.Join(consts, ``), strings.Join(funcs, ``))
+	filename := "./../apis/" + group.Package + "/" + path.Base(group.Package) + ".go"
+	_ = os.MkdirAll(path.Dir(filename), 0644)
+	ioutil.WriteFile(filename, []byte(fileContent), 0644)
 
 	// output Test
 	testFileContent := fmt.Sprintf(testFileTpl, path.Base(group.Package), strings.Join(testFuncs, ``))
 	//fmt.Println(testFileContent)
-	ioutil.WriteFile("../"+group.Package+"/"+path.Base(group.Package)+"_test.go", []byte(testFileContent), 0644)
+	ioutil.WriteFile("./../apis/"+group.Package+"/"+path.Base(group.Package)+"_test.go", []byte(testFileContent), 0644)
 }
 
 var constTpl = `
@@ -150,17 +174,17 @@ See: _SEE_
 _REQUEST_
 */`
 var postFuncTpl = commentTpl + `
-func _FUNC_NAME_(payload []byte_GET_PARAMS_) (resp []byte, err error) {
-	return offiaccount.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, bytes.NewBuffer(payload), offiaccount.ContentTypeApplicationJson)
+func _FUNC_NAME_(ctx *offiaccount.OffiAccount, payload []byte_GET_PARAMS_) (resp []byte, err error) {
+	return ctx.Client.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, bytes.NewBuffer(payload), "application/json;charset=utf-8")
 }
 `
 var getFuncTpl = commentTpl + `
-func _FUNC_NAME_(_GET_PARAMS_) (resp []byte, err error) {
-	return offiaccount.HTTPGet(api_FUNC_NAME__GET_SUFFIX_PARAMS_)
+func _FUNC_NAME_(ctx *offiaccount.OffiAccount_GET_PARAMS_) (resp []byte, err error) {
+	return ctx.Client.HTTPGet(api_FUNC_NAME__GET_SUFFIX_PARAMS_)
 }
 `
 var postUploadFuncTpl = commentTpl + `
-func _FUNC_NAME_(_UPLOAD_ string_PAYLOAD__GET_PARAMS_) (resp []byte, err error) {
+func _FUNC_NAME_(ctx *offiaccount.OffiAccount, _UPLOAD_ string_PAYLOAD__GET_PARAMS_) (resp []byte, err error) {
 	r, w := io.Pipe()
 	m := multipart.NewWriter(w)
 	go func() {
@@ -182,7 +206,7 @@ func _FUNC_NAME_(_UPLOAD_ string_PAYLOAD__GET_PARAMS_) (resp []byte, err error) 
 
 		_FIELDS_
 	}()
-	return offiaccount.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, r, m.FormDataContentType())
+	return ctx.Client.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, r, m.FormDataContentType())
 }
 `
 
@@ -194,7 +218,9 @@ var fieldTpl = `
 		}
 `
 
-var fileTpl = `package %s
+var fileTpl = `// Package %s %s
+package %s
+
 const (
 	%s
 )
@@ -229,7 +255,7 @@ func Test_FUNC_NAME_(t *testing.T) {
 		wantResp []byte
 		wantErr  bool
 	}{
-		{name: "case1", args: args{}, wantResp: mockResp["case1"], wantErr: false},
+		{name: "case1", args: args{ctx: test.MockOffiAccount}, wantResp: mockResp["case1"], wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

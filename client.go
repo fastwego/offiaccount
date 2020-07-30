@@ -1,3 +1,17 @@
+// Copyright 2020 FastWeGo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package offiaccount
 
 import (
@@ -15,41 +29,41 @@ import (
 
 var WXServerUrl = "https://api.weixin.qq.com"
 
-const (
-	ContentTypeApplicationJson = "application/json;charset=utf-8"
-)
+type Client struct {
+	Ctx *OffiAccount
+}
 
 // HTTPGet GET 请求
-func HTTPGet(uri string) (resp []byte, err error) {
-	uri = applyAccessToken(uri)
+func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
+	uri = client.applyAccessToken(uri)
 	response, err := http.Get(WXServerUrl + uri)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
-	return responseFilter(response)
+	return client.responseFilter(response)
 }
 
 //HTTPPost POST 请求
-func HTTPPost(uri string, payload io.Reader, contentType string) (resp []byte, err error) {
-	uri = applyAccessToken(uri)
-	response, err := http.Post(WXServerUrl + uri, contentType, payload)
+func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string) (resp []byte, err error) {
+	uri = client.applyAccessToken(uri)
+	response, err := http.Post(WXServerUrl+uri, contentType, payload)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
-	return responseFilter(response)
+	return client.responseFilter(response)
 }
 
-func applyAccessToken(oldUrl string) (newUrl string) {
-	accessToken := getAccessToken()
+func (client *Client) applyAccessToken(oldUrl string) (newUrl string) {
+	accessToken := client.getAccessToken()
 	if strings.Contains(oldUrl, "?") {
-		return oldUrl+"&access_token="+accessToken
+		return oldUrl + "&access_token=" + accessToken
 	}
-	return oldUrl+"?access_token="+accessToken
+	return oldUrl + "?access_token=" + accessToken
 }
 
-func responseFilter(response *http.Response) (resp []byte, err error) {
+func (client *Client) responseFilter(response *http.Response) (resp []byte, err error) {
 	if response.StatusCode != http.StatusOK {
 		err = fmt.Errorf("Status %s", response.Status)
 		return
@@ -79,8 +93,8 @@ func responseFilter(response *http.Response) (resp []byte, err error) {
 
 var refreshAccessTokenLock sync.Mutex
 
-func getAccessToken() (accessToken string) {
-	accessToken, err := accessTokenCache.Fetch(Appid)
+func (client *Client) getAccessToken() (accessToken string) {
+	accessToken, err := client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
 	if accessToken != "" {
 		return
 	}
@@ -88,12 +102,12 @@ func getAccessToken() (accessToken string) {
 	refreshAccessTokenLock.Lock()
 	defer refreshAccessTokenLock.Unlock()
 
-	accessToken, err = accessTokenCache.Fetch(Appid)
+	accessToken, err = client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
 	if accessToken != "" {
 		return
 	}
 
-	accessToken, expiresIn, err := refreshAccessTokenHandler()
+	accessToken, expiresIn, err := client.Ctx.AccessToken.RefreshHandler(client.Ctx.Config.Appid, client.Ctx.Config.Secret)
 	if err != nil {
 		return
 	}
@@ -101,7 +115,7 @@ func getAccessToken() (accessToken string) {
 	// 提前过期 提供冗余时间
 	expiresIn = int(0.9 * float64(expiresIn))
 	d := time.Duration(expiresIn) * time.Second
-	_ = accessTokenCache.Save(Appid, accessToken, d)
+	_ = client.Ctx.AccessToken.Cache.Save(client.Ctx.Config.Appid, accessToken, d)
 
 	return
 }
@@ -111,10 +125,10 @@ func getAccessToken() (accessToken string) {
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
 */
-func RefreshAccessTokenFromWXServer() (accessToken string, expiresIn int, err error) {
+func RefreshAccessTokenFromWXServer(appid string, secret string) (accessToken string, expiresIn int, err error) {
 	params := url.Values{}
-	params.Add("appid", Appid)
-	params.Add("secret", Secret)
+	params.Add("appid", appid)
+	params.Add("secret", secret)
 	params.Add("grant_type", "client_credential")
 	url := WXServerUrl + "/cgi-bin/token?" + params.Encode()
 

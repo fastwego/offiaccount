@@ -1,3 +1,17 @@
+// Copyright 2020 FastWeGo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 package main
 
 type Param struct {
@@ -21,6 +35,40 @@ type ApiGroup struct {
 }
 
 var apiConfig = []ApiGroup{
+	{
+		Name:    `获取微信服务器 ip`,
+		Package: `util`,
+		Apis: []Api{
+			{
+				Name:        "获取微信服务器IP地址",
+				Description: "如果公众号基于安全等考虑，需要获知微信服务器的IP地址列表，以便进行相关限制，可以通过该接口获得微信服务器IP地址列表或者IP网段信息",
+				Request:     "GET https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_the_WeChat_server_IP_address.html",
+				FuncName:    "GetCallbackIp",
+			},
+			{
+				Name:        "获取微信API接口 IP地址",
+				Description: "即api.weixin.qq.com的解析地址，由开发者调用微信侧的接入IP",
+				Request:     "GET https://api.weixin.qq.com/cgi-bin/get_api_domain_ip?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_the_WeChat_server_IP_address.html",
+				FuncName:    "",
+			},
+			{
+				Name:        `网络检测`,
+				Description: `为了帮助开发者排查回调连接失败的问题，提供这个网络检测的API。它可以对开发者URL做域名解析，然后对所有IP进行一次ping操作，得到丢包率和耗时`,
+				Request:     `POST https://api.weixin.qq.com/cgi-bin/callback/check?access_token=ACCESS_TOKEN`,
+				See:         `https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Network_Detection.html`,
+				FuncName:    `CallbackCheck`,
+			},
+			{
+				Name:        `对公众号的所有api调用次数进行清零`,
+				Description: ``,
+				Request:     `POST https://api.weixin.qq.com/cgi-bin/clear_quota?access_token=ACCESS_TOKEN`,
+				See:         `https://developers.weixin.qq.com/doc/offiaccount/Message_Management/API_Call_Limits.html`,
+				FuncName:    `ClearQuota`,
+			},
+		},
+	},
 	{
 		Name:    `自定义菜单`,
 		Package: `menu`,
@@ -92,6 +140,61 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
+		Name:    `微信网页开发(oauth)`,
+		Package: `oauth`,
+		Apis: []Api{
+
+			{
+				Name:        "通过code换取网页授权access_token",
+				Description: "注意：由于公众号的secret和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端",
+				Request:     "POST https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `appid`, Type: `string`},
+					{Name: `secret`, Type: `string`},
+					{Name: `code`, Type: `string`},
+					{Name: `grant_type`, Type: `string`},
+				},
+			},
+			{
+				Name:        "刷新access_token",
+				Description: "由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权",
+				Request:     "POST https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `appid`, Type: `string`},
+					{Name: `refresh_token`, Type: `string`},
+					{Name: `grant_type`, Type: `string`},
+				},
+			},
+			{
+				Name:        "拉取用户信息",
+				Description: "如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了",
+				Request:     "POST https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "GetUserInfo",
+				GetParams: []Param{
+					{Name: `access_token`, Type: `string`},
+					{Name: `openid`, Type: `string`},
+					{Name: `lang`, Type: `string`},
+				},
+			},
+			{
+				Name:        "检验授权凭证（access_token）是否有效",
+				Description: "",
+				Request:     "GET https://api.weixin.qq.com/sns/auth?access_token=ACCESS_TOKEN&openid=OPENID",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `access_token`, Type: `string`},
+					{Name: `openid`, Type: `string`},
+				},
+			},
+		},
+	},
+	{
 		Name:    `客服消息/功能`,
 		Package: `customservice`,
 		Apis: []Api{
@@ -120,7 +223,7 @@ var apiConfig = []ApiGroup{
 			{
 				Name:        "设置客服帐号的头像",
 				Description: "开发者可调用本接口来上传图片作为客服人员的头像，头像图片文件必须是jpg格式，推荐使用640*640大小的图片以达到最佳效果",
-				Request:     "POST(@media) http://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token=ACCESS_TOKEN&kf_account=KFACCOUNT",
+				Request:     "POST(@media) https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg?access_token=ACCESS_TOKEN&kf_account=KFACCOUNT",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html",
 				FuncName:    "UploadHeadImg",
 				GetParams:   []Param{{Name: `kf_account`, Type: `string`}},
@@ -137,7 +240,7 @@ var apiConfig = []ApiGroup{
 				Description: "发送文本/图片/语言/语音/视频/音乐/图文/菜单/卡券... 消息",
 				Request:     "POST https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service_Center_messages.html",
-				FuncName:    "",
+				FuncName:    "SendMessage",
 			},
 			{
 				Name:        "客服输入状态",
@@ -539,7 +642,10 @@ var apiConfig = []ApiGroup{
 				Request:     `GET https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN`,
 				See:         `https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId`,
 				FuncName:    `GetUserInfo`,
-				GetParams:   []Param{{Name: `openid`, Type: `string`}, {Name: `lang`, Type: `string`}},
+				GetParams: []Param{
+					{Name: `openid`, Type: `string`},
+					{Name: `lang`, Type: `string`},
+				},
 			},
 			{
 				Name:        `批量获取用户基本信息`,
@@ -588,7 +694,7 @@ var apiConfig = []ApiGroup{
 				Description: "每次创建二维码ticket需要提供一个开发者自行设定的参数",
 				Request:     "POST https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html",
-				FuncName:    "",
+				FuncName:    "CreateQRCode",
 			},
 
 			{
@@ -596,7 +702,7 @@ var apiConfig = []ApiGroup{
 				Description: "将一条长链接转成短链接。主要使用场景： 开发者用于生成二维码的原链接（商品、支付二维码等）太长导致扫码速度和成功率下降，将原长链接通过此接口转成短链接再生成二维码将大大提升扫码速度和成功率",
 				Request:     "POST https://api.weixin.qq.com/cgi-bin/shorturl?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Account_Management/URL_Shortener.html",
-				FuncName:    "",
+				FuncName:    "ShortUrl",
 			},
 		},
 	},
@@ -885,21 +991,21 @@ var apiConfig = []ApiGroup{
 				Description: "支持开发者调用该接口拉取免费券（优惠券、团购券、折扣券、礼品券）在固定时间区间内的相关数据",
 				Request:     "POST https://api.weixin.qq.com/datacube/getcardcardinfo?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Managing_Coupons_Vouchers_and_Cards.html",
-				FuncName:    "GetCardCardInfo",
+				FuncName:    "GetCardInfo",
 			},
 			{
 				Name:        "拉取会员卡概况数据",
 				Description: "支持开发者调用该接口拉取公众平台创建的会员卡相关数据",
 				Request:     "POST https://api.weixin.qq.com/datacube/getcardmembercardinfo?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Managing_Coupons_Vouchers_and_Cards.html",
-				FuncName:    "GetCardMemberCardInfo",
+				FuncName:    "GetMemberCardInfo",
 			},
 			{
 				Name:        "拉取单张会员卡数据",
 				Description: "支持开发者调用该接口拉取API创建的会员卡数据情况",
 				Request:     "POST https://api.weixin.qq.com/datacube/getcardmembercarddetail?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Managing_Coupons_Vouchers_and_Cards.html",
-				FuncName:    "GetCardMemberCardDetail",
+				FuncName:    "GetMemberCardDetail",
 			},
 		},
 	},
@@ -913,70 +1019,70 @@ var apiConfig = []ApiGroup{
 				Description: "开发者可以通过该接口创建一个礼品卡货架并且用于公众号、门店的礼品卡售卖",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/page/add?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardPageAdd",
+				FuncName:    "PageAdd",
 			},
 			{
 				Name:        "查询-礼品卡货架信息",
 				Description: "开发者可以查询某个礼品卡货架信息",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/page/get?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardPageGet",
+				FuncName:    "PageGet",
 			},
 			{
 				Name:        "修改-礼品卡货架信息",
 				Description: "开发者可以通过该接口更新礼品卡货架信息",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/page/update?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardPageUpdate",
+				FuncName:    "PageUpdate",
 			},
 			{
 				Name:        "查询-礼品卡货架列表",
 				Description: "开发者可以通过该接口查询当前商户下所有的礼品卡货架id",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/page/batchget?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardPageBatchGet",
+				FuncName:    "PageBatchGet",
 			},
 			{
 				Name:        "下架-礼品卡货架",
 				Description: "开发者可以通过该接口查询当前商户下所有的礼品卡货架id",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/maintain/set?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "",
+				FuncName:    "MaintainSet",
 			},
 			{
 				Name:        "申请微信支付礼品卡权限",
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/pay/whitelist/add?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardPayWhitelistAdd",
+				FuncName:    "PayWhitelistAdd",
 			},
 			{
-				Name:        " 绑定商户号到礼品卡小程序",
+				Name:        "绑定商户号到礼品卡小程序",
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/pay/submch/bind?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardPaySubmchBind",
+				FuncName:    "PaySubmchBind",
 			},
 			{
 				Name:        "上传小程序代码",
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/wxa/set",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardWxaSet",
+				FuncName:    "WxaSet",
 			},
 			{
 				Name:        "查询-单个礼品卡订单信息",
 				Description: "开发者可以通过该接口查询某个订单号对应的订单详情",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/order/get?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardOrderGet",
+				FuncName:    "OrderGet",
 			},
 			{
 				Name:        "批量查询礼品卡订单信息",
 				Description: "开发者可以通过该接口查询该商户某个时间段内创建的所有订单详情",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/order/batchget?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardOrderBatchGet",
+				FuncName:    "OrderBatchGet",
 			},
 			{
 				Name:        "更新用户礼品卡信息",
@@ -990,7 +1096,7 @@ var apiConfig = []ApiGroup{
 				Description: "开发者可以通过该接口对某一笔订单操作退款，注意该接口比较隐私，请开发者提高操作该功能的权限等级",
 				Request:     "POST https://api.weixin.qq.com/card/giftcard/order/refund?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/gift_card.html",
-				FuncName:    "GiftCardOrderRefund",
+				FuncName:    "OrderRefund",
 			},
 			{
 				Name:        "设置支付后开票信息",
@@ -1018,21 +1124,21 @@ var apiConfig = []ApiGroup{
 				Description: "开发者可以通过该接口获取到调用开卡插件所需的参数",
 				Request:     "POST https://api.weixin.qq.com/card/membercard/activate/geturl?access_token=",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mini_Program_Start_Up.html",
-				FuncName:    "MembercardActivateGetUrl",
+				FuncName:    "ActivateGetUrl",
 			},
 			{
 				Name:        "获取用户开卡时提交的信息（跳转型开卡组件）",
 				Description: "开发者可以通过该接口获取到用户开卡时填写的字段值",
 				Request:     "POST https://api.weixin.qq.com/card/membercard/activatetempinfo/get?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mini_Program_Start_Up.html",
-				FuncName:    "MembercardActivateTempInfoGet",
+				FuncName:    "ActivateTempInfoGet",
 			},
 			{
 				Name:        "激活用户领取的会员卡（跳转型开卡组件）",
 				Description: "开发者可以通过该接口获取到用户开卡时填写的字段值",
 				Request:     "POST https://api.weixin.qq.com/card/membercard/activate?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mini_Program_Start_Up.html",
-				FuncName:    "MembercardActivate",
+				FuncName:    "Activate",
 			},
 
 			{
@@ -1040,21 +1146,21 @@ var apiConfig = []ApiGroup{
 				Description: "开发者在创建时填入wx_activate字段后，需要调用该接口设置用户激活时需要填写的选项，否则一键开卡设置不生效",
 				Request:     "POST https://api.weixin.qq.com/card/membercard/activateuserform/set?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership_Cards/Create_a_membership_card.html",
-				FuncName:    "MembercardActivateUserFormSet",
+				FuncName:    "ActivateUserFormSet",
 			},
 			{
 				Name:        "拉取会员信息",
 				Description: "支持开发者根据CardID和Code查询会员信息",
 				Request:     "POST https://api.weixin.qq.com/card/membercard/userinfo/get?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership_Cards/Create_a_membership_card.html",
-				FuncName:    "MembercardUserinfoGet",
+				FuncName:    "UserinfoGet",
 			},
 			{
 				Name:        "更新会员信息",
 				Description: "当会员持卡消费后，支持开发者调用该接口更新会员信息。会员卡交易后的每次信息变更需通过该接口通知微信，便于后续消息通知及其他扩展功能",
 				Request:     "POST https://api.weixin.qq.com/card/membercard/updateuser?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership_Cards/Create_a_membership_card.html",
-				FuncName:    "MembercardUpdateUser",
+				FuncName:    "UpdateUser",
 			},
 
 			{
@@ -1083,7 +1189,7 @@ var apiConfig = []ApiGroup{
 				Description: "可以批量查询某个商户支付即会员规则内容",
 				Request:     "POST https://api.weixin.qq.com/card/paygiftcard/batchget?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership_Cards/Manage_Member_Card.html",
-				FuncName:    "PayGiftcardBatchget",
+				FuncName:    "PayGiftcardBatchGet",
 			},
 		},
 	},
@@ -1125,7 +1231,7 @@ var apiConfig = []ApiGroup{
 				Description: "支持母商户调用该接口传入子商户的相关资料，并获取子商户ID，用于子商户的卡券功能管理。 子商户的资质包括：商户名称、商户logo（图片）、卡券类目、授权函（扫描件或彩照）、授权函有效期截止时间",
 				Request:     "POST https://api.weixin.qq.com/card/submerchant/submit?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-party_developer_mode.html",
-				FuncName:    "SubmerchantSubmit",
+				FuncName:    "Submit",
 			},
 			{
 				Name:        "卡券开放类目查询",
@@ -1139,21 +1245,21 @@ var apiConfig = []ApiGroup{
 				Description: "支持调用该接口更新子商户信息",
 				Request:     "POST https://api.weixin.qq.com/card/submerchant/update?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-party_developer_mode.html",
-				FuncName:    "SubmerchantUpdate",
+				FuncName:    "Update",
 			},
 			{
 				Name:        "拉取单个子商户信息",
 				Description: "通过指定的子商户appid，拉取该子商户的基础信息。 注意，用母商户去调用接口，但接口内传入的是子商户的appid",
 				Request:     "POST https://api.weixin.qq.com/card/submerchant/get?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-party_developer_mode.html",
-				FuncName:    "SubmerchantGet",
+				FuncName:    "Get",
 			},
 			{
 				Name:        "批量拉取子商户信息",
 				Description: "母商户可以通过该接口批量拉取子商户的相关信息，一次调用最多拉取100个子商户的信息，可以通过多次拉去满足不同的查询需求",
 				Request:     "POST https://api.weixin.qq.com/card/submerchant/batchget?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-party_developer_mode.html",
-				FuncName:    "SubmerchantBatchget",
+				FuncName:    "BatchGet",
 			},
 		},
 	},
@@ -1165,14 +1271,14 @@ var apiConfig = []ApiGroup{
 			{
 				Name:        "创建门店",
 				Description: "创建门店接口是为商户提供创建自己门店数据的接口，门店数据字段越完整，商户页面展示越丰富，越能够吸引更多用户，并提高曝光度",
-				Request:     "POST http://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token=TOKEN",
+				Request:     "POST https://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store_Interface.html",
 				FuncName:    "",
 			},
 			{
 				Name:        "查询门店信息",
 				Description: "创建门店后获取poi_id 后，商户可以利用poi_id，查询具体某条门店的信息。 若在查询时，update_status 字段为1，表明在5 个工作日内曾用update 接口修改过门店扩展字段，该扩展字段为最新的修改字段，尚未经过审核采纳，因此不是最终结果。最终结果会在5 个工作日内，最终确认是否采纳，并前端生效（但该扩展字段的采纳过程不影响门店的可用性，即available_state仍为审核通过状态）",
-				Request:     "POST http://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token=TOKEN",
+				Request:     "POST https://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store_Interface.html",
 				FuncName:    "",
 			},
@@ -1200,7 +1306,7 @@ var apiConfig = []ApiGroup{
 			{
 				Name:        "门店类目表",
 				Description: "类目名称接口是为商户提供自己门店类型信息的接口。门店类目定位的越规范，能够精准的吸引更多用户，提高曝光率",
-				Request:     "POST http://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token=TOKEN",
+				Request:     "POST https://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token=TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store_Interface.html",
 				FuncName:    "GetWXCategory",
 			},
@@ -1304,6 +1410,278 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
+		Name:    `微信小店/商品管理`,
+		Package: `store/product`,
+		Apis: []Api{
+			{
+				Name:        "增加商品",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/create?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "删除商品",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/del?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "修改商品",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/update?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "查询商品",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/get?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "获取指定状态的所有商品",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/getbystatus?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetByStatus",
+			},
+			{
+				Name:        "商品上下架",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/modproductstatus?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "ModProductStatus",
+			},
+			{
+				Name:        "获取指定分类的所有子分类",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/category/getsub?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetSub",
+			},
+			{
+				Name:        "获取指定子分类的所有SKU",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/category/getsku?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetSku",
+			},
+			{
+				Name:        "获取指定分类的所有属性",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/category/getproperty?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetProperty",
+			},
+		},
+	},
+	{
+		Name:    `微信小店/库存管理`,
+		Package: `store/stock`,
+		Apis: []Api{
+
+			{
+				Name:        "增加库存",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/stock/add?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "减少库存",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/stock/reduce?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+		},
+	},
+	{
+		Name:    `微信小店/邮费模板管理管理`,
+		Package: `store/express`,
+		Apis: []Api{
+
+			{
+				Name:        "增加邮费模板",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/express/add?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "删除邮费模板",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/express/del?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "修改邮费模板",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/express/update?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "获取指定ID的邮费模板",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/express/getbyid?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetById",
+			},
+			{
+				Name:        "获取所有邮费模板",
+				Description: "",
+				Request:     "GET https://api.weixin.qq.com/merchant/express/getall?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetAll",
+			},
+		},
+	},
+	{
+		Name:    `微信小店/分组管理`,
+		Package: `store/group`,
+		Apis: []Api{
+
+			{
+				Name:        "增加分组",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/group/add?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "删除分组",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/group/del?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "修改分组属性",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/group/propertymod?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "PropertyMod",
+			},
+			{
+				Name:        "修改分组商品",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/group/productmod?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "ProductMod",
+			},
+			{
+				Name:        "获取所有分组",
+				Description: "",
+				Request:     "GET https://api.weixin.qq.com/merchant/group/getall?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetAll",
+			},
+			{
+				Name:        "根据分组ID获取分组信息",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/group/getbyid?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetById",
+			},
+		},
+	},
+	{
+		Name:    `微信小店/货架管理`,
+		Package: `store/shelf`,
+		Apis: []Api{
+
+			{
+				Name:        "增加货架",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/shelf/add?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "删除货架",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/shelf/del?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "修改货架",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/shelf/mod?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+			{
+				Name:        "获取所有货架",
+				Description: "",
+				Request:     "GET https://api.weixin.qq.com/merchant/shelf/getall?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetAll",
+			},
+			{
+				Name:        "根据货架ID获取货架信息",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/shelf/getbyid?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetById",
+			},
+		},
+	},
+	{
+		Name:    `微信小店/订单管理`,
+		Package: `store/order`,
+		Apis: []Api{
+
+			{
+				Name:        "根据订单ID获取订单详情",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/order/getbyid?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetById",
+			},
+			{
+				Name:        "根据订单状态/创建时间获取订单详情",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/order/getbyfilter?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "GetByFilter",
+			},
+			{
+				Name:        "设置订单发货信息",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/order/setdelivery?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "SetDelivery",
+			},
+			{
+				Name:        "关闭订单",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/order/close?access_token=ACCESS_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+		},
+	},
+	{
+		Name:    `微信小店/功能接口`,
+		Package: `store`,
+		Apis: []Api{
+
+			{
+				Name:        "上传图片",
+				Description: "",
+				Request:     "POST https://api.weixin.qq.com/merchant/common/upload_img?access_token=ACCESS_TOKEN&filename=test.png",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Store_Interface.html",
+				FuncName:    "",
+			},
+		},
+	},
+	{
 		Name:    `智能接口`,
 		Package: `ai`,
 		Apis: []Api{
@@ -1319,23 +1697,36 @@ var apiConfig = []ApiGroup{
 			{
 				Name:        "提交语音",
 				Description: "",
-				Request:     "POST http://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN",
+				Request:     "POST https://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html",
 				FuncName:    "AddVoiceToRecoForText",
+				GetParams: []Param{
+					{Name: "format", Type: "string"},
+					{Name: "voice_id", Type: "string"},
+					{Name: "lang", Type: "string"},
+				},
 			},
 			{
 				Name:        "获取语音识别结果",
 				Description: "",
-				Request:     "POST http://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext?access_token=ACCESS_TOKEN&voice_id=xxxxxx&lang=zh_CN",
+				Request:     "POST https://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext?access_token=ACCESS_TOKEN&voice_id=xxxxxx&lang=zh_CN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html",
 				FuncName:    "QueryRecoResultForText",
+				GetParams: []Param{
+					{Name: "voice_id", Type: "string"},
+					{Name: "lang", Type: "string"},
+				},
 			},
 			{
 				Name:        "微信翻译",
 				Description: "",
-				Request:     "POST http://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=ACCESS_TOKEN&lfrom=xxx&lto=xxx",
+				Request:     "POST https://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=ACCESS_TOKEN&lfrom=xxx&lto=xxx",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html",
 				FuncName:    "TranslateContent",
+				GetParams: []Param{
+					{Name: "lfrom", Type: "string"},
+					{Name: "lto", Type: "string"},
+				},
 			},
 
 			{
@@ -1343,35 +1734,35 @@ var apiConfig = []ApiGroup{
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/cv/ocr/idcard?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html",
-				FuncName:    "IDCard",
+				FuncName:    "OCRIDCard",
 			},
 			{
 				Name:        "银行卡OCR识别",
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/cv/ocr/bankcard",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html",
-				FuncName:    "",
+				FuncName:    "OCRBankcard",
 			},
 			{
 				Name:        "行驶证/驾驶证 OCR识别",
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/cv/ocr/drivinglicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html",
-				FuncName:    "DrivingLicense",
+				FuncName:    "OCRDrivingLicense",
 			},
 			{
 				Name:        "营业执照OCR识别",
 				Description: "",
-				Request:     "POST http://api.weixin.qq.com/cv/ocr/bizlicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
+				Request:     "POST https://api.weixin.qq.com/cv/ocr/bizlicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html",
-				FuncName:    "BizLicense",
+				FuncName:    "OCRBizLicense",
 			},
 			{
 				Name:        "通用印刷体OCR识别",
 				Description: "",
-				Request:     "POST http://api.weixin.qq.com/cv/ocr/comm?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
+				Request:     "POST https://api.weixin.qq.com/cv/ocr/comm?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.html",
-				FuncName:    "Comm",
+				FuncName:    "OCRCommon",
 			},
 
 			{
@@ -1391,7 +1782,7 @@ var apiConfig = []ApiGroup{
 			{
 				Name:        "图片智能裁剪",
 				Description: "",
-				Request:     "POST http://api.weixin.qq.com/cv/img/aicrop?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
+				Request:     "POST https://api.weixin.qq.com/cv/img/aicrop?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_Proc.html",
 				FuncName:    "AICrop",
 			},
@@ -1830,7 +2221,7 @@ var apiConfig = []ApiGroup{
 	},
 	{
 		Name:    `一物一码`,
-		Package: `onethingonecode`,
+		Package: `marketcode`,
 		Apis: []Api{
 
 			{
@@ -1908,7 +2299,7 @@ var apiConfig = []ApiGroup{
 				Description: "对于使用微信电子发票开票接入能力的商户，在公众号后台选择任何一家开票平台的套餐，都可以使用本接口实现电子发票的开具",
 				Request:     "POST https://api.weixin.qq.com/card/invoice/makeoutinvoice?access_token={access_token}",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/Vendor_API_List.html",
-				FuncName:    "",
+				FuncName:    "MakeOutInvoice",
 			},
 			{
 				Name:        "统一开票接口-发票冲红",
@@ -2066,7 +2457,7 @@ var apiConfig = []ApiGroup{
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/nontax/getorder?access_token=$AccessToken",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.html",
-				FuncName:    "",
+				FuncName:    "GetOrder",
 			},
 			{
 				Name:        "申请退款（提供给银行）",
@@ -2108,7 +2499,7 @@ var apiConfig = []ApiGroup{
 				Description: "提交支付请求后微信会同步返回支付结果。 接口返回系统失败时，等待5秒重新调用看返回码。 当结果返回用户支付中需要输入密码时，可每间隔一段时间(建议10秒)重新调用该接口，直到有明确成功、失败，或者超时（建议30秒）",
 				Request:     "POST https://api.weixin.qq.com/nontax/micropay?access_token=$AccessToken",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.html",
-				FuncName:    "",
+				FuncName:    "MicroPay",
 			},
 			{
 				Name:        "查询订单列表",
@@ -2142,7 +2533,7 @@ var apiConfig = []ApiGroup{
 				Description: "在停车场、高速、加油等场景下，商户需获取用户车主服务状态/需要关联车主服务。本接口，会查询用户是否开通、授权、有欠费或黑名单用户情况，并将对应的用户状态进行返回",
 				Request:     "POST https://api.weixin.qq.com/nontax/vehicle/querystate?access_token=$AccessToken",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/Non-tax_driver_platform.html",
-				FuncName:    "",
+				FuncName:    "QueryState",
 			},
 			{
 				Name:        "用户入场通知",
@@ -2157,6 +2548,41 @@ var apiConfig = []ApiGroup{
 				Request:     "POST https://api.weixin.qq.com/nontax/vehicle/payapply?access_token=$AccessToken",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/Non-tax_driver_platform.html",
 				FuncName:    "PayApply",
+			},
+		},
+	},
+	{
+		Name:    `返佣商品`,
+		Package: `cps`,
+		Apis: []Api{
+
+			{
+				Name:        "导入/更新商品",
+				Description: "每次调用支持批量导入不超过1000条的商品信息。每分钟单个商户全局调用次数不得超过200次。每天调用次数不得超过100万次。每次请求包大小不超过2M",
+				Request:     "POST https://api.weixin.qq.com/scan/product/v2/add?access_token=ACCESS_TOKEN",
+				See:         "https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=11533749572M9ODP&version=1&lang=zh_CN&platform=2",
+				FuncName:    "ProductAdd",
+			},
+			{
+				Name:        "导入或更新结果查询",
+				Description: "用于查询导入或更新商品的结果，当导入或更新商品失败时，若为系统错误可进行重试；若为其他错误，请排查解决后进行重试",
+				Request:     "POST https://api.weixin.qq.com/scan/product/v2/status?access_token=ACCESS_TOKEN",
+				See:         "https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=11533749572M9ODP&version=1&lang=zh_CN&platform=2",
+				FuncName:    "ProductStatus",
+			},
+			{
+				Name:        "单个商品信息查询",
+				Description: "使用该接口，商户可获取已导入的商品信息，供验证信息及抽查导入情况使用",
+				Request:     "POST https://api.weixin.qq.com/scan/product/v2/getinfo?access_token=ACCESS_TOKEN",
+				See:         "https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=11533749572M9ODP&version=1&lang=zh_CN&platform=2",
+				FuncName:    "ProductGetInfo",
+			},
+			{
+				Name:        "全量商品信息查询",
+				Description: "使用该接口，商户可获取已导入的全量商品信息，供全量验证信息使用",
+				Request:     "POST https://api.weixin.qq.com/scan/product/v2/getinfobypage?access_token=ACCESS_TOKEN",
+				See:         "https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=11533749572M9ODP&version=1&lang=zh_CN&platform=2",
+				FuncName:    "ProductGetInfoByPage",
 			},
 		},
 	},

@@ -1,3 +1,17 @@
+// Copyright 2020 FastWeGo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 /*
 微信公众平台开发 SDK
 
@@ -6,31 +20,56 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.h
 package offiaccount
 
 import (
+	"os"
+
 	"github.com/faabiosr/cachego"
-	cachegosync "github.com/faabiosr/cachego/sync"
+	"github.com/faabiosr/cachego/file"
 )
 
-type RefreshAccessTokenFunc func() (accessToken string, expiresIn int, err error)
+type RefreshAccessTokenFunc func(appid string, secret string) (accessToken string, expiresIn int, err error)
 
-var Appid string
-var Secret string
-
-var accessTokenCache cachego.Cache
-var refreshAccessTokenHandler RefreshAccessTokenFunc
-
-func init() {
-	accessTokenCache = cachegosync.New()
-	refreshAccessTokenHandler = RefreshAccessTokenFromWXServer
+type OffiAccount struct {
+	Config      OffiAccountConfig
+	AccessToken AccessTokne
+	Client      Client
+	Server      Server
 }
 
-func SetAccessTokenCache(cacheDriver cachego.Cache) {
-	accessTokenCache = cacheDriver
+type AccessTokne struct {
+	Cache          cachego.Cache
+	RefreshHandler RefreshAccessTokenFunc
 }
 
-func SetRefreshAccessTokenHandler(f RefreshAccessTokenFunc) {
-	refreshAccessTokenHandler = f
+type OffiAccountConfig struct {
+	Appid          string
+	Secret         string
+	Token          string
+	EncodingAESKey string
 }
 
-func DeleteAccessTokenCache() {
-	_ = accessTokenCache.Delete(Appid)
+func New(config OffiAccountConfig) (offiAccount *OffiAccount) {
+	instance := OffiAccount{
+		Config: config,
+		AccessToken: AccessTokne{
+			Cache:          file.New(os.TempDir()),
+			RefreshHandler: RefreshAccessTokenFromWXServer,
+		},
+	}
+
+	instance.Client = Client{Ctx: &instance}
+	instance.Server = Server{Ctx: &instance}
+
+	return &instance
+}
+
+func (offiAccount *OffiAccount) SetAccessTokenCache(cacheDriver cachego.Cache) {
+	offiAccount.AccessToken.Cache = cacheDriver
+}
+
+func (offiAccount *OffiAccount) SetRefreshAccessTokenHandler(f RefreshAccessTokenFunc) {
+	offiAccount.AccessToken.RefreshHandler = f
+}
+
+func (offiAccount *OffiAccount) DeleteAccessTokenCache() {
+	offiAccount.AccessToken.Cache.Delete(offiAccount.Config.Appid)
 }
