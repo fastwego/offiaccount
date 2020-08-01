@@ -1,3 +1,17 @@
+// Copyright 2020 FastWeGo
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 // Package menu 自定义菜单
 package menu
 
@@ -100,10 +114,10 @@ func TryMatch(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err er
 
 使用接口创建自定义菜单后，开发者还可使用接口查询自定义菜单的结构。另外请注意，在设置了个性化菜单后，使用本自定义菜单查询接口可以获取默认菜单和全部个性化菜单信息
 
-See: https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Getting_Started_Guide.html
+See: https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Getting_Custom_Menu_Configurations.html
 
-POST https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN
+GET https://api.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN
 */
-func Get(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+func Get(ctx *offiaccount.OffiAccount) (resp []byte, err error) {
+	return ctx.Client.HTTPGet(apiGet)
 }

@@ -35,9 +35,9 @@ func main() {
 
 	for _, group := range apiConfig {
 
-		//if group.Package == pkgFlag {
-		build(group)
-		//}
+		if group.Package == pkgFlag {
+			build(group)
+		}
 	}
 }
 
