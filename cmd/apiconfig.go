@@ -36,7 +36,7 @@ type ApiGroup struct {
 
 var apiConfig = []ApiGroup{
 	{
-		Name:    `获取微信服务器 ip`,
+		Name:    `开发辅助`,
 		Package: `util`,
 		Apis: []Api{
 			{
@@ -1697,7 +1697,7 @@ var apiConfig = []ApiGroup{
 			{
 				Name:        "提交语音",
 				Description: "",
-				Request:     "POST https://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN",
+				Request:     "POST(@media) https://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html",
 				FuncName:    "AddVoiceToRecoForText",
 				GetParams: []Param{

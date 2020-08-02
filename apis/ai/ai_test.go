@@ -76,9 +76,8 @@ func TestAddVoiceToRecoForText(t *testing.T) {
 	})
 
 	type args struct {
-		ctx     *offiaccount.OffiAccount
-		payload []byte
-
+		ctx    *offiaccount.OffiAccount
+		media  string
 		params url.Values
 	}
 	tests := []struct {
@@ -92,7 +91,7 @@ func TestAddVoiceToRecoForText(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := AddVoiceToRecoForText(tt.args.ctx, tt.args.payload, tt.args.params)
+			gotResp, err := AddVoiceToRecoForText(tt.args.ctx, tt.args.media, tt.args.params)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("AddVoiceToRecoForText() error = %v, wantErr %v", err, tt.wantErr)

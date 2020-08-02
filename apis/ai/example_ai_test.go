@@ -44,9 +44,9 @@ func ExampleAddVoiceToRecoForText() {
 		EncodingAESKey: "EncodingAESKey",
 	})
 
-	payload := []byte("{}")
+	media := ""
 	params := url.Values{}
-	resp, err := ai.AddVoiceToRecoForText(ctx, payload, params)
+	resp, err := ai.AddVoiceToRecoForText(ctx, media, params)
 
 	fmt.Println(resp, err)
 }

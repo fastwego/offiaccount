@@ -17,7 +17,11 @@ package ai
 
 import (
 	"bytes"
+	"io"
+	"mime/multipart"
 	"net/url"
+	"os"
+	"path"
 
 	"github.com/fastwego/offiaccount"
 )
@@ -57,10 +61,30 @@ func Semantic(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err er
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_Open_API.html
 
-POST https://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN
+POST(@media) https://api.weixin.qq.com/cgi-bin/media/voice/addvoicetorecofortext?access_token=ACCESS_TOKEN&format=&voice_id=xxxxxx&lang=zh_CN
 */
-func AddVoiceToRecoForText(ctx *offiaccount.OffiAccount, payload []byte, params url.Values) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddVoiceToRecoForText+"?"+params.Encode(), bytes.NewBuffer(payload), "application/json;charset=utf-8")
+func AddVoiceToRecoForText(ctx *offiaccount.OffiAccount, media string, params url.Values) (resp []byte, err error) {
+	r, w := io.Pipe()
+	m := multipart.NewWriter(w)
+	go func() {
+		defer w.Close()
+		defer m.Close()
+
+		part, err := m.CreateFormFile("media", path.Base(media))
+		if err != nil {
+			return
+		}
+		file, err := os.Open(media)
+		if err != nil {
+			return
+		}
+		defer file.Close()
+		if _, err = io.Copy(part, file); err != nil {
+			return
+		}
+
+	}()
+	return ctx.Client.HTTPPost(apiAddVoiceToRecoForText+"?"+params.Encode(), r, m.FormDataContentType())
 }
 
 /*

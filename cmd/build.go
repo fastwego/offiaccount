@@ -32,9 +32,28 @@ func main() {
 	flag.StringVar(&pkgFlag, "package", "default", "")
 	flag.Parse()
 	for _, group := range apiConfig {
-		//if group.Package == pkgFlag {
-		build(group)
-		//}
+		if group.Package == pkgFlag {
+			build(group)
+		}
+	}
+
+	apilist()
+}
+
+func apilist() {
+	for _, group := range apiConfig {
+		fmt.Printf("- %s(%s)\n", group.Name, group.Package)
+		for _, api := range group.Apis {
+			split := strings.Split(api.Request, " ")
+			parse, _ := url.Parse(split[1])
+
+			if api.FuncName == "" {
+				api.FuncName = strcase.ToCamel(path.Base(parse.Path))
+			}
+
+			godocLink := fmt.Sprintf("https://pkg.go.dev/github.com/fastwego/offiaccount/%s?tab=doc#%s", group.Package, api.FuncName)
+			fmt.Printf("\t- [%s](%s) \n\t\t- [%s (%s)](%s)\n", api.Name, api.See, api.FuncName, parse.Path, godocLink)
+		}
 	}
 }
 
