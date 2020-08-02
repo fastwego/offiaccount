@@ -28,16 +28,13 @@ import (
 )
 
 func main() {
-
 	var pkgFlag string
 	flag.StringVar(&pkgFlag, "package", "default", "")
 	flag.Parse()
-
 	for _, group := range apiConfig {
-
-		if group.Package == pkgFlag {
-			build(group)
-		}
+		//if group.Package == pkgFlag {
+		build(group)
+		//}
 	}
 }
 
@@ -45,6 +42,7 @@ func build(group ApiGroup) {
 	var funcs []string
 	var consts []string
 	var testFuncs []string
+	var exampleFuncs []string
 
 	for _, api := range group.Apis {
 		tpl := postFuncTpl
@@ -83,20 +81,16 @@ func build(group ApiGroup) {
 		split := strings.Split(api.Request, " ")
 		parseUrl, _ := url.Parse(split[1])
 
-		_TITLE_ := api.Name
-		_DESCRIPTION_ := api.Description
-		_REQUEST_ := api.Request
-		_SEE_ := api.See
 		if api.FuncName == "" {
 			_FUNC_NAME_ = strcase.ToCamel(path.Base(parseUrl.Path))
 		} else {
 			_FUNC_NAME_ = api.FuncName
 		}
 
-		tpl = strings.ReplaceAll(tpl, "_TITLE_", _TITLE_)
-		tpl = strings.ReplaceAll(tpl, "_DESCRIPTION_", _DESCRIPTION_)
-		tpl = strings.ReplaceAll(tpl, "_REQUEST_", _REQUEST_)
-		tpl = strings.ReplaceAll(tpl, "_SEE_", _SEE_)
+		tpl = strings.ReplaceAll(tpl, "_TITLE_", api.Name)
+		tpl = strings.ReplaceAll(tpl, "_DESCRIPTION_", api.Description)
+		tpl = strings.ReplaceAll(tpl, "_REQUEST_", api.Request)
+		tpl = strings.ReplaceAll(tpl, "_SEE_", api.See)
 		tpl = strings.ReplaceAll(tpl, "_FUNC_NAME_", _FUNC_NAME_)
 		tpl = strings.ReplaceAll(tpl, "_UPLOAD_", _UPLOAD_)
 		tpl = strings.ReplaceAll(tpl, "_GET_PARAMS_", _GET_PARAMS_)
@@ -130,24 +124,44 @@ func build(group ApiGroup) {
 		_TEST_ARGS_STRUCT_ = strings.ReplaceAll(_TEST_ARGS_STRUCT_, ",", "\n")
 
 		_TEST_FUNC_SIGNATURE_ := ""
+		_EXAMPLE_ARGS_STMT_ := ""
 		if strings.TrimSpace(_TEST_ARGS_STRUCT_) != "" {
 			signatures := strings.Split(_TEST_ARGS_STRUCT_, "\n")
 			paramNames := []string{}
+			exampleStmt := []string{}
 			for _, signature := range signatures {
 				signature = strings.TrimSpace(signature)
 				tmp := strings.Split(signature, " ")
+				//fmt.Println(tmp)
 				if len(tmp[0]) > 0 {
 					paramNames = append(paramNames, "tt.args."+tmp[0])
-				}
 
+					switch tmp[1] {
+					case `[]byte`:
+						exampleStmt = append(exampleStmt, tmp[0]+" := []byte(\"{}\")")
+					case `string`:
+						exampleStmt = append(exampleStmt, tmp[0]+" := \"\"")
+					case `url.Values`:
+						exampleStmt = append(exampleStmt, tmp[0]+" := url.Values{}")
+					}
+				}
 			}
 			_TEST_FUNC_SIGNATURE_ = strings.Join(paramNames, ",")
+			_EXAMPLE_ARGS_STMT_ = strings.Join(exampleStmt, "\n")
 		}
 
 		tpl = strings.ReplaceAll(testFuncTpl, "_FUNC_NAME_", _FUNC_NAME_)
 		tpl = strings.ReplaceAll(tpl, "_TEST_ARGS_STRUCT_", _TEST_ARGS_STRUCT_)
 		tpl = strings.ReplaceAll(tpl, "_TEST_FUNC_SIGNATURE_", _TEST_FUNC_SIGNATURE_)
 		testFuncs = append(testFuncs, tpl)
+
+		//Example
+		tpl = strings.ReplaceAll(exampleFuncTpl, "_FUNC_NAME_", _FUNC_NAME_)
+		tpl = strings.ReplaceAll(tpl, "_PACKAGE_", path.Base(group.Package))
+		tpl = strings.ReplaceAll(tpl, "_TEST_FUNC_SIGNATURE_", strings.ReplaceAll(_TEST_FUNC_SIGNATURE_, "tt.args.", ""))
+		tpl = strings.ReplaceAll(tpl, "_EXAMPLE_ARGS_STMT_", _EXAMPLE_ARGS_STMT_)
+		exampleFuncs = append(exampleFuncs, tpl)
+
 	}
 
 	fileContent := fmt.Sprintf(fileTpl, path.Base(group.Package), group.Name, path.Base(group.Package), strings.Join(consts, ``), strings.Join(funcs, ``))
@@ -159,6 +173,12 @@ func build(group ApiGroup) {
 	testFileContent := fmt.Sprintf(testFileTpl, path.Base(group.Package), strings.Join(testFuncs, ``))
 	//fmt.Println(testFileContent)
 	ioutil.WriteFile("./../apis/"+group.Package+"/"+path.Base(group.Package)+"_test.go", []byte(testFileContent), 0644)
+
+	// output example
+	exampleFileContent := fmt.Sprintf(exampleFileTpl, path.Base(group.Package), strings.Join(exampleFuncs, ``))
+	//fmt.Println(testFileContent)
+	ioutil.WriteFile("./../apis/"+group.Package+"/example_"+path.Base(group.Package)+"_test.go", []byte(exampleFileContent), 0644)
+
 }
 
 var constTpl = `
@@ -272,3 +292,24 @@ func Test_FUNC_NAME_(t *testing.T) {
 		})
 	}
 }`
+
+var exampleFileTpl = `package %s_test
+
+%s
+`
+var exampleFuncTpl = `
+func Example_FUNC_NAME_() {
+	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
+		Appid:          "APPID",
+		Secret:         "SECRET",
+		Token:          "TOKEN",
+		EncodingAESKey: "EncodingAESKey",
+	})
+
+	_EXAMPLE_ARGS_STMT_
+	resp, err := _PACKAGE_._FUNC_NAME_(_TEST_FUNC_SIGNATURE_)
+
+	fmt.Println(resp, err)
+}
+
+`

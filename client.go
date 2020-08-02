@@ -168,6 +168,7 @@ func RefreshAccessTokenFromWXServer(appid string, secret string) (accessToken st
 
 	err = json.Unmarshal(resp, &result)
 	if err != nil {
+		err = fmt.Errorf("Unmarshal error %s", string(resp))
 		return
 	}
 
