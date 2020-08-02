@@ -14,7 +14,10 @@
 
 package util
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestGetRandString(t *testing.T) {
 	type args struct {
@@ -30,9 +33,12 @@ func TestGetRandString(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetRandString(tt.args.length); len(got) != tt.wantLen {
+			got := GetRandString(tt.args.length)
+			if len(got) != tt.wantLen {
 				t.Errorf("GetRandString() = %v, want %v", got, tt.want)
 			}
+
+			fmt.Println(got)
 		})
 	}
 }
@@ -48,13 +54,15 @@ func TestGetRandStringWithCharset(t *testing.T) {
 		want    string
 		wantLen int
 	}{
-		{name: "case1", args: args{length: 6, charset: "0"}, wantLen: 6},
+		{name: "case1", args: args{length: 6, charset: "0x0x0x"}, wantLen: 6},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := GetRandStringWithCharset(tt.args.length, tt.args.charset); len(got) != tt.wantLen {
+			got := GetRandStringWithCharset(tt.args.length, tt.args.charset)
+			if len(got) != tt.wantLen {
 				t.Errorf("GetRandStringWithCharset() = %v, want %v", got, tt.want)
 			}
+			fmt.Println(got)
 		})
 	}
 }

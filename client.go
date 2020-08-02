@@ -35,7 +35,10 @@ type Client struct {
 
 // HTTPGet GET 请求
 func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
-	uri = client.applyAccessToken(uri)
+	uri, err = client.applyAccessToken(uri)
+	if err != nil {
+		return
+	}
 	response, err := http.Get(WXServerUrl + uri)
 	if err != nil {
 		return
@@ -46,7 +49,10 @@ func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
 
 //HTTPPost POST 请求
 func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string) (resp []byte, err error) {
-	uri = client.applyAccessToken(uri)
+	uri, err = client.applyAccessToken(uri)
+	if err != nil {
+		return
+	}
 	response, err := http.Post(WXServerUrl+uri, contentType, payload)
 	if err != nil {
 		return
@@ -55,12 +61,17 @@ func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string
 	return client.responseFilter(response)
 }
 
-func (client *Client) applyAccessToken(oldUrl string) (newUrl string) {
-	accessToken := client.getAccessToken()
-	if strings.Contains(oldUrl, "?") {
-		return oldUrl + "&access_token=" + accessToken
+func (client *Client) applyAccessToken(oldUrl string) (newUrl string, err error) {
+	accessToken, err := client.getAccessToken()
+	if err != nil {
+		return
 	}
-	return oldUrl + "?access_token=" + accessToken
+	if strings.Contains(oldUrl, "?") {
+		newUrl = oldUrl + "&access_token=" + accessToken
+	} else {
+		newUrl = oldUrl + "?access_token=" + accessToken
+	}
+	return
 }
 
 func (client *Client) responseFilter(response *http.Response) (resp []byte, err error) {
@@ -93,8 +104,8 @@ func (client *Client) responseFilter(response *http.Response) (resp []byte, err 
 
 var refreshAccessTokenLock sync.Mutex
 
-func (client *Client) getAccessToken() (accessToken string) {
-	accessToken, err := client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
+func (client *Client) getAccessToken() (accessToken string, err error) {
+	accessToken, err = client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
 	if accessToken != "" {
 		return
 	}
@@ -149,10 +160,10 @@ func RefreshAccessTokenFromWXServer(appid string, secret string) (accessToken st
 	}
 
 	var result = struct {
-		AccessToken string `json:"access_token"`
-		ExpiresIn   int    `json:"expires_in"`
-		Errcode     string `json:"errcode"`
-		Errmsg      string `json:"errmsg"`
+		AccessToken string  `json:"access_token"`
+		ExpiresIn   int     `json:"expires_in"`
+		Errcode     float64 `json:"errcode"`
+		Errmsg      string  `json:"errmsg"`
 	}{}
 
 	err = json.Unmarshal(resp, &result)
