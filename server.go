@@ -426,7 +426,7 @@ func (s *Server) Response(writer http.ResponseWriter, request *http.Request, rep
 	//&encrypt_type=aes
 	//&msg_signature=cc24cc38467417603fc3689170e8b0fd3c9bf4a2
 
-	output := []byte("sucess") // 默认回复
+	output := []byte("success") // 默认回复
 	if reply != nil {
 		output, err = xml.Marshal(reply)
 		if err != nil {
