@@ -32,12 +32,19 @@ func main() {
 	flag.StringVar(&pkgFlag, "package", "default", "")
 	flag.Parse()
 	for _, group := range apiConfig {
+		if group.Name == "oauth" { // 单独处理 oauth 模块
+			continue
+		}
+
 		if group.Package == pkgFlag {
 			build(group)
 		}
 	}
 
-	apilist()
+	if pkgFlag == "apilist" {
+		apilist()
+	}
+
 }
 
 func apilist() {

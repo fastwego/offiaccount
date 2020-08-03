@@ -17,16 +17,10 @@ package type_event
 import "github.com/fastwego/offiaccount/type/type_message"
 
 const (
-	EventTypeSubscribe                  = "subscribe"                    // 关注
-	EventTypeUnsubscribe                = "unsubscribe"                  // 取关
-	EventTypeScan                       = "SCAN"                         // 已关注用户 扫码
-	EventTypeLocation                   = "LOCATION"                     // 上报位置
-	EventTypeQualificationVerifySuccess = "qualification_verify_success" // 资质认证成功
-	EventTypeQualificationVerifyFail    = "qualification_verify_fail"    // 资质认证失败
-	EventTypeNamingVerifySuccess        = "naming_verify_success"        // 名称认证成功
-	EventTypeNamingVerifyFail           = "naming_verify_fail"           // 名称认证失败
-	EventTypeAnnualRenew                = "annual_renew"                 // 年审通知
-	EventTypeVerifyExpired              = "verify_expired"               // 认证过期失效通知审通知
+	EventTypeSubscribe   = "subscribe"   // 关注
+	EventTypeUnsubscribe = "unsubscribe" // 取关
+	EventTypeScan        = "SCAN"        // 已关注用户 扫码
+	EventTypeLocation    = "LOCATION"    // 上报位置
 )
 
 type Event type_message.MessageEvent
@@ -96,105 +90,4 @@ type EventLocation struct {
 	Latitude  string
 	Longitude string
 	Precision string
-}
-
-/*
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[fromUser]]></FromUserName>
-  <CreateTime>1442401156</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[qualification_verify_success]]></Event>
-  <ExpiredTime>1442401156</ExpiredTime>
-</xml>
-*/
-type EventQualificationVerifySuccess struct {
-	Event
-	ExpiredTime string
-}
-
-/*
-
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[fromUser]]></FromUserName>
-  <CreateTime>1442401156</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[qualification_verify_fail]]></Event>
-  <FailTime>1442401122</FailTime>
-  <FailReason><![CDATA[by time]]></FailReason>
-</xml>
-*/
-type EventQualificationVerifyFail struct {
-	Event
-	FailTime   string
-	FailReason string
-}
-
-/*
-
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[fromUser]]></FromUserName>
-  <CreateTime>1442401093</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[naming_verify_success]]></Event>
-  <ExpiredTime>1442401093</ExpiredTime>
-</xml>
-*/
-type EventNamingVerifySuccess struct {
-	Event
-	ExpiredTime string
-}
-
-/*
-名称认证失败
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[fromUser]]></FromUserName>
-  <CreateTime>1442401061</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[naming_verify_fail]]></Event>
-  <FailTime>1442401061</FailTime>
-  <FailReason><![CDATA[by time]]></FailReason>
-</xml>
-
-*/
-type EventNamingVerifyFail struct {
-	Event
-	FailTime   string
-	FailReason string
-}
-
-/*
-年审通知
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[fromUser]]></FromUserName>
-  <CreateTime>1442401004</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[annual_renew]]></Event>
-  <ExpiredTime>1442401004</ExpiredTime>
-</xml>
-
-*/
-type EventAnnualRenew struct {
-	Event
-	ExpiredTime string
-}
-
-/*
-认证过期失效通知审通知
-<xml>
-  <ToUserName><![CDATA[toUser]]></ToUserName>
-  <FromUserName><![CDATA[fromUser]]></FromUserName>
-  <CreateTime>1442400900</CreateTime>
-  <MsgType><![CDATA[event]]></MsgType>
-  <Event><![CDATA[verify_expired]]></Event>
-  <ExpiredTime>1442400900</ExpiredTime>
-</xml>
-*/
-type EventVerifyExpired struct {
-	Event
-	ExpiredTime string
 }

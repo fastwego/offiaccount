@@ -20,14 +20,26 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"reflect"
 	"testing"
+
+	"github.com/fastwego/offiaccount/type/type_event"
 
 	"github.com/fastwego/offiaccount/type/type_message"
 )
 
-func TestParseMessage(t *testing.T) {
-	s := &Server{}
+var MockOffiAccount *OffiAccount
+
+func TestMain(m *testing.M) {
+	MockOffiAccount = New(OffiAccountConfig{
+		Appid:  "TestClient_getAccessToken",
+		Secret: "SECRET",
+	})
+	os.Exit(m.Run())
+}
+
+func TestServer_ParseXML(t *testing.T) {
 
 	type args struct {
 		body []byte
@@ -62,16 +74,45 @@ func TestParseMessage(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "case2",
+			args: args{body: []byte(`
+			<xml> 
+			  <ToUserName><![CDATA[gh_7f083739789a]]></ToUserName>  
+			  <FromUserName><![CDATA[oia2TjuEGTNoeX76QEjQNrcURxG8]]></FromUserName>  
+			  <CreateTime>1395658920</CreateTime>  
+			  <MsgType><![CDATA[event]]></MsgType>  
+			  <Event><![CDATA[TEMPLATESENDJOBFINISH]]></Event>  
+			  <MsgID>200163836</MsgID>  
+			  <Status><![CDATA[success]]></Status> 
+			</xml>
+			`)},
+			wantM: type_event.EventTemplateSendJobFinish{
+				Event: type_event.Event{
+					Message: type_message.Message{
+						ToUserName:   "gh_7f083739789a",
+						FromUserName: "oia2TjuEGTNoeX76QEjQNrcURxG8",
+						CreateTime:   "1395658920",
+						MsgType:      "event",
+					},
+					Event: "TEMPLATESENDJOBFINISH",
+				},
+				MsgID:  "200163836",
+				Status: "success",
+			},
+			wantErr: false,
+		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotM, err := s.ParseMessage(tt.args.body)
+			gotM, err := MockOffiAccount.Server.ParseXML(tt.args.body)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseMessage() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ParseXML() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if !reflect.DeepEqual(gotM, tt.wantM) {
-				t.Errorf("ParseMessage() gotM = %v, want %v", gotM, tt.wantM)
+				t.Errorf("ParseXML() gotM = %v, want %v", gotM, tt.wantM)
 			}
 		})
 	}

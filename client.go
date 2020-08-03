@@ -27,8 +27,14 @@ import (
 	"time"
 )
 
+/*
+微信 api 服务器地址
+*/
 var WXServerUrl = "https://api.weixin.qq.com"
 
+/*
+HttpClient 用于向公众号接口发送请求
+*/
 type Client struct {
 	Ctx *OffiAccount
 }
@@ -61,6 +67,9 @@ func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string
 	return client.responseFilter(response)
 }
 
+/*
+在请求地址上附加上 access_token
+*/
 func (client *Client) applyAccessToken(oldUrl string) (newUrl string, err error) {
 	accessToken, err := client.getAccessToken()
 	if err != nil {
@@ -74,6 +83,13 @@ func (client *Client) applyAccessToken(oldUrl string) (newUrl string, err error)
 	return
 }
 
+/*
+筛查微信 api 服务器响应，判断以下错误：
+
+- http 状态码 不为 200
+
+- 接口响应错误码 errcode 不为 0
+*/
 func (client *Client) responseFilter(response *http.Response) (resp []byte, err error) {
 	if response.StatusCode != http.StatusOK {
 		err = fmt.Errorf("Status %s", response.Status)
@@ -104,6 +120,13 @@ func (client *Client) responseFilter(response *http.Response) (resp []byte, err 
 
 var refreshAccessTokenLock sync.Mutex
 
+/*
+从 公众号实例 的 AccessToken 管理器 获取 access_token
+
+如果没有 access_token 或者 已过期，那么刷新
+
+获得新的 access_token 后 过期时间设置为 0.9 * expiresIn 提供一定冗余
+*/
 func (client *Client) getAccessToken() (accessToken string, err error) {
 	accessToken, err = client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
 	if accessToken != "" {
@@ -128,6 +151,7 @@ func (client *Client) getAccessToken() (accessToken string, err error) {
 	d := time.Duration(expiresIn) * time.Second
 	_ = client.Ctx.AccessToken.Cache.Save(client.Ctx.Config.Appid, accessToken, d)
 
+	client.Ctx.Logger.Println("RefreshHandler", accessToken, expiresIn)
 	return
 }
 
@@ -136,7 +160,7 @@ func (client *Client) getAccessToken() (accessToken string, err error) {
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
 */
-func RefreshAccessTokenFromWXServer(appid string, secret string) (accessToken string, expiresIn int, err error) {
+func refreshAccessTokenFromWXServer(appid string, secret string) (accessToken string, expiresIn int, err error) {
 	params := url.Values{}
 	params.Add("appid", appid)
 	params.Add("secret", secret)

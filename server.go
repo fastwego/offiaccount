@@ -17,10 +17,8 @@ package offiaccount
 import (
 	"crypto/sha1"
 	"encoding/xml"
-	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"sort"
 	"strconv"
@@ -33,8 +31,9 @@ import (
 	"github.com/fastwego/offiaccount/util"
 )
 
-const SUCCESS = "success"
-
+/*
+响应微信请求 或 推送消息/事件 的服务器
+*/
 type Server struct {
 	Ctx *OffiAccount
 }
@@ -55,11 +54,14 @@ func (s *Server) EchoStr(writer http.ResponseWriter, request *http.Request) {
 	echoStr := request.URL.Query().Get("echostr")
 	if echoStr != "" && signature == request.URL.Query().Get("signature") {
 		io.WriteString(writer, echoStr)
+		s.Ctx.Logger.Println("echostr ", echoStr)
 	}
 }
 
-// ParseMessage 解析微信推送过来的消息
-func (s *Server) ParseMessage(body []byte) (m interface{}, err error) {
+// ParseXML 解析微信推送过来的消息/事件
+func (s *Server) ParseXML(body []byte) (m interface{}, err error) {
+
+	s.Ctx.Logger.Println(string(body))
 
 	// 是否加密消息
 	encryptMsg := messagetype.EncryptMessage{}
@@ -68,24 +70,21 @@ func (s *Server) ParseMessage(body []byte) (m interface{}, err error) {
 		return
 	}
 
+	// 需要解密
 	if encryptMsg.Encrypt != "" {
 		var xmlMsg []byte
-		var appId []byte
-		_, xmlMsg, appId, err = util.AESDecryptMsg(encryptMsg.Encrypt, s.Ctx.Config.EncodingAESKey)
+		_, xmlMsg, _, err = util.AESDecryptMsg(encryptMsg.Encrypt, s.Ctx.Config.EncodingAESKey)
 		if err != nil {
 			return
 		}
-
-		if string(appId) != s.Ctx.Config.Appid {
-			err = errors.New("appid not match")
-			return
-		}
-
 		body = xmlMsg
+
+		s.Ctx.Logger.Println("AESDecryptMsg ", string(body))
 	}
 
 	message := messagetype.Message{}
 	err = xml.Unmarshal(body, &message)
+	fmt.Println(message)
 	if err != nil {
 		return
 	}
@@ -140,26 +139,29 @@ func (s *Server) ParseMessage(body []byte) (m interface{}, err error) {
 			return
 		}
 		return msg, nil
-	case messagetype.MsgTypeEvent:
-		msg := messagetype.MessageEvent{}
+	case messagetype.MsgTypeFile:
+		msg := messagetype.MessageFile{}
 		err = xml.Unmarshal(body, &msg)
 		if err != nil {
 			return
 		}
 		return msg, nil
+	case messagetype.MsgTypeEvent:
+		return s.parseEvent(body)
 	}
 	return
 }
 
-// ParseEvent 解析微信推送过来的事件
-func (s *Server) ParseEvent(body []byte) (m interface{}, err error) {
+// parseEvent 解析微信推送过来的事件
+func (s *Server) parseEvent(body []byte) (m interface{}, err error) {
 	event := eventtype.Event{}
 	err = xml.Unmarshal(body, &event)
 	if err != nil {
 		return
 	}
-
 	switch event.Event {
+
+	// 关注事件
 	case eventtype.EventTypeSubscribe:
 		msg := eventtype.EventSubscribe{}
 		err = xml.Unmarshal(body, &msg)
@@ -188,6 +190,8 @@ func (s *Server) ParseEvent(body []byte) (m interface{}, err error) {
 			return
 		}
 		return msg, nil
+
+	// 菜单事件
 	case eventtype.EventTypeMenuClick:
 		msg := eventtype.EventMenuClick{}
 		err = xml.Unmarshal(body, &msg)
@@ -251,33 +255,197 @@ func (s *Server) ParseEvent(body []byte) (m interface{}, err error) {
 			return
 		}
 		return msg, nil
+
+	// 资质事件
+	case eventtype.EventTypeQualificationVerifySuccess:
+		msg := eventtype.EventQualificationVerifySuccess{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeQualificationVerifyFail:
+		msg := eventtype.EventQualificationVerifyFail{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeNamingVerifySuccess:
+		msg := eventtype.EventNamingVerifySuccess{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeNamingVerifyFail:
+		msg := eventtype.EventNamingVerifyFail{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeAnnualRenew:
+		msg := eventtype.EventAnnualRenew{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeVerifyExpired:
+		msg := eventtype.EventVerifyExpired{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+
+		// 卡券事件
+	case eventtype.EventTypeCardPassChecke:
+		msg := eventtype.EventCardPassChecke{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeCardNotPassChecke:
+		msg := eventtype.EventCardNotPassChecke{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserGetCard:
+		msg := eventtype.EventUserGetCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserGiftingCard:
+		msg := eventtype.EventUserGiftingCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserDelCard:
+		msg := eventtype.EventUserDelCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserConsumeCard:
+		msg := eventtype.EventUserConsumeCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserPayFromPayCell:
+		msg := eventtype.EventUserPayFromPayCell{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserViewCard:
+		msg := eventtype.EventUserViewCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUserEnterSessionFromCard:
+		msg := eventtype.EventUserEnterSessionFromCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeUpdateMemberCard:
+		msg := eventtype.EventUpdateMemberCard{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeCardSkuRemind:
+		msg := eventtype.EventCardSkuRemind{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeCardPayOrder:
+		msg := eventtype.EventCardPayOrder{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+	case eventtype.EventTypeSubmitMembercardUserInfo:
+		msg := eventtype.EventSubmitMembercardUserInfo{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+
+		// 导购事件
+	case eventtype.EventTypeGuideQrcodeScan:
+		msg := eventtype.EventGuideQrcodeScan{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
+
+		// 模版消息发送任务完成
+	case eventtype.EventTypeTemplateSendJobFinish:
+		msg := eventtype.EventTemplateSendJobFinish{}
+		err = xml.Unmarshal(body, &msg)
+		if err != nil {
+			return
+		}
+		return msg, nil
 	}
+
 	return
 }
 
 // Response 响应微信消息 (自动判断是否要加密)
-func (s *Server) Response(writer http.ResponseWriter, request *http.Request, reply []byte) (err error) {
+func (s *Server) Response(writer http.ResponseWriter, request *http.Request, reply interface{}) (err error) {
 
 	// 如果 开启加密，微信服务器 发过来的请求 带有 如下参数
-	//signature=c44d29564aa1d57bd0e274c37baa92bd5b3da5bd&timestamp=1596184957
+	//signature=c44d29564aa1d57bd0e274c37baa92bd5b3da5bd
+	//&timestamp=1596184957
 	//&nonce=1250398014
 	//&openid=oEnxesxpxWw-PKkz-vW5IMdfcQaE
 	//&encrypt_type=aes
 	//&msg_signature=cc24cc38467417603fc3689170e8b0fd3c9bf4a2
 
-	// 所以 响应也要加密
-	if request.URL.Query().Get("encrypt_type") == "aes" {
-		// 加密
-		message := s.encryptReplyMessage(reply)
-		reply, err = xml.Marshal(message)
+	output := []byte("sucess") // 默认回复
+	if reply != nil {
+		output, err = xml.Marshal(reply)
 		if err != nil {
 			return
 		}
+
+		// 加密
+		if request.URL.Query().Get("encrypt_type") == "aes" {
+			message := s.encryptReplyMessage(output)
+			output, err = xml.Marshal(message)
+			if err != nil {
+				return
+			}
+		}
 	}
 
-	_, err = writer.Write(reply)
+	_, err = writer.Write(output)
 
-	log.Println("Response : ", string(reply))
+	s.Ctx.Logger.Println("Response: ", string(output))
 
 	return
 }

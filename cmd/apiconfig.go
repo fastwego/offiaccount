@@ -140,61 +140,6 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
-		Name:    `微信网页开发(oauth)`,
-		Package: `oauth`,
-		Apis: []Api{
-
-			{
-				Name:        "通过code换取网页授权access_token",
-				Description: "注意：由于公众号的secret和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端",
-				Request:     "POST https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code",
-				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
-				FuncName:    "",
-				GetParams: []Param{
-					{Name: `appid`, Type: `string`},
-					{Name: `secret`, Type: `string`},
-					{Name: `code`, Type: `string`},
-					{Name: `grant_type`, Type: `string`},
-				},
-			},
-			{
-				Name:        "刷新access_token",
-				Description: "由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权",
-				Request:     "POST https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN",
-				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
-				FuncName:    "",
-				GetParams: []Param{
-					{Name: `appid`, Type: `string`},
-					{Name: `refresh_token`, Type: `string`},
-					{Name: `grant_type`, Type: `string`},
-				},
-			},
-			{
-				Name:        "拉取用户信息",
-				Description: "如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了",
-				Request:     "POST https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
-				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
-				FuncName:    "GetUserInfo",
-				GetParams: []Param{
-					{Name: `access_token`, Type: `string`},
-					{Name: `openid`, Type: `string`},
-					{Name: `lang`, Type: `string`},
-				},
-			},
-			{
-				Name:        "检验授权凭证（access_token）是否有效",
-				Description: "",
-				Request:     "GET https://api.weixin.qq.com/sns/auth?access_token=ACCESS_TOKEN&openid=OPENID",
-				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
-				FuncName:    "",
-				GetParams: []Param{
-					{Name: `access_token`, Type: `string`},
-					{Name: `openid`, Type: `string`},
-				},
-			},
-		},
-	},
-	{
 		Name:    `客服消息/功能`,
 		Package: `customservice`,
 		Apis: []Api{
@@ -373,7 +318,6 @@ var apiConfig = []ApiGroup{
 			},
 		},
 	},
-
 	{
 		Name:    `模板消息`,
 		Package: `message/template`,
@@ -428,6 +372,74 @@ var apiConfig = []ApiGroup{
 				Request:     "POST https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html",
 				FuncName:    "",
+			},
+		},
+	},
+	{
+		Name:    `微信网页开发(oauth)`,
+		Package: `oauth`,
+		Apis: []Api{
+			{
+				Name:        "获取用户授权跳转链接",
+				Description: "在确保微信公众账号拥有授权作用域（scope参数）的权限的前提下（服务号获得高级接口后，默认拥有scope参数中的snsapi_base和snsapi_userinfo），引导关注者打开 授权链接",
+				Request:     "GET https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=REDIRECT_URI&response_type=code&scope=SCOPE&state=STATE#wechat_redirect",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `appid`, Type: `string`},
+					{Name: `redirect_uri`, Type: `string`},
+					{Name: `response_type`, Type: `string`},
+					{Name: `scope`, Type: `string`},
+					{Name: `state`, Type: `string`},
+				},
+			},
+			{
+				Name:        "通过code换取网页授权access_token",
+				Description: "注意：由于公众号的secret和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端",
+				Request:     "POST https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `appid`, Type: `string`},
+					{Name: `secret`, Type: `string`},
+					{Name: `code`, Type: `string`},
+					{Name: `grant_type`, Type: `string`},
+				},
+			},
+			{
+				Name:        "刷新access_token",
+				Description: "由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权",
+				Request:     "POST https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=APPID&grant_type=refresh_token&refresh_token=REFRESH_TOKEN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `appid`, Type: `string`},
+					{Name: `refresh_token`, Type: `string`},
+					{Name: `grant_type`, Type: `string`},
+				},
+			},
+			{
+				Name:        "拉取用户信息",
+				Description: "如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和openid拉取用户信息了",
+				Request:     "POST https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "GetUserInfo",
+				GetParams: []Param{
+					{Name: `access_token`, Type: `string`},
+					{Name: `openid`, Type: `string`},
+					{Name: `lang`, Type: `string`},
+				},
+			},
+			{
+				Name:        "检验授权凭证（access_token）是否有效",
+				Description: "",
+				Request:     "GET https://api.weixin.qq.com/sns/auth?access_token=ACCESS_TOKEN&openid=OPENID",
+				See:         "https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html",
+				FuncName:    "",
+				GetParams: []Param{
+					{Name: `access_token`, Type: `string`},
+					{Name: `openid`, Type: `string`},
+				},
 			},
 		},
 	},
@@ -1788,9 +1800,8 @@ var apiConfig = []ApiGroup{
 			},
 		},
 	},
-	// 导购
 	{
-		Name:    `顾问管理`,
+		Name:    `服务号对话能力（原微信导购助手）/顾问管理`,
 		Package: `guide/guide`,
 		Apis: []Api{
 
@@ -1843,7 +1854,7 @@ var apiConfig = []ApiGroup{
 			},
 
 			{
-				Name:        "/cgi-bin/guide/getguidebuyerchatrecord",
+				Name:        "获取顾问聊天记录",
 				Description: "",
 				Request:     "POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyerchatrecord?access_token=ACCESS_TOKEN",
 				See:         "https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-account/shopping-guide.getGuideBuyerChatRecord.html",
@@ -1956,7 +1967,7 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
-		Name:    `客户管理`,
+		Name:    `服务号对话能力（原微信导购助手）/客户管理`,
 		Package: `guide/buyer`,
 		Apis: []Api{
 
@@ -2010,7 +2021,7 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
-		Name:    `标签管理`,
+		Name:    `服务号对话能力（原微信导购助手）/标签管理`,
 		Package: `guide/tag`,
 		Apis: []Api{
 
@@ -2096,7 +2107,7 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
-		Name:    `素材管理`,
+		Name:    `服务号对话能力（原微信导购助手）/素材管理`,
 		Package: `guide/material`,
 		Apis: []Api{
 
@@ -2174,7 +2185,7 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
-		Name:    `群发任务`,
+		Name:    `服务号对话能力（原微信导购助手）/群发任务`,
 		Package: `guide/job`,
 		Apis: []Api{
 
