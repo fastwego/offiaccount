@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleMediaUploadNews() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.MediaUploadNews(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleMediaUploadNews() {
 }
 
 func ExampleSendAll() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.SendAll(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleSendAll() {
 }
 
 func ExampleMediaUploadVideo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.MediaUploadVideo(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleMediaUploadVideo() {
 }
 
 func ExampleSend() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.Send(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleSend() {
 }
 
 func ExampleDelete() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.Delete(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleDelete() {
 }
 
 func ExamplePreview() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.Preview(ctx, payload)
@@ -106,12 +76,7 @@ func ExamplePreview() {
 }
 
 func ExampleGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.Get(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleGet() {
 }
 
 func ExampleSpeedGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.SpeedGet(ctx, payload)
@@ -134,12 +94,7 @@ func ExampleSpeedGet() {
 }
 
 func ExampleSpeedSet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := mass.SpeedSet(ctx, payload)

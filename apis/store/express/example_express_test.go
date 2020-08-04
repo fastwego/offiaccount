@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleAdd() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := express.Add(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleAdd() {
 }
 
 func ExampleDel() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := express.Del(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleDel() {
 }
 
 func ExampleUpdate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := express.Update(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleUpdate() {
 }
 
 func ExampleGetById() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := express.GetById(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleGetById() {
 }
 
 func ExampleGetAll() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := express.GetAll(ctx)
 

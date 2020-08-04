@@ -54,14 +54,19 @@ func (s *Server) EchoStr(writer http.ResponseWriter, request *http.Request) {
 	echoStr := request.URL.Query().Get("echostr")
 	if echoStr != "" && signature == request.URL.Query().Get("signature") {
 		io.WriteString(writer, echoStr)
-		s.Ctx.Logger.Println("echostr ", echoStr)
+		if s.Ctx.Logger != nil {
+			s.Ctx.Logger.Println("echostr ", echoStr)
+		}
+
 	}
 }
 
 // ParseXML 解析微信推送过来的消息/事件
 func (s *Server) ParseXML(body []byte) (m interface{}, err error) {
 
-	s.Ctx.Logger.Println(string(body))
+	if s.Ctx.Logger != nil {
+		s.Ctx.Logger.Println(string(body))
+	}
 
 	// 是否加密消息
 	encryptMsg := messagetype.EncryptMessage{}
@@ -79,7 +84,10 @@ func (s *Server) ParseXML(body []byte) (m interface{}, err error) {
 		}
 		body = xmlMsg
 
-		s.Ctx.Logger.Println("AESDecryptMsg ", string(body))
+		if s.Ctx.Logger != nil {
+			s.Ctx.Logger.Println("AESDecryptMsg ", string(body))
+		}
+
 	}
 
 	message := messagetype.Message{}
@@ -147,13 +155,13 @@ func (s *Server) ParseXML(body []byte) (m interface{}, err error) {
 		}
 		return msg, nil
 	case messagetype.MsgTypeEvent:
-		return s.parseEvent(body)
+		return parseEvent(body)
 	}
 	return
 }
 
 // parseEvent 解析微信推送过来的事件
-func (s *Server) parseEvent(body []byte) (m interface{}, err error) {
+func parseEvent(body []byte) (m interface{}, err error) {
 	event := eventtype.Event{}
 	err = xml.Unmarshal(body, &event)
 	if err != nil {
@@ -445,7 +453,9 @@ func (s *Server) Response(writer http.ResponseWriter, request *http.Request, rep
 
 	_, err = writer.Write(output)
 
-	s.Ctx.Logger.Println("Response: ", string(output))
+	if s.Ctx.Logger != nil {
+		s.Ctx.Logger.Println("Response: ", string(output))
+	}
 
 	return
 }

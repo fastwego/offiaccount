@@ -43,7 +43,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/media/uploadnews?access_token=ACCESS_TOKEN
 */
 func MediaUploadNews(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMediaUploadNews, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMediaUploadNews, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -56,7 +56,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=ACCESS_TOKEN
 */
 func SendAll(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSendAll, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSendAll, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -69,7 +69,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/media/uploadvideo?access_token=ACCESS_TOKEN
 */
 func MediaUploadVideo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMediaUploadVideo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMediaUploadVideo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -82,7 +82,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/send?access_token=ACCESS_TOKEN
 */
 func Send(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSend, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSend, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -95,7 +95,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/delete?access_token=ACCESS_TOKEN
 */
 func Delete(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelete, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelete, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -108,7 +108,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/preview?access_token=ACCESS_TOKEN
 */
 func Preview(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPreview, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPreview, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -121,7 +121,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/get?access_token=ACCESS_TOKEN
 */
 func Get(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -134,7 +134,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/speed/get?access_token=ACCESS_TOKEN
 */
 func SpeedGet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSpeedGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSpeedGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -147,5 +147,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Batch_S
 POST https://api.weixin.qq.com/cgi-bin/message/mass/speed/set?access_token=ACCESS_TOKEN
 */
 func SpeedSet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSpeedSet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSpeedSet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

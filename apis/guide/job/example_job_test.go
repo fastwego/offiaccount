@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleAddGuideMassendJob() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := job.AddGuideMassendJob(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleAddGuideMassendJob() {
 }
 
 func ExampleGetGuideMassendJobList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := job.GetGuideMassendJobList(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleGetGuideMassendJobList() {
 }
 
 func ExampleGetGuideMassendJob() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := job.GetGuideMassendJob(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleGetGuideMassendJob() {
 }
 
 func ExampleUpdateGuideMassendJob() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := job.UpdateGuideMassendJob(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleUpdateGuideMassendJob() {
 }
 
 func ExampleCancelGuideMassendJob() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := job.CancelGuideMassendJob(ctx, payload)

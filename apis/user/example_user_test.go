@@ -23,12 +23,7 @@ import (
 )
 
 func ExampleUpdateRemark() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := user.UpdateRemark(ctx, payload)
@@ -37,12 +32,7 @@ func ExampleUpdateRemark() {
 }
 
 func ExampleGetUserInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	params := url.Values{}
 	resp, err := user.GetUserInfo(ctx, params)
@@ -51,12 +41,7 @@ func ExampleGetUserInfo() {
 }
 
 func ExampleBatchGetUserInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := user.BatchGetUserInfo(ctx, payload)
@@ -65,12 +50,7 @@ func ExampleBatchGetUserInfo() {
 }
 
 func ExampleGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	params := url.Values{}
 	resp, err := user.Get(ctx, params)
@@ -79,12 +59,7 @@ func ExampleGet() {
 }
 
 func ExampleGetBlackList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := user.GetBlackList(ctx, payload)
@@ -93,12 +68,7 @@ func ExampleGetBlackList() {
 }
 
 func ExampleBatchBlackList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := user.BatchBlackList(ctx, payload)
@@ -107,12 +77,7 @@ func ExampleBatchBlackList() {
 }
 
 func ExampleBatchUnBlackList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := user.BatchUnBlackList(ctx, payload)

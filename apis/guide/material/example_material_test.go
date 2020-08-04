@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleSetGuideCardMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.SetGuideCardMaterial(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleSetGuideCardMaterial() {
 }
 
 func ExampleGetGuideCardMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.GetGuideCardMaterial(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleGetGuideCardMaterial() {
 }
 
 func ExampleDelGuideCardMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.DelGuideCardMaterial(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleDelGuideCardMaterial() {
 }
 
 func ExampleSetGuideImageMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.SetGuideImageMaterial(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleSetGuideImageMaterial() {
 }
 
 func ExampleGetGuideImageMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.GetGuideImageMaterial(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleGetGuideImageMaterial() {
 }
 
 func ExampleDelGuideImageMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.DelGuideImageMaterial(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleDelGuideImageMaterial() {
 }
 
 func ExampleSetGuideWordMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.SetGuideWordMaterial(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleSetGuideWordMaterial() {
 }
 
 func ExampleGetGuideWordMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.GetGuideWordMaterial(ctx, payload)
@@ -134,12 +94,7 @@ func ExampleGetGuideWordMaterial() {
 }
 
 func ExampleDelGuideWordMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.DelGuideWordMaterial(ctx, payload)

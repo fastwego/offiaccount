@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleNewGuideTagOption() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.NewGuideTagOption(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleNewGuideTagOption() {
 }
 
 func ExampleDelguidetagoption() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.Delguidetagoption(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleDelguidetagoption() {
 }
 
 func ExampleAddGuideTagOption() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.AddGuideTagOption(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleAddGuideTagOption() {
 }
 
 func ExampleGetGuideTagOption() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.GetGuideTagOption(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleGetGuideTagOption() {
 }
 
 func ExampleAddGuideBuyerTag() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.AddGuideBuyerTag(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleAddGuideBuyerTag() {
 }
 
 func ExampleGetGuideBuyerTag() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.GetGuideBuyerTag(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleGetGuideBuyerTag() {
 }
 
 func ExampleQueryGuideBuyerByTag() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.QueryGuideBuyerByTag(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleQueryGuideBuyerByTag() {
 }
 
 func ExampleDelGuideBuyerTag() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.DelGuideBuyerTag(ctx, payload)
@@ -134,12 +94,7 @@ func ExampleDelGuideBuyerTag() {
 }
 
 func ExampleAddGuideBuyerDisplayTag() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.AddGuideBuyerDisplayTag(ctx, payload)
@@ -148,12 +103,7 @@ func ExampleAddGuideBuyerDisplayTag() {
 }
 
 func ExampleGetGuideBuyerDisplayTag() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := tag.GetGuideBuyerDisplayTag(ctx, payload)

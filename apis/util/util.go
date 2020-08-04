@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package util 获取微信服务器 ip
+// Package util 开发辅助
 package util
 
 import (
@@ -64,7 +64,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Network_
 POST https://api.weixin.qq.com/cgi-bin/callback/check?access_token=ACCESS_TOKEN
 */
 func CallbackCheck(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCallbackCheck, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCallbackCheck, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -77,5 +77,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/API_Cal
 POST https://api.weixin.qq.com/cgi-bin/clear_quota?access_token=ACCESS_TOKEN
 */
 func ClearQuota(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiClearQuota, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiClearQuota, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

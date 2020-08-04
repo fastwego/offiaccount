@@ -57,9 +57,9 @@ func TestClient_getAccessToken(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			client.Ctx.DeleteAccessTokenCache()
+			client.Ctx.AccessToken.Cache.Delete(client.Ctx.Config.Appid)
 			resp = mockResp[tt.name]
-			gotAccessToken, err := client.getAccessToken()
+			gotAccessToken, err := GetAccessToken(client.Ctx)
 			fmt.Println(gotAccessToken, err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("getAccessToken() error = %v, wantErr %v", err, tt.wantErr)

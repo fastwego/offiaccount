@@ -53,7 +53,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/V
 POST https://api.weixin.qq.com/card/invoice/getauthurl?access_token={access_token}
 */
 func GetAuthUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetAuthUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetAuthUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -66,7 +66,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/V
 POST https://api.weixin.qq.com/card/invoice/getauthdata?access_token={access_token}
 */
 func GetAuthData(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetAuthData, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetAuthData, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -79,7 +79,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/V
 POST https://api.weixin.qq.com/card/invoice/rejectinsert?access_token={access_token}
 */
 func RejectInsert(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiRejectInsert, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiRejectInsert, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -92,7 +92,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/V
 POST https://api.weixin.qq.com/card/invoice/makeoutinvoice?access_token={access_token}
 */
 func MakeOutInvoice(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMakeOutInvoice, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMakeOutInvoice, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -105,7 +105,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/V
 POST https://api.weixin.qq.com/card/invoice/clearoutinvoice?access_token={access_token}
 */
 func ClearOutInvoice(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiClearOutInvoice, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiClearOutInvoice, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -118,7 +118,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/V
 POST https://api.weixin.qq.com/card/invoice/queryinvoceinfo?access_token={access_token}
 */
 func QueryInvoceInfo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiQueryInvoceInfo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiQueryInvoceInfo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -131,7 +131,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/I
 POST https://api.weixin.qq.com/card/invoice/seturl?access_token={access_token}
 */
 func SetUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -144,7 +144,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/I
 POST https://api.weixin.qq.com/card/invoice/platform/createcard?access_token={access_token}
 */
 func PlatformCreateCard(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPlatformCreateCard, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPlatformCreateCard, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -157,7 +157,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/I
 POST https://api.weixin.qq.com/card/invoice/platform/setpdf?access_token={access_token}
 */
 func PlatformSetpdf(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPlatformSetpdf, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPlatformSetpdf, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -170,7 +170,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/I
 POST https://api.weixin.qq.com/card/invoice/platform/getpdf?action=get_url&access_token={access_token}
 */
 func PlatformGetpdf(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPlatformGetpdf, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPlatformGetpdf, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -183,7 +183,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/I
 POST https://api.weixin.qq.com/card/invoice/insert?access_token={access_token}
 */
 func Insert(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiInsert, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiInsert, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -196,7 +196,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/I
 POST https://api.weixin.qq.com/card/invoice/platform/updatestatus?access_token={access_token}
 */
 func PlatformUpdateStatus(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPlatformUpdateStatus, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPlatformUpdateStatus, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -209,7 +209,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/R
 POST https://api.weixin.qq.com/card/invoice/reimburse/getinvoiceinfo?access_token={access_token}
 */
 func ReimburseGetInvoiceInfo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReimburseGetInvoiceInfo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReimburseGetInvoiceInfo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -222,7 +222,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/R
 POST https://api.weixin.qq.com/card/invoice/reimburse/getinvoicebatch?access_token={access_token}
 */
 func ReimburseGetInvoiceBatch(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReimburseGetInvoiceBatch, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReimburseGetInvoiceBatch, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -235,7 +235,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/R
 POST https://api.weixin.qq.com/card/invoice/reimburse/updateinvoicestatus?access_token={access_token}
 */
 func ReimburseUpdateInvoiceStatus(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReimburseUpdateInvoiceStatus, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReimburseUpdateInvoiceStatus, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -248,7 +248,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/E_Invoice/R
 POST https://api.weixin.qq.com/card/invoice/reimburse/updatestatusbatch?access_token={access_token}
 */
 func ReimburseUpdateStatusBatch(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReimburseUpdateStatusBatch, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReimburseUpdateStatusBatch, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -261,7 +261,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issui
 POST https://api.weixin.qq.com/card/invoice/biz/getusertitleurl?access_token={access_token
 */
 func GetUserTitleUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetUserTitleUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetUserTitleUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -274,7 +274,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issui
 POST https://api.weixin.qq.com/card/invoice/biz/getselecttitleurl?access_token={access_token}
 */
 func GetSelectTitleUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetSelectTitleUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetSelectTitleUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -287,5 +287,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Quick_issui
 POST https://api.weixin.qq.com/card/invoice/scantitle?access_token={access_token}
 */
 func ScanTitle(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiScanTitle, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiScanTitle, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

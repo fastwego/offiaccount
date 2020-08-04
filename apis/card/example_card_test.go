@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleCreate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.Create(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleCreate() {
 }
 
 func ExampleSetPayCell() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.SetPayCell(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleSetPayCell() {
 }
 
 func ExampleSetSelfConsumeCell() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.SetSelfConsumeCell(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleSetSelfConsumeCell() {
 }
 
 func ExampleCreateQRCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.CreateQRCode(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleCreateQRCode() {
 }
 
 func ExampleCreateLandingPage() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.CreateLandingPage(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleCreateLandingPage() {
 }
 
 func ExampleMpnewsGetHtml() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.MpnewsGetHtml(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleMpnewsGetHtml() {
 }
 
 func ExampleSetTestWhitelist() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.SetTestWhitelist(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleSetTestWhitelist() {
 }
 
 func ExampleGetCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.GetCode(ctx, payload)
@@ -134,12 +94,7 @@ func ExampleGetCode() {
 }
 
 func ExampleConsumeCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.ConsumeCode(ctx, payload)
@@ -148,12 +103,7 @@ func ExampleConsumeCode() {
 }
 
 func ExampleDecryptCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.DecryptCode(ctx, payload)
@@ -162,12 +112,7 @@ func ExampleDecryptCode() {
 }
 
 func ExampleGetUserCardList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.GetUserCardList(ctx, payload)
@@ -176,12 +121,7 @@ func ExampleGetUserCardList() {
 }
 
 func ExampleGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.Get(ctx, payload)
@@ -190,12 +130,7 @@ func ExampleGet() {
 }
 
 func ExampleBatchGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.BatchGet(ctx, payload)
@@ -204,12 +139,7 @@ func ExampleBatchGet() {
 }
 
 func ExampleUpdate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.Update(ctx, payload)
@@ -218,12 +148,7 @@ func ExampleUpdate() {
 }
 
 func ExampleModifyStock() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.ModifyStock(ctx, payload)
@@ -232,12 +157,7 @@ func ExampleModifyStock() {
 }
 
 func ExampleUpdateCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.UpdateCode(ctx, payload)
@@ -246,12 +166,7 @@ func ExampleUpdateCode() {
 }
 
 func ExampleDelete() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.Delete(ctx, payload)
@@ -260,12 +175,7 @@ func ExampleDelete() {
 }
 
 func ExampleUnavailableCoed() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.UnavailableCoed(ctx, payload)
@@ -274,12 +184,7 @@ func ExampleUnavailableCoed() {
 }
 
 func ExampleGetCardBizUinInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.GetCardBizUinInfo(ctx, payload)
@@ -288,12 +193,7 @@ func ExampleGetCardBizUinInfo() {
 }
 
 func ExampleGetCardInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.GetCardInfo(ctx, payload)
@@ -302,12 +202,7 @@ func ExampleGetCardInfo() {
 }
 
 func ExampleGetMemberCardInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.GetMemberCardInfo(ctx, payload)
@@ -316,12 +211,7 @@ func ExampleGetMemberCardInfo() {
 }
 
 func ExampleGetMemberCardDetail() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := card.GetMemberCardDetail(ctx, payload)

@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleGetCurrentAutoreplyInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := message.GetCurrentAutoreplyInfo(ctx)
 

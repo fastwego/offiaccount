@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleApplyCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := marketcode.ApplyCode(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleApplyCode() {
 }
 
 func ExampleApplyCodeQuery() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := marketcode.ApplyCodeQuery(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleApplyCodeQuery() {
 }
 
 func ExampleApplyCodeDownload() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := marketcode.ApplyCodeDownload(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleApplyCodeDownload() {
 }
 
 func ExampleCodeActive() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := marketcode.CodeActive(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleCodeActive() {
 }
 
 func ExampleCodeActiveQuery() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := marketcode.CodeActiveQuery(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleCodeActiveQuery() {
 }
 
 func ExampleTicketToCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := marketcode.TicketToCode(ctx, payload)

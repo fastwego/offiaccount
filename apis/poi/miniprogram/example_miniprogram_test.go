@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleGetMerchantCategory() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := miniprogram.GetMerchantCategory(ctx)
 
@@ -35,12 +30,7 @@ func ExampleGetMerchantCategory() {
 }
 
 func ExampleApplyMerchant() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.ApplyMerchant(ctx, payload)
@@ -49,12 +39,7 @@ func ExampleApplyMerchant() {
 }
 
 func ExampleGetMerchantAuditInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := miniprogram.GetMerchantAuditInfo(ctx)
 
@@ -62,12 +47,7 @@ func ExampleGetMerchantAuditInfo() {
 }
 
 func ExampleModifyMerchant() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.ModifyMerchant(ctx, payload)
@@ -76,12 +56,7 @@ func ExampleModifyMerchant() {
 }
 
 func ExampleGetDistrict() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := miniprogram.GetDistrict(ctx)
 
@@ -89,12 +64,7 @@ func ExampleGetDistrict() {
 }
 
 func ExampleSearchMapPoi() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.SearchMapPoi(ctx, payload)
@@ -103,12 +73,7 @@ func ExampleSearchMapPoi() {
 }
 
 func ExampleCreateMapPoi() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.CreateMapPoi(ctx, payload)
@@ -117,12 +82,7 @@ func ExampleCreateMapPoi() {
 }
 
 func ExampleAddStore() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.AddStore(ctx, payload)
@@ -131,12 +91,7 @@ func ExampleAddStore() {
 }
 
 func ExampleUpdateStore() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.UpdateStore(ctx, payload)
@@ -145,12 +100,7 @@ func ExampleUpdateStore() {
 }
 
 func ExampleCardStorewxaGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.CardStorewxaGet(ctx, payload)
@@ -159,12 +109,7 @@ func ExampleCardStorewxaGet() {
 }
 
 func ExampleGetStoreInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.GetStoreInfo(ctx, payload)
@@ -173,12 +118,7 @@ func ExampleGetStoreInfo() {
 }
 
 func ExampleGetStoreList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.GetStoreList(ctx, payload)
@@ -187,12 +127,7 @@ func ExampleGetStoreList() {
 }
 
 func ExampleDelStore() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := miniprogram.DelStore(ctx, payload)

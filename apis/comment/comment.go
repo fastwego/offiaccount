@@ -42,7 +42,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/open?access_token=ACCESS_TOKEN
 */
 func Open(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiOpen, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiOpen, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -55,7 +55,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/close?access_token=ACCESS_TOKEN
 */
 func Close(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiClose, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiClose, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -68,7 +68,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/list?access_token=ACCESS_TOKEN
 */
 func List(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -81,7 +81,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/markelect?access_token=ACCESS_TOKEN
 */
 func MarkElect(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMarkElect, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMarkElect, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -94,7 +94,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/unmarkelect?access_token=ACCESS_TOKEN
 */
 func UnMarkElect(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUnMarkElect, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUnMarkElect, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -107,7 +107,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/delete?access_token=ACCESS_TOKEN
 */
 func Delete(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelete, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelete, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -120,7 +120,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/reply/add?access_token=ACCESS_TOKEN
 */
 func ReplyAdd(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReplyAdd, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReplyAdd, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -133,5 +133,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Comments_management/Image_
 POST https://api.weixin.qq.com/cgi-bin/comment/reply/delete?access_token=ACCESS_TOKEN
 */
 func ReplyDelete(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReplyDelete, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReplyDelete, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

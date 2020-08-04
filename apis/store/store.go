@@ -35,5 +35,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/common/upload_img?access_token=ACCESS_TOKEN&filename=test.png
 */
 func UploadImg(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUploadImg, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUploadImg, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

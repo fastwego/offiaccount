@@ -45,12 +45,15 @@ func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
 	if err != nil {
 		return
 	}
+	if client.Ctx.Logger != nil {
+		client.Ctx.Logger.Printf("GET %s", uri)
+	}
 	response, err := http.Get(WXServerUrl + uri)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
-	return client.responseFilter(response)
+	return responseFilter(response)
 }
 
 //HTTPPost POST 请求
@@ -59,19 +62,22 @@ func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string
 	if err != nil {
 		return
 	}
+	if client.Ctx.Logger != nil {
+		client.Ctx.Logger.Printf("POST %s", uri)
+	}
 	response, err := http.Post(WXServerUrl+uri, contentType, payload)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
-	return client.responseFilter(response)
+	return responseFilter(response)
 }
 
 /*
 在请求地址上附加上 access_token
 */
 func (client *Client) applyAccessToken(oldUrl string) (newUrl string, err error) {
-	accessToken, err := client.getAccessToken()
+	accessToken, err := client.Ctx.AccessToken.GetAccessTokenHandler(client.Ctx)
 	if err != nil {
 		return
 	}
@@ -90,7 +96,7 @@ func (client *Client) applyAccessToken(oldUrl string) (newUrl string, err error)
 
 - 接口响应错误码 errcode 不为 0
 */
-func (client *Client) responseFilter(response *http.Response) (resp []byte, err error) {
+func responseFilter(response *http.Response) (resp []byte, err error) {
 	if response.StatusCode != http.StatusOK {
 		err = fmt.Errorf("Status %s", response.Status)
 		return
@@ -118,6 +124,7 @@ func (client *Client) responseFilter(response *http.Response) (resp []byte, err 
 	return
 }
 
+// 防止多个 goroutine 并发刷新冲突
 var refreshAccessTokenLock sync.Mutex
 
 /*
@@ -127,8 +134,8 @@ var refreshAccessTokenLock sync.Mutex
 
 获得新的 access_token 后 过期时间设置为 0.9 * expiresIn 提供一定冗余
 */
-func (client *Client) getAccessToken() (accessToken string, err error) {
-	accessToken, err = client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
+func GetAccessToken(ctx *OffiAccount) (accessToken string, err error) {
+	accessToken, err = ctx.AccessToken.Cache.Fetch(ctx.Config.Appid)
 	if accessToken != "" {
 		return
 	}
@@ -136,12 +143,12 @@ func (client *Client) getAccessToken() (accessToken string, err error) {
 	refreshAccessTokenLock.Lock()
 	defer refreshAccessTokenLock.Unlock()
 
-	accessToken, err = client.Ctx.AccessToken.Cache.Fetch(client.Ctx.Config.Appid)
+	accessToken, err = ctx.AccessToken.Cache.Fetch(ctx.Config.Appid)
 	if accessToken != "" {
 		return
 	}
 
-	accessToken, expiresIn, err := client.Ctx.AccessToken.RefreshHandler(client.Ctx.Config.Appid, client.Ctx.Config.Secret)
+	accessToken, expiresIn, err := refreshAccessTokenFromWXServer(ctx.Config.Appid, ctx.Config.Secret)
 	if err != nil {
 		return
 	}
@@ -149,9 +156,12 @@ func (client *Client) getAccessToken() (accessToken string, err error) {
 	// 提前过期 提供冗余时间
 	expiresIn = int(0.9 * float64(expiresIn))
 	d := time.Duration(expiresIn) * time.Second
-	_ = client.Ctx.AccessToken.Cache.Save(client.Ctx.Config.Appid, accessToken, d)
+	_ = ctx.AccessToken.Cache.Save(ctx.Config.Appid, accessToken, d)
 
-	client.Ctx.Logger.Println("RefreshHandler", accessToken, expiresIn)
+	if ctx.Logger != nil {
+		ctx.Logger.Printf("%s %s %d\n", "refreshAccessTokenFromWXServer", accessToken, expiresIn)
+	}
+
 	return
 }
 

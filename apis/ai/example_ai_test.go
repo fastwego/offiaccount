@@ -23,12 +23,7 @@ import (
 )
 
 func ExampleSemantic() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.Semantic(ctx, payload)
@@ -37,12 +32,7 @@ func ExampleSemantic() {
 }
 
 func ExampleAddVoiceToRecoForText() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	media := ""
 	params := url.Values{}
@@ -52,12 +42,7 @@ func ExampleAddVoiceToRecoForText() {
 }
 
 func ExampleQueryRecoResultForText() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	params := url.Values{}
@@ -67,12 +52,7 @@ func ExampleQueryRecoResultForText() {
 }
 
 func ExampleTranslateContent() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	params := url.Values{}
@@ -82,12 +62,7 @@ func ExampleTranslateContent() {
 }
 
 func ExampleOCRIDCard() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.OCRIDCard(ctx, payload)
@@ -96,12 +71,7 @@ func ExampleOCRIDCard() {
 }
 
 func ExampleOCRBankcard() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.OCRBankcard(ctx, payload)
@@ -110,12 +80,7 @@ func ExampleOCRBankcard() {
 }
 
 func ExampleOCRDrivingLicense() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.OCRDrivingLicense(ctx, payload)
@@ -124,12 +89,7 @@ func ExampleOCRDrivingLicense() {
 }
 
 func ExampleOCRBizLicense() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.OCRBizLicense(ctx, payload)
@@ -138,12 +98,7 @@ func ExampleOCRBizLicense() {
 }
 
 func ExampleOCRCommon() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.OCRCommon(ctx, payload)
@@ -152,12 +107,7 @@ func ExampleOCRCommon() {
 }
 
 func ExampleQRCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.QRCode(ctx, payload)
@@ -166,12 +116,7 @@ func ExampleQRCode() {
 }
 
 func ExampleSuperResolution() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.SuperResolution(ctx, payload)
@@ -180,12 +125,7 @@ func ExampleSuperResolution() {
 }
 
 func ExampleAICrop() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ai.AICrop(ctx, payload)

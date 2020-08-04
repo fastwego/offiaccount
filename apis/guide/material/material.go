@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package material 素材管理
+// Package material 服务号对话能力（原微信导购助手）/素材管理
 package material
 
 import (
@@ -43,7 +43,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/setguidecardmaterial?access_token=ACCESS_TOKEN
 */
 func SetGuideCardMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetGuideCardMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetGuideCardMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -56,7 +56,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidecardmaterial?access_token=ACCESS_TOKEN
 */
 func GetGuideCardMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideCardMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideCardMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -69,7 +69,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguidecardmaterial?access_token=ACCESS_TOKEN
 */
 func DelGuideCardMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideCardMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideCardMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -82,7 +82,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/setguideimagematerial?access_token=ACCESS_TOKEN
 */
 func SetGuideImageMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetGuideImageMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetGuideImageMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -95,7 +95,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguideimagematerial?access_token=ACCESS_TOKEN
 */
 func GetGuideImageMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideImageMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideImageMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -108,7 +108,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguideimagematerial?access_token=ACCESS_TOKEN
 */
 func DelGuideImageMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideImageMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideImageMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -121,7 +121,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/setguidewordmaterial?access_token=ACCESS_TOKEN
 */
 func SetGuideWordMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetGuideWordMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetGuideWordMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -134,7 +134,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidewordmaterial?access_token=ACCESS_TOKEN
 */
 func GetGuideWordMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideWordMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideWordMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -147,5 +147,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/model-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguidewordmaterial?access_token=ACCESS_TOKEN
 */
 func DelGuideWordMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideWordMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideWordMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

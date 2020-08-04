@@ -36,7 +36,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/stock/add?access_token=ACCESS_TOKEN
 */
 func Add(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAdd, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAdd, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -49,5 +49,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/stock/reduce?access_token=ACCESS_TOKEN
 */
 func Reduce(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiReduce, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiReduce, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

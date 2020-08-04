@@ -41,7 +41,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Creating_Cust
 POST https://api.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN
 */
 func Create(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCreate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCreate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -80,7 +80,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Personalized_
 POST https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=ACCESS_TOKEN
 */
 func AddConditional(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddConditional, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddConditional, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -93,7 +93,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Personalized_
 POST https://api.weixin.qq.com/cgi-bin/menu/delconditional?access_token=ACCESS_TOKEN
 */
 func DelConditional(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelConditional, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelConditional, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -106,7 +106,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Personalized_
 POST https://api.weixin.qq.com/cgi-bin/menu/trymatch?access_token=ACCESS_TOKEN
 */
 func TryMatch(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiTryMatch, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiTryMatch, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*

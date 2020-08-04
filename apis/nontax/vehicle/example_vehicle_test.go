@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleQueryState() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := vehicle.QueryState(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleQueryState() {
 }
 
 func ExampleEntranceNotify() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := vehicle.EntranceNotify(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleEntranceNotify() {
 }
 
 func ExamplePayApply() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := vehicle.PayApply(ctx, payload)

@@ -42,7 +42,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/tags/create?access_token=ACCESS_TOKEN
 */
 func Create(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCreate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCreate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -68,7 +68,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/tags/update?access_token=ACCESS_TOKEN
 */
 func Update(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -81,7 +81,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/tags/delete?access_token=ACCESS_TOKEN
 */
 func Delete(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelete, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelete, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -94,7 +94,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/user/tag/get?access_token=ACCESS_TOKEN
 */
 func GetUsersByTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetUsersByTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetUsersByTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -107,7 +107,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging?access_token=ACCESS_TOKEN
 */
 func BatchTagging(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchTagging, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchTagging, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -120,7 +120,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging?access_token=ACCESS_TOKEN
 */
 func BatchUnTagging(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchUnTagging, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchUnTagging, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -133,5 +133,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_M
 POST https://api.weixin.qq.com/cgi-bin/tags/getidlist?access_token=ACCESS_TOKEN
 */
 func GetTagIdList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetTagIdList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetTagIdList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

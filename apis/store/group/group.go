@@ -40,7 +40,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/group/add?access_token=ACCESS_TOKEN
 */
 func Add(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAdd, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAdd, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -53,7 +53,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/group/del?access_token=ACCESS_TOKEN
 */
 func Del(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDel, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDel, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -66,7 +66,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/group/propertymod?access_token=ACCESS_TOKEN
 */
 func PropertyMod(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPropertyMod, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPropertyMod, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -79,7 +79,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/group/productmod?access_token=ACCESS_TOKEN
 */
 func ProductMod(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiProductMod, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiProductMod, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -105,5 +105,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/group/getbyid?access_token=ACCESS_TOKEN
 */
 func GetById(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetById, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetById, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

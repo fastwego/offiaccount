@@ -32,7 +32,7 @@ func main() {
 	flag.StringVar(&pkgFlag, "package", "default", "")
 	flag.Parse()
 	for _, group := range apiConfig {
-		if group.Name == "oauth" { // 单独处理 oauth 模块
+		if group.Package == "oauth" { // 单独处理 oauth 模块
 			continue
 		}
 
@@ -221,7 +221,7 @@ _REQUEST_
 */`
 var postFuncTpl = commentTpl + `
 func _FUNC_NAME_(ctx *offiaccount.OffiAccount, payload []byte_GET_PARAMS_) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(api_FUNC_NAME__GET_SUFFIX_PARAMS_, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 `
 var getFuncTpl = commentTpl + `
@@ -325,12 +325,7 @@ var exampleFileTpl = `package %s_test
 `
 var exampleFuncTpl = `
 func Example_FUNC_NAME_() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	_EXAMPLE_ARGS_STMT_
 	resp, err := _PACKAGE_._FUNC_NAME_(_TEST_FUNC_SIGNATURE_)

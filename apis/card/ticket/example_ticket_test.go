@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleMeetingTicketUpdateUser() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ticket.MeetingTicketUpdateUser(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleMeetingTicketUpdateUser() {
 }
 
 func ExampleMovieTicketUpdateUser() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ticket.MovieTicketUpdateUser(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleMovieTicketUpdateUser() {
 }
 
 func ExampleBoardingPassCheckin() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := ticket.BoardingPassCheckin(ctx, payload)

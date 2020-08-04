@@ -37,7 +37,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Special_ti
 POST https://api.weixin.qq.com/card/meetingticket/updateuser?access_token=TOKEN
 */
 func MeetingTicketUpdateUser(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMeetingTicketUpdateUser, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMeetingTicketUpdateUser, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -50,7 +50,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Special_ti
 POST https://api.weixin.qq.com/card/movieticket/updateuser?access_token=TOKEN
 */
 func MovieTicketUpdateUser(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMovieTicketUpdateUser, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMovieTicketUpdateUser, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -63,5 +63,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Special_ti
 POST https://api.weixin.qq.com/card/boardingpass/checkin?access_token=TOKEN
 */
 func BoardingPassCheckin(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBoardingPassCheckin, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBoardingPassCheckin, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

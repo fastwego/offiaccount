@@ -43,7 +43,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/create?access_token=ACCESS_TOKEN
 */
 func Create(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCreate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCreate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -56,7 +56,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/del?access_token=ACCESS_TOKEN
 */
 func Del(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDel, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDel, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -69,7 +69,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/update?access_token=ACCESS_TOKEN
 */
 func Update(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -82,7 +82,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/get?access_token=ACCESS_TOKEN
 */
 func Get(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -95,7 +95,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/getbystatus?access_token=ACCESS_TOKEN
 */
 func GetByStatus(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetByStatus, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetByStatus, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -108,7 +108,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/modproductstatus?access_token=ACCESS_TOKEN
 */
 func ModProductStatus(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiModProductStatus, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiModProductStatus, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -121,7 +121,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/category/getsub?access_token=ACCESS_TOKEN
 */
 func GetSub(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetSub, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetSub, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -134,7 +134,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/category/getsku?access_token=ACCESS_TOKEN
 */
 func GetSku(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetSku, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetSku, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -147,5 +147,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/category/getproperty?access_token=ACCESS_TOKEN
 */
 func GetProperty(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetProperty, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetProperty, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

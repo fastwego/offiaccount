@@ -23,12 +23,7 @@ import (
 )
 
 func ExampleKfaccountAdd() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.KfaccountAdd(ctx, payload)
@@ -37,12 +32,7 @@ func ExampleKfaccountAdd() {
 }
 
 func ExampleKfaccountUpdate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.KfaccountUpdate(ctx, payload)
@@ -51,12 +41,7 @@ func ExampleKfaccountUpdate() {
 }
 
 func ExampleKfaccountDel() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.KfaccountDel(ctx, payload)
@@ -65,12 +50,7 @@ func ExampleKfaccountDel() {
 }
 
 func ExampleUploadHeadImg() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	media := ""
 	params := url.Values{}
@@ -80,12 +60,7 @@ func ExampleUploadHeadImg() {
 }
 
 func ExampleGetKfList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := customservice.GetKfList(ctx)
 
@@ -93,12 +68,7 @@ func ExampleGetKfList() {
 }
 
 func ExampleSendMessage() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.SendMessage(ctx, payload)
@@ -107,12 +77,7 @@ func ExampleSendMessage() {
 }
 
 func ExampleTyping() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.Typing(ctx, payload)
@@ -121,12 +86,7 @@ func ExampleTyping() {
 }
 
 func ExampleGetOnlineKfList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := customservice.GetOnlineKfList(ctx)
 
@@ -134,12 +94,7 @@ func ExampleGetOnlineKfList() {
 }
 
 func ExampleInviteWorker() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.InviteWorker(ctx, payload)
@@ -148,12 +103,7 @@ func ExampleInviteWorker() {
 }
 
 func ExampleKfSessionCreate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.KfSessionCreate(ctx, payload)
@@ -162,12 +112,7 @@ func ExampleKfSessionCreate() {
 }
 
 func ExampleKfSessionGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	params := url.Values{}
 	resp, err := customservice.KfSessionGet(ctx, params)
@@ -176,12 +121,7 @@ func ExampleKfSessionGet() {
 }
 
 func ExampleKfSessionGetList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	params := url.Values{}
 	resp, err := customservice.KfSessionGetList(ctx, params)
@@ -190,12 +130,7 @@ func ExampleKfSessionGetList() {
 }
 
 func ExampleKfSessionGetWaitCase() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := customservice.KfSessionGetWaitCase(ctx)
 
@@ -203,12 +138,7 @@ func ExampleKfSessionGetWaitCase() {
 }
 
 func ExampleGetMsgList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := customservice.GetMsgList(ctx, payload)

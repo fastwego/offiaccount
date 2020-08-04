@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleProductAdd() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := cps.ProductAdd(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleProductAdd() {
 }
 
 func ExampleProductStatus() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := cps.ProductStatus(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleProductStatus() {
 }
 
 func ExampleProductGetInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := cps.ProductGetInfo(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleProductGetInfo() {
 }
 
 func ExampleProductGetInfoByPage() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := cps.ProductGetInfoByPage(ctx, payload)

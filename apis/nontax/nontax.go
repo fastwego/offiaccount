@@ -49,7 +49,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Nontax_Bill
 POST https://api.weixin.qq.com/nontax/getbillauthurl?access_token={access_token}
 */
 func GetBillAuthUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetBillAuthUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetBillAuthUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -62,7 +62,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Nontax_Bill
 POST https://api.weixin.qq.com/nontax/createbillcard?access_token={access_token}
 */
 func CreateBillCard(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCreateBillCard, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCreateBillCard, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -75,7 +75,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Invoice/Nontax_Bill
 POST https://api.weixin.qq.com/nontax/insertbill?access_token={access_token}
 */
 func InsertBill(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiInsertBill, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiInsertBill, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -88,7 +88,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/queryfee?access_token=$AccessToken
 */
 func QueryFee(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiQueryFee, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiQueryFee, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -101,7 +101,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/unifiedorder?access_token=$AccessToken
 */
 func UnifiedOrder(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUnifiedOrder, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUnifiedOrder, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -114,7 +114,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/getorder?access_token=$AccessToken
 */
 func GetOrder(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetOrder, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetOrder, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -127,7 +127,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/refund?access_token=$AccessToken
 */
 func Refund(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiRefund, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiRefund, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -140,7 +140,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/downloadbill?access_token=$AccessToken
 */
 func DownloadBill(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDownloadBill, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDownloadBill, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -153,7 +153,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/notifyinconsistentorder?access_token=$AccessToken
 */
 func NotifyInconsistentOrder(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiNotifyInconsistentOrder, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiNotifyInconsistentOrder, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -166,7 +166,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/mocknotification?access_token=$AccessToken
 */
 func MockNotification(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMockNotification, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMockNotification, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -179,7 +179,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/mockqueryfee?access_token=$AccessToken
 */
 func MockQueryFee(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMockQueryFee, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMockQueryFee, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -192,7 +192,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/micropay?access_token=$AccessToken
 */
 func MicroPay(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiMicroPay, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiMicroPay, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -205,7 +205,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/getorderlist?access_token=$AccessToken
 */
 func GetOrderList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetOrderList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetOrderList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -218,7 +218,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/intp/realname/getauthurl?access_token=ACCESS_TOKEN
 */
 func RealNameGetAuthUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiRealNameGetAuthUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiRealNameGetAuthUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -231,5 +231,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/API_document.h
 POST https://api.weixin.qq.com/nontax/getrealname?access_token=ACCESS_TOKEN
 */
 func GetRealName(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetRealName, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetRealName, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

@@ -37,7 +37,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/Non-tax_driver
 POST https://api.weixin.qq.com/nontax/vehicle/querystate?access_token=$AccessToken
 */
 func QueryState(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiQueryState, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiQueryState, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -50,7 +50,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/Non-tax_driver
 POST https://api.weixin.qq.com/nontax/vehicle/entrancenotify?access_token=$AccessToken
 */
 func EntranceNotify(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiEntranceNotify, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiEntranceNotify, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -63,5 +63,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Non_tax_pay/Non-tax_driver
 POST https://api.weixin.qq.com/nontax/vehicle/payapply?access_token=$AccessToken
 */
 func PayApply(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPayApply, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPayApply, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

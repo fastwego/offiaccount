@@ -53,7 +53,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service
 POST https://api.weixin.qq.com/customservice/kfaccount/add?access_token=ACCESS_TOKEN
 */
 func KfaccountAdd(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiKfaccountAdd, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiKfaccountAdd, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -66,7 +66,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service
 POST https://api.weixin.qq.com/customservice/kfaccount/update?access_token=ACCESS_TOKEN
 */
 func KfaccountUpdate(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiKfaccountUpdate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiKfaccountUpdate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -79,7 +79,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service
 POST https://api.weixin.qq.com/customservice/kfaccount/del?access_token=ACCESS_TOKEN
 */
 func KfaccountDel(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiKfaccountDel, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiKfaccountDel, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -138,7 +138,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service
 POST https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=ACCESS_TOKEN
 */
 func SendMessage(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSendMessage, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSendMessage, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -151,7 +151,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Service
 POST https://api.weixin.qq.com/cgi-bin/message/custom/typing?access_token=ACCESS_TOKEN
 */
 func Typing(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiTyping, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiTyping, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -177,7 +177,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Customer_Service/Customer_
 POST https://api.weixin.qq.com/customservice/kfaccount/inviteworker?access_token=ACCESS_TOKEN
 */
 func InviteWorker(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiInviteWorker, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiInviteWorker, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -190,7 +190,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Customer_Service/Session_c
 POST https://api.weixin.qq.com/customservice/kfsession/create?access_token=ACCESS_TOKEN
 */
 func KfSessionCreate(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiKfSessionCreate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiKfSessionCreate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -242,5 +242,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Customer_Service/Obtain_ch
 POST https://api.weixin.qq.com/customservice/msgrecord/getmsglist
 */
 func GetMsgList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetMsgList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetMsgList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

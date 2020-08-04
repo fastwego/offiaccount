@@ -51,7 +51,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Natu
 POST https://api.weixin.qq.com/semantic/semproxy/search?access_token=YOUR_ACCESS_TOKEN
 */
 func Semantic(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSemantic, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSemantic, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -97,7 +97,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_O
 POST https://api.weixin.qq.com/cgi-bin/media/voice/queryrecoresultfortext?access_token=ACCESS_TOKEN&voice_id=xxxxxx&lang=zh_CN
 */
 func QueryRecoResultForText(ctx *offiaccount.OffiAccount, payload []byte, params url.Values) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiQueryRecoResultForText+"?"+params.Encode(), bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiQueryRecoResultForText+"?"+params.Encode(), bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -110,7 +110,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/AI_O
 POST https://api.weixin.qq.com/cgi-bin/media/voice/translatecontent?access_token=ACCESS_TOKEN&lfrom=xxx&lto=xxx
 */
 func TranslateContent(ctx *offiaccount.OffiAccount, payload []byte, params url.Values) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiTranslateContent+"?"+params.Encode(), bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiTranslateContent+"?"+params.Encode(), bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -123,7 +123,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.
 POST https://api.weixin.qq.com/cv/ocr/idcard?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func OCRIDCard(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiOCRIDCard, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiOCRIDCard, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -136,7 +136,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.
 POST https://api.weixin.qq.com/cv/ocr/bankcard
 */
 func OCRBankcard(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiOCRBankcard, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiOCRBankcard, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -149,7 +149,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.
 POST https://api.weixin.qq.com/cv/ocr/drivinglicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func OCRDrivingLicense(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiOCRDrivingLicense, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiOCRDrivingLicense, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -162,7 +162,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.
 POST https://api.weixin.qq.com/cv/ocr/bizlicense?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func OCRBizLicense(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiOCRBizLicense, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiOCRBizLicense, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -175,7 +175,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/OCR.
 POST https://api.weixin.qq.com/cv/ocr/comm?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func OCRCommon(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiOCRCommon, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiOCRCommon, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -188,7 +188,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_
 POST https://api.weixin.qq.com/cv/img/qrcode?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func QRCode(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiQRCode, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiQRCode, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -201,7 +201,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_
 POST https://api.weixin.qq.com/cv/img/superresolution?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func SuperResolution(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSuperResolution, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSuperResolution, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -214,5 +214,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Intelligent_Interface/Img_
 POST https://api.weixin.qq.com/cv/img/aicrop?img_url=ENCODE_URL&access_token=ACCESS_TOCKEN
 */
 func AICrop(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAICrop, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAICrop, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

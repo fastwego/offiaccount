@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleCreate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := menu.Create(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleCreate() {
 }
 
 func ExampleGetCurrentSelfmenuInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := menu.GetCurrentSelfmenuInfo(ctx)
 
@@ -49,12 +39,7 @@ func ExampleGetCurrentSelfmenuInfo() {
 }
 
 func ExampleDelete() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := menu.Delete(ctx)
 
@@ -62,12 +47,7 @@ func ExampleDelete() {
 }
 
 func ExampleAddConditional() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := menu.AddConditional(ctx, payload)
@@ -76,12 +56,7 @@ func ExampleAddConditional() {
 }
 
 func ExampleDelConditional() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := menu.DelConditional(ctx, payload)
@@ -90,12 +65,7 @@ func ExampleDelConditional() {
 }
 
 func ExampleTryMatch() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := menu.TryMatch(ctx, payload)
@@ -104,12 +74,7 @@ func ExampleTryMatch() {
 }
 
 func ExampleGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := menu.Get(ctx)
 

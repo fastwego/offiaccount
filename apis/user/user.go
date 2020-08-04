@@ -42,7 +42,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Configurin
 POST https://api.weixin.qq.com/cgi-bin/user/info/updateremark?access_token=ACCESS_TOKEN
 */
 func UpdateRemark(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateRemark, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateRemark, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -68,7 +68,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_
 POST https://api.weixin.qq.com/cgi-bin/user/info/batchget?access_token=ACCESS_TOKEN
 */
 func BatchGetUserInfo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchGetUserInfo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchGetUserInfo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -94,7 +94,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_bla
 POST https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist?access_token=ACCESS_TOKEN
 */
 func GetBlackList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetBlackList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetBlackList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -107,7 +107,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_bla
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchblacklist?access_token=ACCESS_TOKEN
 */
 func BatchBlackList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchBlackList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchBlackList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -120,5 +120,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_bla
 POST https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist?access_token=ACCESS_TOKEN
 */
 func BatchUnBlackList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchUnBlackList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchUnBlackList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

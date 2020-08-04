@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleGetCallbackIp() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := util.GetCallbackIp(ctx)
 
@@ -35,12 +30,7 @@ func ExampleGetCallbackIp() {
 }
 
 func ExampleGetApiDomainIp() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := util.GetApiDomainIp(ctx)
 
@@ -48,12 +38,7 @@ func ExampleGetApiDomainIp() {
 }
 
 func ExampleCallbackCheck() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := util.CallbackCheck(ctx, payload)
@@ -62,12 +47,7 @@ func ExampleCallbackCheck() {
 }
 
 func ExampleClearQuota() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := util.ClearQuota(ctx, payload)

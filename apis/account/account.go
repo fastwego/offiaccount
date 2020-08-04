@@ -36,7 +36,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generat
 POST https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token=TOKEN
 */
 func CreateQRCode(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCreateQRCode, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCreateQRCode, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -49,5 +49,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Account_Management/URL_Sho
 POST https://api.weixin.qq.com/cgi-bin/shorturl?access_token=ACCESS_TOKEN
 */
 func ShortUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiShortUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiShortUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

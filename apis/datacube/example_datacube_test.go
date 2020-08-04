@@ -23,12 +23,7 @@ import (
 )
 
 func ExampleGetUserSummary() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUserSummary(ctx, payload)
@@ -37,12 +32,7 @@ func ExampleGetUserSummary() {
 }
 
 func ExampleGetUserCumulate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUserCumulate(ctx, payload)
@@ -51,12 +41,7 @@ func ExampleGetUserCumulate() {
 }
 
 func ExampleGetArticleSummary() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetArticleSummary(ctx, payload)
@@ -65,12 +50,7 @@ func ExampleGetArticleSummary() {
 }
 
 func ExampleGetArticleTotal() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetArticleTotal(ctx, payload)
@@ -79,12 +59,7 @@ func ExampleGetArticleTotal() {
 }
 
 func ExampleGetUserRead() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUserRead(ctx, payload)
@@ -93,12 +68,7 @@ func ExampleGetUserRead() {
 }
 
 func ExampleGetUserReadHour() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUserReadHour(ctx, payload)
@@ -107,12 +77,7 @@ func ExampleGetUserReadHour() {
 }
 
 func ExampleGetUserShare() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUserShare(ctx, payload)
@@ -121,12 +86,7 @@ func ExampleGetUserShare() {
 }
 
 func ExampleGetUserShareHour() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUserShareHour(ctx, payload)
@@ -135,12 +95,7 @@ func ExampleGetUserShareHour() {
 }
 
 func ExampleGetUpstreamMsg() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsg(ctx, payload)
@@ -149,12 +104,7 @@ func ExampleGetUpstreamMsg() {
 }
 
 func ExampleGetUpstreamMsgHour() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsgHour(ctx, payload)
@@ -163,12 +113,7 @@ func ExampleGetUpstreamMsgHour() {
 }
 
 func ExampleGetUpstreamMsgWeek() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsgWeek(ctx, payload)
@@ -177,12 +122,7 @@ func ExampleGetUpstreamMsgWeek() {
 }
 
 func ExampleGetUpstreamMsgMonth() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsgMonth(ctx, payload)
@@ -191,12 +131,7 @@ func ExampleGetUpstreamMsgMonth() {
 }
 
 func ExampleGetUpstreamMsgDist() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsgDist(ctx, payload)
@@ -205,12 +140,7 @@ func ExampleGetUpstreamMsgDist() {
 }
 
 func ExampleGetUpstreamMsgDistWeek() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsgDistWeek(ctx, payload)
@@ -219,12 +149,7 @@ func ExampleGetUpstreamMsgDistWeek() {
 }
 
 func ExampleGetUpstreamMsgDistMonth() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetUpstreamMsgDistMonth(ctx, payload)
@@ -233,12 +158,7 @@ func ExampleGetUpstreamMsgDistMonth() {
 }
 
 func ExamplePublisherStat() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	params := url.Values{}
 	resp, err := datacube.PublisherStat(ctx, params)
@@ -247,12 +167,7 @@ func ExamplePublisherStat() {
 }
 
 func ExampleGetInterfaceSummary() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetInterfaceSummary(ctx, payload)
@@ -261,12 +176,7 @@ func ExampleGetInterfaceSummary() {
 }
 
 func ExampleGetInterfaceSummaryHour() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := datacube.GetInterfaceSummaryHour(ctx, payload)

@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleSetIndustry() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := template.SetIndustry(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleSetIndustry() {
 }
 
 func ExampleGetIndustry() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := template.GetIndustry(ctx)
 
@@ -49,12 +39,7 @@ func ExampleGetIndustry() {
 }
 
 func ExampleAddTemplate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := template.AddTemplate(ctx, payload)
@@ -63,12 +48,7 @@ func ExampleAddTemplate() {
 }
 
 func ExampleGetAllPrivateTemplate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := template.GetAllPrivateTemplate(ctx)
 
@@ -76,12 +56,7 @@ func ExampleGetAllPrivateTemplate() {
 }
 
 func ExampleDelPrivateTemplate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := template.DelPrivateTemplate(ctx, payload)
@@ -90,12 +65,7 @@ func ExampleDelPrivateTemplate() {
 }
 
 func ExampleSend() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := template.Send(ctx, payload)
@@ -104,12 +74,7 @@ func ExampleSend() {
 }
 
 func ExampleSubscribe() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := template.Subscribe(ctx, payload)

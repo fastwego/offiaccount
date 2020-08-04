@@ -39,7 +39,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-part
 POST https://api.weixin.qq.com/card/submerchant/submit?access_token=TOKEN
 */
 func Submit(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSubmit, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSubmit, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -52,7 +52,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-part
 POST https://api.weixin.qq.com/card/getapplyprotocol?access_token=TOKEN
 */
 func GetApplyProtocol(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetApplyProtocol, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetApplyProtocol, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -65,7 +65,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-part
 POST https://api.weixin.qq.com/card/submerchant/update?access_token=TOKEN
 */
 func Update(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -78,7 +78,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-part
 POST https://api.weixin.qq.com/card/submerchant/get?access_token=TOKEN
 */
 func Get(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -91,5 +91,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Third-part
 POST https://api.weixin.qq.com/card/submerchant/batchget?access_token=TOKEN
 */
 func BatchGet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

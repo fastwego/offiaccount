@@ -109,7 +109,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Pe
 POST https://api.weixin.qq.com/cgi-bin/material/add_news?access_token=ACCESS_TOKEN
 */
 func AddNews(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddNews, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddNews, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -194,7 +194,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Getting_P
 POST https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=ACCESS_TOKEN
 */
 func GetMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -207,7 +207,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Deleting_
 POST https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=ACCESS_TOKEN
 */
 func DelMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -220,7 +220,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Editing_P
 POST https://api.weixin.qq.com/cgi-bin/material/update_news?access_token=ACCESS_TOKEN
 */
 func UpdateNews(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateNews, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateNews, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -246,5 +246,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_mater
 POST https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN
 */
 func BatchgetMaterial(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiBatchgetMaterial, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiBatchgetMaterial, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

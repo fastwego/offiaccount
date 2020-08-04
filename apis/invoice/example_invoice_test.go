@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleGetAuthUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.GetAuthUrl(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleGetAuthUrl() {
 }
 
 func ExampleGetAuthData() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.GetAuthData(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleGetAuthData() {
 }
 
 func ExampleRejectInsert() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.RejectInsert(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleRejectInsert() {
 }
 
 func ExampleMakeOutInvoice() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.MakeOutInvoice(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleMakeOutInvoice() {
 }
 
 func ExampleClearOutInvoice() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.ClearOutInvoice(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleClearOutInvoice() {
 }
 
 func ExampleQueryInvoceInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.QueryInvoceInfo(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleQueryInvoceInfo() {
 }
 
 func ExampleSetUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.SetUrl(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleSetUrl() {
 }
 
 func ExamplePlatformCreateCard() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.PlatformCreateCard(ctx, payload)
@@ -134,12 +94,7 @@ func ExamplePlatformCreateCard() {
 }
 
 func ExamplePlatformSetpdf() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.PlatformSetpdf(ctx, payload)
@@ -148,12 +103,7 @@ func ExamplePlatformSetpdf() {
 }
 
 func ExamplePlatformGetpdf() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.PlatformGetpdf(ctx, payload)
@@ -162,12 +112,7 @@ func ExamplePlatformGetpdf() {
 }
 
 func ExampleInsert() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.Insert(ctx, payload)
@@ -176,12 +121,7 @@ func ExampleInsert() {
 }
 
 func ExamplePlatformUpdateStatus() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.PlatformUpdateStatus(ctx, payload)
@@ -190,12 +130,7 @@ func ExamplePlatformUpdateStatus() {
 }
 
 func ExampleReimburseGetInvoiceInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.ReimburseGetInvoiceInfo(ctx, payload)
@@ -204,12 +139,7 @@ func ExampleReimburseGetInvoiceInfo() {
 }
 
 func ExampleReimburseGetInvoiceBatch() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.ReimburseGetInvoiceBatch(ctx, payload)
@@ -218,12 +148,7 @@ func ExampleReimburseGetInvoiceBatch() {
 }
 
 func ExampleReimburseUpdateInvoiceStatus() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.ReimburseUpdateInvoiceStatus(ctx, payload)
@@ -232,12 +157,7 @@ func ExampleReimburseUpdateInvoiceStatus() {
 }
 
 func ExampleReimburseUpdateStatusBatch() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.ReimburseUpdateStatusBatch(ctx, payload)
@@ -246,12 +166,7 @@ func ExampleReimburseUpdateStatusBatch() {
 }
 
 func ExampleGetUserTitleUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.GetUserTitleUrl(ctx, payload)
@@ -260,12 +175,7 @@ func ExampleGetUserTitleUrl() {
 }
 
 func ExampleGetSelectTitleUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.GetSelectTitleUrl(ctx, payload)
@@ -274,12 +184,7 @@ func ExampleGetSelectTitleUrl() {
 }
 
 func ExampleScanTitle() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := invoice.ScanTitle(ctx, payload)

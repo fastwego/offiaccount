@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package buyer 客户管理
+// Package buyer 服务号对话能力（原微信导购助手）/客户管理
 package buyer
 
 import (
@@ -40,7 +40,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/addguidebuyerrelation?access_token=ACCESS_TOKEN
 */
 func AddGuideBuyerRelation(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuideBuyerRelation, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuideBuyerRelation, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -53,7 +53,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguidebuyerrelation?access_token=ACCESS_TOKEN
 */
 func DelGuideBuyerRelation(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideBuyerRelation, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideBuyerRelation, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -66,7 +66,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/rebindguideacctforbuyer?access_token=ACCESS_TOKEN
 */
 func RebindGuideAcctForBuyer(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiRebindGuideAcctForBuyer, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiRebindGuideAcctForBuyer, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -79,7 +79,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/updateguidebuyerrelation?access_token=ACCESS_TOKEN
 */
 func UpdateGuideBuyerRelation(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateGuideBuyerRelation, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateGuideBuyerRelation, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -92,7 +92,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyerrelationbybuyer?access_token=ACCESS_TOKEN
 */
 func GetGuideBuyerRelationByBuyer(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideBuyerRelationByBuyer, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideBuyerRelationByBuyer, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -105,5 +105,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyerrelation?access_token=ACCESS_TOKEN
 */
 func GetGuideBuyerRelation(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideBuyerRelation, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideBuyerRelation, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

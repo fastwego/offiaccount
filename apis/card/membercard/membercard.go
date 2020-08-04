@@ -44,7 +44,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mi
 POST https://api.weixin.qq.com/card/membercard/activate/geturl?access_token=
 */
 func ActivateGetUrl(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiActivateGetUrl, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiActivateGetUrl, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -57,7 +57,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mi
 POST https://api.weixin.qq.com/card/membercard/activatetempinfo/get?access_token=TOKEN
 */
 func ActivateTempInfoGet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiActivateTempInfoGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiActivateTempInfoGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -70,7 +70,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Coupons-Mi
 POST https://api.weixin.qq.com/card/membercard/activate?access_token=TOKEN
 */
 func Activate(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiActivate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiActivate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -83,7 +83,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/membercard/activateuserform/set?access_token=TOKEN
 */
 func ActivateUserFormSet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiActivateUserFormSet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiActivateUserFormSet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -96,7 +96,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/membercard/userinfo/get?access_token=TOKEN
 */
 func UserinfoGet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUserinfoGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUserinfoGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -109,7 +109,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/membercard/updateuser?access_token=TOKEN
 */
 func UpdateUser(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateUser, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateUser, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -122,7 +122,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/paygiftcard/add?access_token=TOKEN
 */
 func PayGiftcardAdd(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPayGiftcardAdd, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPayGiftcardAdd, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -135,7 +135,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/paygiftcard/delete?access_token=TOKEN
 */
 func PayGiftcardDelete(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPayGiftcardDelete, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPayGiftcardDelete, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -148,7 +148,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/paygiftcard/getbyid?access_token=TOKEN
 */
 func PayGiftcardGetById(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPayGiftcardGetById, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPayGiftcardGetById, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -161,5 +161,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Cards_and_Offer/Membership
 POST https://api.weixin.qq.com/card/paygiftcard/batchget?access_token=TOKEN
 */
 func PayGiftcardBatchGet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPayGiftcardBatchGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPayGiftcardBatchGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

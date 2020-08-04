@@ -60,7 +60,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/apply_merchant?access_token=TOKEN
 */
 func ApplyMerchant(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiApplyMerchant, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiApplyMerchant, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -86,7 +86,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/modify_merchant?access_token=TOKEN
 */
 func ModifyMerchant(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiModifyMerchant, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiModifyMerchant, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -112,7 +112,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/search_map_poi?access_token=TOKEN
 */
 func SearchMapPoi(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSearchMapPoi, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSearchMapPoi, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -125,7 +125,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/create_map_poi?access_token=TOKEN
 */
 func CreateMapPoi(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCreateMapPoi, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCreateMapPoi, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -138,7 +138,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/add_store?access_token=TOKEN
 */
 func AddStore(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddStore, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddStore, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -151,7 +151,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/update_store?access_token=TOKEN
 */
 func UpdateStore(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateStore, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateStore, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -164,7 +164,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/card/storewxa/get?access_token=ACCESS_TOKEN
 */
 func CardStorewxaGet(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCardStorewxaGet, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCardStorewxaGet, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -177,7 +177,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/get_store_info?access_token=TOKEN
 */
 func GetStoreInfo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetStoreInfo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetStoreInfo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -190,7 +190,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/get_store_list?access_token=TOKEN
 */
 func GetStoreList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetStoreList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetStoreList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -203,5 +203,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Shop_
 POST https://api.weixin.qq.com/wxa/del_store?access_token=TOKEN
 */
 func DelStore(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelStore, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelStore, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

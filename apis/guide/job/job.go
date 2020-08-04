@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package job 群发任务
+// Package job 服务号对话能力（原微信导购助手）/群发任务
 package job
 
 import (
@@ -39,7 +39,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/task-accoun
 POST https://api.weixin.qq.com/cgi-bin/guide/addguidemassendjob?access_token=ACCESS_TOKEN
 */
 func AddGuideMassendJob(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuideMassendJob, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuideMassendJob, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -52,7 +52,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/task-accoun
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidemassendjoblist?access_token=ACCESS_TOKEN
 */
 func GetGuideMassendJobList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideMassendJobList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideMassendJobList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -65,7 +65,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/task-accoun
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidemassendjob?access_token=ACCESS_TOKEN
 */
 func GetGuideMassendJob(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideMassendJob, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideMassendJob, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -78,7 +78,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/task-accoun
 POST https://api.weixin.qq.com/cgi-bin/guide/updateguidemassendjob?access_token=ACCESS_TOKEN
 */
 func UpdateGuideMassendJob(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateGuideMassendJob, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateGuideMassendJob, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -91,5 +91,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/task-accoun
 POST https://api.weixin.qq.com/cgi-bin/guide/cancelguidemassendjob?access_token=ACCESS_TOKEN
 */
 func CancelGuideMassendJob(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiCancelGuideMassendJob, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiCancelGuideMassendJob, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

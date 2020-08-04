@@ -40,7 +40,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store
 POST https://api.weixin.qq.com/cgi-bin/poi/addpoi?access_token=TOKEN
 */
 func Addpoi(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddpoi, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddpoi, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -53,7 +53,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store
 POST https://api.weixin.qq.com/cgi-bin/poi/getpoi?access_token=TOKEN
 */
 func Getpoi(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetpoi, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetpoi, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -66,7 +66,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store
 POST https://api.weixin.qq.com/cgi-bin/poi/getpoilist?access_token=TOKEN
 */
 func GetPoiList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetPoiList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetPoiList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -79,7 +79,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store
 POST https://api.weixin.qq.com/cgi-bin/poi/updatepoi?access_token=TOKEN
 */
 func Updatepoi(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdatepoi, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdatepoi, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -92,7 +92,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store
 POST https://api.weixin.qq.com/cgi-bin/poi/delpoi?access_token=TOKEN
 */
 func Delpoi(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelpoi, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelpoi, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -105,5 +105,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/WeChat_Stores/WeChat_Store
 POST https://api.weixin.qq.com/cgi-bin/poi/getwxcategory?access_token=TOKEN
 */
 func GetWXCategory(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetWXCategory, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetWXCategory, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

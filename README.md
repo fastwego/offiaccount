@@ -29,7 +29,7 @@ A fast wechat offiaccount development framework written in Golang
 
 作为具体业务和微信公众号之间的中间层，专注于通道的角色：帮业务把配置/材料投递到公众号，将公众号响应/推送透传回业务
 
-至于 AccessToken 管理 和 消息加解密处理，框架内部完成得干净利落，开发者甚至觉察不到存在
+至于 [AccessToken 管理](./doc/access_token.md) 和 [消息加解密处理](./doc/message.md)，框架内部完成得干净利落，开发者甚至觉察不到存在
 
 ### 官方文档就是最好的文档
 
@@ -39,6 +39,10 @@ A fast wechat offiaccount development framework written in Golang
 
 100% 覆盖每一个接口，让你每一次调用都信心满满
 
+### 详细的日志
+
+每个关键环节都为你完整记录，Debug 倍轻松，你可以自由定义日志输出，甚至可以关闭日志
+
 ### 多账号支持
 
 一套服务支持多个微信公众号账号，轻松成为第三方开发服务平台，业务节节高
@@ -47,7 +51,7 @@ A fast wechat offiaccount development framework written in Golang
 
 单台服务器支撑不住访问流量/想提高服务可用性？
 
-只需重载 RefreshHandler 方法，从中控服务获取 AccessToken，即可解决多实例刷新冲突/覆盖的问题
+只需重载 GetAccessTokenFunc 方法，从中控服务获取 AccessToken，即可解决多实例刷新冲突/覆盖的问题
 
 ### 活跃的开发者社区
 

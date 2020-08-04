@@ -41,7 +41,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Templat
 POST https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKEN
 */
 func SetIndustry(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetIndustry, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetIndustry, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -67,7 +67,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Templat
 POST https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=ACCESS_TOKEN
 */
 func AddTemplate(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddTemplate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddTemplate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -93,7 +93,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Templat
 POST https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token=ACCESS_TOKEN
 */
 func DelPrivateTemplate(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelPrivateTemplate, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelPrivateTemplate, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -106,7 +106,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Templat
 POST https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
 */
 func Send(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSend, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSend, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -119,5 +119,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-tim
 POST https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=ACCESS_TOKEN
 */
 func Subscribe(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSubscribe, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSubscribe, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

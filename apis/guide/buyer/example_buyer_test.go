@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleAddGuideBuyerRelation() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := buyer.AddGuideBuyerRelation(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleAddGuideBuyerRelation() {
 }
 
 func ExampleDelGuideBuyerRelation() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := buyer.DelGuideBuyerRelation(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleDelGuideBuyerRelation() {
 }
 
 func ExampleRebindGuideAcctForBuyer() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := buyer.RebindGuideAcctForBuyer(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleRebindGuideAcctForBuyer() {
 }
 
 func ExampleUpdateGuideBuyerRelation() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := buyer.UpdateGuideBuyerRelation(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleUpdateGuideBuyerRelation() {
 }
 
 func ExampleGetGuideBuyerRelationByBuyer() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := buyer.GetGuideBuyerRelationByBuyer(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleGetGuideBuyerRelationByBuyer() {
 }
 
 func ExampleGetGuideBuyerRelation() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := buyer.GetGuideBuyerRelation(ctx, payload)

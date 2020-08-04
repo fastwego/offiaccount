@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleGetBillAuthUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.GetBillAuthUrl(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleGetBillAuthUrl() {
 }
 
 func ExampleCreateBillCard() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.CreateBillCard(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleCreateBillCard() {
 }
 
 func ExampleInsertBill() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.InsertBill(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleInsertBill() {
 }
 
 func ExampleQueryFee() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.QueryFee(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleQueryFee() {
 }
 
 func ExampleUnifiedOrder() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.UnifiedOrder(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleUnifiedOrder() {
 }
 
 func ExampleGetOrder() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.GetOrder(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleGetOrder() {
 }
 
 func ExampleRefund() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.Refund(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleRefund() {
 }
 
 func ExampleDownloadBill() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.DownloadBill(ctx, payload)
@@ -134,12 +94,7 @@ func ExampleDownloadBill() {
 }
 
 func ExampleNotifyInconsistentOrder() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.NotifyInconsistentOrder(ctx, payload)
@@ -148,12 +103,7 @@ func ExampleNotifyInconsistentOrder() {
 }
 
 func ExampleMockNotification() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.MockNotification(ctx, payload)
@@ -162,12 +112,7 @@ func ExampleMockNotification() {
 }
 
 func ExampleMockQueryFee() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.MockQueryFee(ctx, payload)
@@ -176,12 +121,7 @@ func ExampleMockQueryFee() {
 }
 
 func ExampleMicroPay() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.MicroPay(ctx, payload)
@@ -190,12 +130,7 @@ func ExampleMicroPay() {
 }
 
 func ExampleGetOrderList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.GetOrderList(ctx, payload)
@@ -204,12 +139,7 @@ func ExampleGetOrderList() {
 }
 
 func ExampleRealNameGetAuthUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.RealNameGetAuthUrl(ctx, payload)
@@ -218,12 +148,7 @@ func ExampleRealNameGetAuthUrl() {
 }
 
 func ExampleGetRealName() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := nontax.GetRealName(ctx, payload)

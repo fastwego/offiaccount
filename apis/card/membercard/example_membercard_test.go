@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleActivateGetUrl() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.ActivateGetUrl(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleActivateGetUrl() {
 }
 
 func ExampleActivateTempInfoGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.ActivateTempInfoGet(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleActivateTempInfoGet() {
 }
 
 func ExampleActivate() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.Activate(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleActivate() {
 }
 
 func ExampleActivateUserFormSet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.ActivateUserFormSet(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleActivateUserFormSet() {
 }
 
 func ExampleUserinfoGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.UserinfoGet(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleUserinfoGet() {
 }
 
 func ExampleUpdateUser() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.UpdateUser(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleUpdateUser() {
 }
 
 func ExamplePayGiftcardAdd() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.PayGiftcardAdd(ctx, payload)
@@ -120,12 +85,7 @@ func ExamplePayGiftcardAdd() {
 }
 
 func ExamplePayGiftcardDelete() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.PayGiftcardDelete(ctx, payload)
@@ -134,12 +94,7 @@ func ExamplePayGiftcardDelete() {
 }
 
 func ExamplePayGiftcardGetById() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.PayGiftcardGetById(ctx, payload)
@@ -148,12 +103,7 @@ func ExamplePayGiftcardGetById() {
 }
 
 func ExamplePayGiftcardBatchGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := membercard.PayGiftcardBatchGet(ctx, payload)

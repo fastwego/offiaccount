@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package guide 顾问管理
+// Package guide 服务号对话能力（原微信导购助手）/顾问管理
 package guide
 
 import (
@@ -54,7 +54,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguideacct?access_token=ACCESS_TOKEN
 */
 func GetGuideAcct(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideAcct, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideAcct, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -67,7 +67,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/addguideacct?access_token=ACCESS_TOKEN
 */
 func AddGuideAcct(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuideAcct, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuideAcct, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -80,7 +80,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/updateguideacct?access_token=ACCESS_TOKEN
 */
 func UpdateGuideAcct(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiUpdateGuideAcct, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiUpdateGuideAcct, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -93,7 +93,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguideacct?access_token=ACCESS_TOKEN
 */
 func DelGuideAcct(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideAcct, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideAcct, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -106,7 +106,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguideacctlist?access_token=ACCESS_TOKEN
 */
 func GetGuideAcctList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideAcctList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideAcctList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -119,11 +119,11 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/guidecreateqrcode?access_token=ACCESS_TOKEN
 */
 func GuideCreateQrCode(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGuideCreateQrCode, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGuideCreateQrCode, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
-/cgi-bin/guide/getguidebuyerchatrecord
+获取顾问聊天记录
 
 
 
@@ -132,7 +132,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyerchatrecord?access_token=ACCESS_TOKEN
 */
 func GetGuideBuyerChatRecord(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideBuyerChatRecord, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideBuyerChatRecord, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -145,7 +145,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/setguideconfig?access_token=ACCESS_TOKEN
 */
 func SetGuideConfig(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetGuideConfig, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetGuideConfig, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -158,7 +158,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguideconfig?access_token=ACCESS_TOKEN
 */
 func GetGuideConfig(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideConfig, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideConfig, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -171,7 +171,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/setguideacctconfig?access_token=ACCESS_TOKEN
 */
 func SetGuideAcctConfig(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetGuideAcctConfig, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetGuideAcctConfig, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -184,7 +184,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguideacctconfig?access_token=ACCESS_TOKEN
 */
 func GetGuideAcctConfig(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideAcctConfig, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideAcctConfig, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -197,7 +197,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/pushshowwxapathmenu?access_token=ACCESS_TOKEN
 */
 func PushShowWxaPathMenu(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiPushShowWxaPathMenu, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiPushShowWxaPathMenu, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -210,7 +210,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/newguidegroup?access_token=ACCESS_TOKEN
 */
 func NewGuideGroup(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiNewGuideGroup, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiNewGuideGroup, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -223,7 +223,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidegrouplist?access_token=ACCESS_TOKEN
 */
 func GetGuideGroupList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideGroupList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideGroupList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -236,7 +236,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getgroupinfo?access_token=ACCESS_TOKEN
 */
 func GetGroupInfo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGroupInfo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGroupInfo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -249,7 +249,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/addguide2guidegroup?access_token=ACCESS_TOKEN
 */
 func AddGuide2GuideGroup(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuide2GuideGroup, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuide2GuideGroup, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -262,7 +262,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguide2guidegroup?access_token=ACCESS_TOKEN
 */
 func DelGuide2GuideGroup(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuide2GuideGroup, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuide2GuideGroup, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -275,7 +275,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getgroupbyguide?access_token=ACCESS_TOKEN
 */
 func GetGroupByGuide(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGroupByGuide, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGroupByGuide, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -288,7 +288,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/guide-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/delguidegroup?access_token=ACCESS_TOKEN
 */
 func DelGuideGroup(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideGroup, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideGroup, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -301,5 +301,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/buyer-accou
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyerrelationlist?access_token=ACCESS_TOKEN
 */
 func GetGuideBuyerRelationList(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideBuyerRelationList, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideBuyerRelationList, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

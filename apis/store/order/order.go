@@ -38,7 +38,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/order/getbyid?access_token=ACCESS_TOKEN
 */
 func GetById(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetById, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetById, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -51,7 +51,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/order/getbyfilter?access_token=ACCESS_TOKEN
 */
 func GetByFilter(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetByFilter, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetByFilter, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -64,7 +64,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/order/setdelivery?access_token=ACCESS_TOKEN
 */
 func SetDelivery(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiSetDelivery, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiSetDelivery, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -77,5 +77,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Instant_Stores/WeChat_Stor
 POST https://api.weixin.qq.com/merchant/order/close?access_token=ACCESS_TOKEN
 */
 func Close(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiClose, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiClose, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

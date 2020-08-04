@@ -38,7 +38,7 @@ See: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=115337
 POST https://api.weixin.qq.com/scan/product/v2/add?access_token=ACCESS_TOKEN
 */
 func ProductAdd(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiProductAdd, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiProductAdd, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -51,7 +51,7 @@ See: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=115337
 POST https://api.weixin.qq.com/scan/product/v2/status?access_token=ACCESS_TOKEN
 */
 func ProductStatus(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiProductStatus, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiProductStatus, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -64,7 +64,7 @@ See: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=115337
 POST https://api.weixin.qq.com/scan/product/v2/getinfo?access_token=ACCESS_TOKEN
 */
 func ProductGetInfo(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiProductGetInfo, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiProductGetInfo, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -77,5 +77,5 @@ See: https://mp.weixin.qq.com/cgi-bin/announce?action=getannouncement&key=115337
 POST https://api.weixin.qq.com/scan/product/v2/getinfobypage?access_token=ACCESS_TOKEN
 */
 func ProductGetInfoByPage(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiProductGetInfoByPage, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiProductGetInfoByPage, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

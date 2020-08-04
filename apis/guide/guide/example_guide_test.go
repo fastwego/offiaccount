@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleGetGuideAcct() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideAcct(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleGetGuideAcct() {
 }
 
 func ExampleAddGuideAcct() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.AddGuideAcct(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleAddGuideAcct() {
 }
 
 func ExampleUpdateGuideAcct() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.UpdateGuideAcct(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleUpdateGuideAcct() {
 }
 
 func ExampleDelGuideAcct() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.DelGuideAcct(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleDelGuideAcct() {
 }
 
 func ExampleGetGuideAcctList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideAcctList(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleGetGuideAcctList() {
 }
 
 func ExampleGuideCreateQrCode() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GuideCreateQrCode(ctx, payload)
@@ -106,12 +76,7 @@ func ExampleGuideCreateQrCode() {
 }
 
 func ExampleGetGuideBuyerChatRecord() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideBuyerChatRecord(ctx, payload)
@@ -120,12 +85,7 @@ func ExampleGetGuideBuyerChatRecord() {
 }
 
 func ExampleSetGuideConfig() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.SetGuideConfig(ctx, payload)
@@ -134,12 +94,7 @@ func ExampleSetGuideConfig() {
 }
 
 func ExampleGetGuideConfig() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideConfig(ctx, payload)
@@ -148,12 +103,7 @@ func ExampleGetGuideConfig() {
 }
 
 func ExampleSetGuideAcctConfig() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.SetGuideAcctConfig(ctx, payload)
@@ -162,12 +112,7 @@ func ExampleSetGuideAcctConfig() {
 }
 
 func ExampleGetGuideAcctConfig() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideAcctConfig(ctx, payload)
@@ -176,12 +121,7 @@ func ExampleGetGuideAcctConfig() {
 }
 
 func ExamplePushShowWxaPathMenu() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.PushShowWxaPathMenu(ctx, payload)
@@ -190,12 +130,7 @@ func ExamplePushShowWxaPathMenu() {
 }
 
 func ExampleNewGuideGroup() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.NewGuideGroup(ctx, payload)
@@ -204,12 +139,7 @@ func ExampleNewGuideGroup() {
 }
 
 func ExampleGetGuideGroupList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideGroupList(ctx, payload)
@@ -218,12 +148,7 @@ func ExampleGetGuideGroupList() {
 }
 
 func ExampleGetGroupInfo() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGroupInfo(ctx, payload)
@@ -232,12 +157,7 @@ func ExampleGetGroupInfo() {
 }
 
 func ExampleAddGuide2GuideGroup() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.AddGuide2GuideGroup(ctx, payload)
@@ -246,12 +166,7 @@ func ExampleAddGuide2GuideGroup() {
 }
 
 func ExampleDelGuide2GuideGroup() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.DelGuide2GuideGroup(ctx, payload)
@@ -260,12 +175,7 @@ func ExampleDelGuide2GuideGroup() {
 }
 
 func ExampleGetGroupByGuide() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGroupByGuide(ctx, payload)
@@ -274,12 +184,7 @@ func ExampleGetGroupByGuide() {
 }
 
 func ExampleDelGuideGroup() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.DelGuideGroup(ctx, payload)
@@ -288,12 +193,7 @@ func ExampleDelGuideGroup() {
 }
 
 func ExampleGetGuideBuyerRelationList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := guide.GetGuideBuyerRelationList(ctx, payload)

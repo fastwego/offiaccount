@@ -22,12 +22,7 @@ import (
 )
 
 func ExampleAddpoi() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := poi.Addpoi(ctx, payload)
@@ -36,12 +31,7 @@ func ExampleAddpoi() {
 }
 
 func ExampleGetpoi() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := poi.Getpoi(ctx, payload)
@@ -50,12 +40,7 @@ func ExampleGetpoi() {
 }
 
 func ExampleGetPoiList() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := poi.GetPoiList(ctx, payload)
@@ -64,12 +49,7 @@ func ExampleGetPoiList() {
 }
 
 func ExampleUpdatepoi() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := poi.Updatepoi(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleUpdatepoi() {
 }
 
 func ExampleDelpoi() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := poi.Delpoi(ctx, payload)
@@ -92,12 +67,7 @@ func ExampleDelpoi() {
 }
 
 func ExampleGetWXCategory() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := poi.GetWXCategory(ctx, payload)

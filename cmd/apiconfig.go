@@ -376,7 +376,7 @@ var apiConfig = []ApiGroup{
 		},
 	},
 	{
-		Name:    `微信网页开发(oauth)`,
+		Name:    `微信网页开发`,
 		Package: `oauth`,
 		Apis: []Api{
 			{

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package tag 标签管理
+// Package tag 服务号对话能力（原微信导购助手）/标签管理
 package tag
 
 import (
@@ -44,7 +44,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/newguidetagoption?access_token=ACCESS_TOKEN
 */
 func NewGuideTagOption(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiNewGuideTagOption, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiNewGuideTagOption, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -57,7 +57,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/delguidetagoption?access_token=ACCESS_TOKEN
 */
 func Delguidetagoption(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelguidetagoption, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelguidetagoption, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -70,7 +70,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/addguidetagoption?access_token=ACCESS_TOKEN
 */
 func AddGuideTagOption(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuideTagOption, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuideTagOption, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -83,7 +83,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidetagoption?access_token=ACCESS_TOKEN
 */
 func GetGuideTagOption(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideTagOption, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideTagOption, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -96,7 +96,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/addguidebuyertag?access_token=ACCESS_TOKEN
 */
 func AddGuideBuyerTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuideBuyerTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuideBuyerTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -109,7 +109,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyertag?access_token=ACCESS_TOKEN
 */
 func GetGuideBuyerTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideBuyerTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideBuyerTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -122,7 +122,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/queryguidebuyerbytag?access_token=ACCESS_TOKEN
 */
 func QueryGuideBuyerByTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiQueryGuideBuyerByTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiQueryGuideBuyerByTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -135,7 +135,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/delguidebuyertag?access_token=ACCESS_TOKEN
 */
 func DelGuideBuyerTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiDelGuideBuyerTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiDelGuideBuyerTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -148,7 +148,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/addguidebuyerdisplaytag?access_token=ACCESS_TOKEN
 */
 func AddGuideBuyerDisplayTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiAddGuideBuyerDisplayTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiAddGuideBuyerDisplayTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }
 
 /*
@@ -161,5 +161,5 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Shopping_Guide/tag-account
 POST https://api.weixin.qq.com/cgi-bin/guide/getguidebuyerdisplaytag?access_token=ACCESS_TOKEN
 */
 func GetGuideBuyerDisplayTag(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err error) {
-	return ctx.Client.HTTPPost(apiGetGuideBuyerDisplayTag, bytes.NewBuffer(payload), "application/json;charset=utf-8")
+	return ctx.Client.HTTPPost(apiGetGuideBuyerDisplayTag, bytes.NewReader(payload), "application/json;charset=utf-8")
 }

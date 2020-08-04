@@ -23,12 +23,7 @@ import (
 )
 
 func ExampleMediaUpload() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	media := ""
 	resp, err := material.MediaUpload(ctx, media)
@@ -37,12 +32,7 @@ func ExampleMediaUpload() {
 }
 
 func ExampleMediaGet() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := material.MediaGet(ctx)
 
@@ -50,12 +40,7 @@ func ExampleMediaGet() {
 }
 
 func ExampleMediaGetJssdk() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	params := url.Values{}
 	resp, err := material.MediaGetJssdk(ctx, params)
@@ -64,12 +49,7 @@ func ExampleMediaGetJssdk() {
 }
 
 func ExampleAddNews() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.AddNews(ctx, payload)
@@ -78,12 +58,7 @@ func ExampleAddNews() {
 }
 
 func ExampleMediaUploadImg() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	media := ""
 	resp, err := material.MediaUploadImg(ctx, media)
@@ -92,12 +67,7 @@ func ExampleMediaUploadImg() {
 }
 
 func ExampleAddMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	media := ""
 	payload := []byte("{}")
@@ -107,12 +77,7 @@ func ExampleAddMaterial() {
 }
 
 func ExampleGetMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.GetMaterial(ctx, payload)
@@ -121,12 +86,7 @@ func ExampleGetMaterial() {
 }
 
 func ExampleDelMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.DelMaterial(ctx, payload)
@@ -135,12 +95,7 @@ func ExampleDelMaterial() {
 }
 
 func ExampleUpdateNews() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.UpdateNews(ctx, payload)
@@ -149,12 +104,7 @@ func ExampleUpdateNews() {
 }
 
 func ExampleGetMaterialCount() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	resp, err := material.GetMaterialCount(ctx)
 
@@ -162,12 +112,7 @@ func ExampleGetMaterialCount() {
 }
 
 func ExampleBatchgetMaterial() {
-	ctx := offiaccount.New(offiaccount.OffiAccountConfig{
-		Appid:          "APPID",
-		Secret:         "SECRET",
-		Token:          "TOKEN",
-		EncodingAESKey: "EncodingAESKey",
-	})
+	var ctx *offiaccount.OffiAccount
 
 	payload := []byte("{}")
 	resp, err := material.BatchgetMaterial(ctx, payload)

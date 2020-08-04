@@ -27,7 +27,8 @@ import (
 	"github.com/faabiosr/cachego/file"
 )
 
-type RefreshAccessTokenFunc func(appid string, secret string) (accessToken string, expiresIn int, err error)
+// GetAccessTokenFunc 获取 access_token 方法接口
+type GetAccessTokenFunc func(ctx *OffiAccount) (accessToken string, err error)
 
 /*
 OffiAccount 公众号实例
@@ -44,8 +45,8 @@ type OffiAccount struct {
 AccessToken 管理器 处理缓存 和 刷新 逻辑
 */
 type AccessToken struct {
-	Cache          cachego.Cache
-	RefreshHandler RefreshAccessTokenFunc
+	Cache                 cachego.Cache
+	GetAccessTokenHandler GetAccessTokenFunc
 }
 
 /*
@@ -65,8 +66,8 @@ func New(config OffiAccountConfig) (offiAccount *OffiAccount) {
 	instance := OffiAccount{
 		Config: config,
 		AccessToken: AccessToken{
-			Cache:          file.New(os.TempDir()),
-			RefreshHandler: refreshAccessTokenFromWXServer,
+			Cache:                 file.New(os.TempDir()),
+			GetAccessTokenHandler: GetAccessToken,
 		},
 	}
 
@@ -88,17 +89,12 @@ func (offiAccount *OffiAccount) SetAccessTokenCacheDriver(driver cachego.Cache) 
 }
 
 /*
-SetRefreshAccessTokenHandler 设置 AccessToken 获取方法。默认 从微信服务器获取
+SetGetAccessTokenHandler 设置 AccessToken 获取方法。默认 从本地缓存获取（过期从微信接口刷新）
 
-如果有多实例服务，可以设置为 Redis 或 数据库 等中控服务器 获取 就可以避免 AccessToken 刷新冲突
+如果有多实例服务，可以设置为 Redis 或 RPC 等中控服务器 获取 就可以避免 AccessToken 刷新冲突
 */
-func (offiAccount *OffiAccount) SetRefreshAccessTokenHandler(f RefreshAccessTokenFunc) {
-	offiAccount.AccessToken.RefreshHandler = f
-}
-
-// DeleteAccessTokenCache 删除本地 AccessToken ，从而强制刷新
-func (offiAccount *OffiAccount) DeleteAccessTokenCache() {
-	offiAccount.AccessToken.Cache.Delete(offiAccount.Config.Appid)
+func (offiAccount *OffiAccount) SetGetAccessTokenHandler(f GetAccessTokenFunc) {
+	offiAccount.AccessToken.GetAccessTokenHandler = f
 }
 
 /*
