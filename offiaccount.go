@@ -102,7 +102,7 @@ SetLogger 日志记录 默认输出到 os.Stdout
 
 可以新建 logger 输出到指定文件
 
-如果不想开启日志，可以输出到 /dev/null log.SetOutput(ioutil.Discard)
+如果不想开启日志，可以 SetLogger(nil)
 */
 func (offiAccount *OffiAccount) SetLogger(logger *log.Logger) {
 	offiAccount.Logger = logger

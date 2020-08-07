@@ -2,8 +2,34 @@
 
 A fast wechat offiaccount development framework written in Golang
 
-## 演示 Demo
+## 快速开始 & demo
 
+```shell script
+go get github.com/fastwego/offiaccount
+```
+```go
+app := offiaccount.New(offiaccount.OffiAccountConfig{
+    Appid:  "APPID",
+    Secret: "SECRET",
+})
+
+payload := []byte(`
+{
+     "button":[
+     {
+           "name":"菜单",
+           "sub_button":[
+           {	
+               "type":"view",
+               "name":"搜索",
+               "url":"http://www.baidu.com/"
+            }]
+       }]
+}`)
+
+resp, err := menu.Create(app, payload)
+fmt.Println(resp, err)
+```
 [https://github.com/fastwego/offiaccount-demo](https://github.com/fastwego/offiaccount-demo)
 
 ## 架构设计
@@ -17,7 +43,7 @@ A fast wechat offiaccount development framework written in Golang
 「快」作为框架设计的核心理念，体现在方方面面：
 
 - 使用 Go 语言，开发快、编译快、部署快、运行快，轻松服务海量用户
-- 丰富的文档、教程和演示代码，快速上手，5 分钟即可搭建一套完整的微信公众号服务
+- 丰富的[文档](https://pkg.go.dev/github.com/fastwego/offiaccount) / [教程](./doc/SUMMARY.md) 和 [演示代码](https://github.com/fastwego/offiaccount-demo) ，快速上手，5 分钟即可搭建一套完整的微信公众号服务
 - 独立清晰的模块划分，快速熟悉整个框架，没有意外，一切都是你期望的样子
 - 甚至连框架自身的大部分代码也是自动生成的，维护更新快到超乎想象
 
