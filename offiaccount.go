@@ -34,7 +34,7 @@ type GetAccessTokenFunc func(ctx *OffiAccount) (accessToken string, err error)
 OffiAccount 公众号实例
 */
 type OffiAccount struct {
-	Config      OffiAccountConfig
+	Config      Config
 	AccessToken AccessToken
 	Client      Client
 	Server      Server
@@ -52,7 +52,7 @@ type AccessToken struct {
 /*
 公众号配置
 */
-type OffiAccountConfig struct {
+type Config struct {
 	Appid          string
 	Secret         string
 	Token          string
@@ -62,7 +62,7 @@ type OffiAccountConfig struct {
 /*
 创建公众号实例
 */
-func New(config OffiAccountConfig) (offiAccount *OffiAccount) {
+func New(config Config) (offiAccount *OffiAccount) {
 	instance := OffiAccount{
 		Config: config,
 		AccessToken: AccessToken{

@@ -32,7 +32,7 @@ var onceSetup sync.Once
 func Setup() {
 	onceSetup.Do(func() {
 
-		MockOffiAccount = offiaccount.New(offiaccount.OffiAccountConfig{
+		MockOffiAccount = offiaccount.New(offiaccount.Config{
 			Appid:          "APPID",
 			Secret:         "SECRET",
 			Token:          "TOKEN",

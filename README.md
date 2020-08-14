@@ -8,7 +8,7 @@ A fast wechat offiaccount development framework written in Golang
 go get github.com/fastwego/offiaccount
 ```
 ```go
-app := offiaccount.New(offiaccount.OffiAccountConfig{
+app := offiaccount.New(offiaccount.Config{
     Appid:  "APPID",
     Secret: "SECRET",
 })
@@ -30,7 +30,14 @@ payload := []byte(`
 resp, err := menu.Create(app, payload)
 fmt.Println(resp, err)
 ```
+
+完整的演示项目：
+
 [https://github.com/fastwego/offiaccount-demo](https://github.com/fastwego/offiaccount-demo)
+
+接口列表：
+
+[doc/apilist.md](doc/apilist.md)
 
 ## 架构设计
 
@@ -77,7 +84,7 @@ fmt.Println(resp, err)
 
 单台服务器支撑不住访问流量/想提高服务可用性？
 
-只需重载 GetAccessTokenFunc 方法，从中控服务获取 AccessToken，即可解决多实例刷新冲突/覆盖的问题
+只需 [设置 GetAccessTokenFunc 方法](https://pkg.go.dev/github.com/fastwego/offiaccount/?tab=doc#example-OffiAccount.SetGetAccessTokenHandler) ，从中控服务获取 AccessToken，即可解决多实例刷新冲突/覆盖的问题
 
 ### 活跃的开发者社区
 
@@ -85,9 +92,6 @@ FastWeGo 是一套完整的微信开发框架，包括公众号、开放平台�
 
 你遇到的所有问题几乎都可以在社区找到解决方案
 
-## 接口列表
-
-[doc/apilist.md](doc/apilist.md)
 
 ## 参与贡献
 

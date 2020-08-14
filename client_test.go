@@ -23,7 +23,7 @@ import (
 
 func TestClient_getAccessToken(t *testing.T) {
 
-	var MockOffiAccount = New(OffiAccountConfig{
+	var MockOffiAccount = New(Config{
 		Appid:  "TestClient_getAccessToken",
 		Secret: "SECRET",
 	})

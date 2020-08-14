@@ -32,7 +32,7 @@ import (
 var MockOffiAccount *OffiAccount
 
 func TestMain(m *testing.M) {
-	MockOffiAccount = New(OffiAccountConfig{
+	MockOffiAccount = New(Config{
 		Appid:  "TestClient_getAccessToken",
 		Secret: "SECRET",
 	})
@@ -151,7 +151,7 @@ func TestReplyMessage(t *testing.T) {
 }
 
 func TestServer_EchoStr(t *testing.T) {
-	MockOffiAccount := New(OffiAccountConfig{
+	MockOffiAccount := New(Config{
 		Token: "TOKEN",
 	})
 	s := &Server{
