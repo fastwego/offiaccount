@@ -2,6 +2,9 @@
 
 A fast wechat offiaccount development framework written in Golang
 
+[![GoDoc](https://pkg.go.dev/badge/github.com/fastwego/offiaccount?status.svg)](https://pkg.go.dev/github.com/fastwego/offiaccount?tab=doc)
+[![Go Report Card](https://goreportcard.com/badge/github.com/fastwego/offiaccount)](https://goreportcard.com/report/github.com/fastwego/offiaccount)
+
 ## 快速开始 & demo
 
 ```shell script
