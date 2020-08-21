@@ -11,11 +11,13 @@ A fast [wechat offiaccount](https://developers.weixin.qq.com/doc/offiaccount/Get
 go get github.com/fastwego/offiaccount
 ```
 ```go
+// 创建公众号实例
 app := offiaccount.New(offiaccount.Config{
     Appid:  "APPID",
     Secret: "SECRET",
 })
 
+// 调用 api
 payload := []byte(`
 {
      "button":[
