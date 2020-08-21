@@ -1,6 +1,6 @@
 # fastwego/offiaccount
 
-A fast [wechat offiaccount](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html) development framework written in Golang
+A fast [wechat offiaccount](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html) development sdk written in Golang
 
 [![GoDoc](https://pkg.go.dev/badge/github.com/fastwego/offiaccount?status.svg)](https://pkg.go.dev/github.com/fastwego/offiaccount?tab=doc)
 [![Go Report Card](https://goreportcard.com/badge/github.com/fastwego/offiaccount)](https://goreportcard.com/report/github.com/fastwego/offiaccount)
