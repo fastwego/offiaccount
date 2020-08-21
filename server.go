@@ -92,7 +92,7 @@ func (s *Server) ParseXML(body []byte) (m interface{}, err error) {
 
 	message := messagetype.Message{}
 	err = xml.Unmarshal(body, &message)
-	fmt.Println(message)
+	//fmt.Println(message)
 	if err != nil {
 		return
 	}
