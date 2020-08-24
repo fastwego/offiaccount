@@ -45,14 +45,14 @@ type Client struct {
 
 // HTTPGet GET 请求
 func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
-	uri, err = client.applyAccessToken(uri)
+	newUrl, err := client.applyAccessToken(uri)
 	if err != nil {
 		return
 	}
 	if client.Ctx.Logger != nil {
 		client.Ctx.Logger.Printf("GET %s", uri)
 	}
-	response, err := http.Get(WXServerUrl + uri)
+	response, err := http.Get(WXServerUrl + newUrl)
 	if err != nil {
 		return
 	}
@@ -65,14 +65,14 @@ func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
 			return
 		}
 
-		uri, err = client.applyAccessToken(uri)
+		newUrl, err = client.applyAccessToken(uri)
 		if err != nil {
 			return
 		}
 		if client.Ctx.Logger != nil {
-			client.Ctx.Logger.Printf("Refresh Access Token Second GET %s", uri)
+			client.Ctx.Logger.Printf("Refresh Access Token Second GET %s", newUrl)
 		}
-		response, err := http.Get(WXServerUrl + uri)
+		response, err := http.Get(WXServerUrl + newUrl)
 		if err != nil {
 			return
 		}
@@ -84,14 +84,14 @@ func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
 
 //HTTPPost POST 请求
 func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string) (resp []byte, err error) {
-	uri, err = client.applyAccessToken(uri)
+	newUrl, err := client.applyAccessToken(uri)
 	if err != nil {
 		return
 	}
 	if client.Ctx.Logger != nil {
 		client.Ctx.Logger.Printf("POST %s", uri)
 	}
-	response, err := http.Post(WXServerUrl+uri, contentType, payload)
+	response, err := http.Post(WXServerUrl+newUrl, contentType, payload)
 	if err != nil {
 		return
 	}
@@ -104,14 +104,14 @@ func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string
 			return
 		}
 
-		uri, err = client.applyAccessToken(uri)
+		newUrl, err = client.applyAccessToken(uri)
 		if err != nil {
 			return
 		}
 		if client.Ctx.Logger != nil {
-			client.Ctx.Logger.Printf("Refresh Access Token Second POST %s", uri)
+			client.Ctx.Logger.Printf("Refresh Access Token Second POST %s", newUrl)
 		}
-		response, err := http.Post(WXServerUrl+uri, contentType, payload)
+		response, err := http.Post(WXServerUrl+newUrl, contentType, payload)
 		if err != nil {
 			return
 		}
