@@ -168,12 +168,10 @@ func responseFilter(response *http.Response) (resp []byte, err error) {
 		err = NeedRefreshAccessTokenError
 		return
 	}
-
 	if errorResponse.Errcode != 0 {
 		err = errors.New(string(resp))
 		return
 	}
-
 	return
 }
 
