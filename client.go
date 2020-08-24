@@ -27,13 +27,11 @@ import (
 	"time"
 )
 
-/*
-微信 api 服务器地址
-*/
 var (
-	WXServerUrl                 = "https://api.weixin.qq.com"
-	NeedRefreshAccessTokenError = errors.New("access token invalid")
-	WXInvalidErrorCode          = map[int64]string{40001: "access_token 无效", 40014: "不合法的access_token"}
+	WXServerUrl = "https://api.weixin.qq.com" // 微信 api 服务器地址
+	UserAgent   = "[fastwego/offiaccount] A fast wechat offiaccount development sdk written in Golang"
+
+	errorAccessTokenExpire = errors.New("access token expire")
 )
 
 /*
@@ -49,37 +47,14 @@ func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
 	if err != nil {
 		return
 	}
-	if client.Ctx.Logger != nil {
-		client.Ctx.Logger.Printf("GET %s", uri)
-	}
-	response, err := http.Get(WXServerUrl + newUrl)
+
+	req, err := http.NewRequest(http.MethodGet, WXServerUrl+newUrl, nil)
 	if err != nil {
 		return
 	}
-	defer response.Body.Close()
-	resp, err = responseFilter(response)
+	req.Header.Add("User-Agent", UserAgent)
 
-	if err == NeedRefreshAccessTokenError {
-		_, err := client.Ctx.AccessToken.GetRefreshAccessTokenHandler(client.Ctx)
-		if err != nil {
-			return
-		}
-
-		newUrl, err = client.applyAccessToken(uri)
-		if err != nil {
-			return
-		}
-		if client.Ctx.Logger != nil {
-			client.Ctx.Logger.Printf("Refresh Access Token Second GET %s", newUrl)
-		}
-		response, err := http.Get(WXServerUrl + newUrl)
-		if err != nil {
-			return
-		}
-		defer response.Body.Close()
-		return responseFilter(response)
-	}
-	return
+	return client.HTTPDo(req)
 }
 
 //HTTPPost POST 请求
@@ -88,36 +63,65 @@ func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string
 	if err != nil {
 		return
 	}
-	if client.Ctx.Logger != nil {
-		client.Ctx.Logger.Printf("POST %s", uri)
+
+	req, err := http.NewRequest(http.MethodPost, WXServerUrl+newUrl, payload)
+	if err != nil {
+		return
 	}
-	response, err := http.Post(WXServerUrl+newUrl, contentType, payload)
+	req.Header.Add("User-Agent", UserAgent)
+	req.Header.Add("Content-Type", contentType)
+
+	return client.HTTPDo(req)
+}
+
+//HTTPDo 执行 请求
+func (client *Client) HTTPDo(req *http.Request) (resp []byte, err error) {
+	if client.Ctx.Logger != nil {
+		client.Ctx.Logger.Printf("%s %s Headers %v", req.Method, req.URL.String(), req.Header)
+	}
+
+	response, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
+
 	resp, err = responseFilter(response)
 
-	if err == NeedRefreshAccessTokenError {
-		_, err := client.Ctx.AccessToken.GetRefreshAccessTokenHandler(client.Ctx)
+	// 发现 access_token 过期
+	if err == errorAccessTokenExpire {
+
+		// 主动 通知 access_token 过期
+		err = client.Ctx.AccessToken.NoticeAccessTokenExpireHandler(client.Ctx)
 		if err != nil {
 			return
 		}
 
-		newUrl, err = client.applyAccessToken(uri)
+		// 通知到位后 access_token 会被刷新，那么可以 retry 了
+		var accessToken string
+		accessToken, err = client.Ctx.AccessToken.GetAccessTokenHandler(client.Ctx)
 		if err != nil {
 			return
 		}
+
+		// 换新装
+		q := req.URL.Query()
+		q.Set("access_token", accessToken)
+		req.URL.RawQuery = q.Encode()
+
 		if client.Ctx.Logger != nil {
-			client.Ctx.Logger.Printf("Refresh Access Token Second POST %s", newUrl)
+			client.Ctx.Logger.Printf("retry %s %s Headers %v", req.Method, req.URL.String(), req.Header)
 		}
-		response, err := http.Post(WXServerUrl+newUrl, contentType, payload)
+
+		response, err = http.DefaultClient.Do(req)
 		if err != nil {
 			return
 		}
 		defer response.Body.Close()
-		return responseFilter(response)
+
+		resp, err = responseFilter(response)
 	}
+
 	return
 }
 
@@ -164,8 +168,9 @@ func responseFilter(response *http.Response) (resp []byte, err error) {
 		return
 	}
 
-	if _, ok := WXInvalidErrorCode[errorResponse.Errcode]; ok {
-		err = NeedRefreshAccessTokenError
+	// 42001 - access_token 超时，请检查 access_token 的有效期，请参考基础支持 - 获取 access_token 中，对 access_token 的详细机制说明
+	if errorResponse.Errcode == 42001 {
+		err = errorAccessTokenExpire
 		return
 	}
 	if errorResponse.Errcode != 0 {
@@ -205,8 +210,7 @@ func GetAccessToken(ctx *OffiAccount) (accessToken string, err error) {
 	}
 
 	// 提前过期 提供冗余时间
-	expiresIn = int(0.9 * float64(expiresIn))
-	d := time.Duration(expiresIn) * time.Second
+	d := time.Duration(expiresIn-300) * time.Second
 	_ = ctx.AccessToken.Cache.Save(ctx.Config.Appid, accessToken, d)
 
 	if ctx.Logger != nil {
@@ -217,34 +221,17 @@ func GetAccessToken(ctx *OffiAccount) (accessToken string, err error) {
 }
 
 /*
-从 公众号实例 的 AccessToken 管理器 更新 access_token
+NoticeAccessTokenExpire 只需将本地存储的 access_token 删除，即完成了 access_token 已过期的 主动通知
 
-获得新的 access_token 后 过期时间设置为 0.9 * expiresIn 提供一定冗余
+retry 请求的时候，会发现本地没有 access_token ，从而触发refresh
 */
-func NoticeRefreshAccessToken(ctx *OffiAccount) (accessToken string, err error) {
-	refreshAccessTokenLock.Lock()
-	defer refreshAccessTokenLock.Unlock()
-
-	accessToken, expiresIn, err := refreshAccessTokenFromWXServer(ctx.Config.Appid, ctx.Config.Secret)
-	if err != nil {
-		return
-	}
-
-	// 提前过期 提供冗余时间
-	expiresIn = int(0.9 * float64(expiresIn))
-	d := time.Duration(expiresIn) * time.Second
-	_ = ctx.AccessToken.Cache.Save(ctx.Config.Appid, accessToken, d)
-
+func NoticeAccessTokenExpire(ctx *OffiAccount) (err error) {
 	if ctx.Logger != nil {
-		ctx.Logger.Printf("%s %s %d\n", "refreshAccessTokenFromWXServer", accessToken, expiresIn)
+		ctx.Logger.Println("NoticeAccessTokenExpire")
 	}
 
-	// 可以做一些别的事情
-	// 如：通知 中控服务，让中控处理更新自己的 accessToken， 中控接收到请求后，对比中控缓存的accessToken时候更新accessToken，注意并发读写问题
-	// do something ...
-
+	err = ctx.AccessToken.Cache.Delete(ctx.Config.Appid)
 	return
-
 }
 
 /*
