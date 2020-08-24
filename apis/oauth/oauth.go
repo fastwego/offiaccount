@@ -66,7 +66,7 @@ See: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage
 func GetAuthorizeUrl(appid string, redirectUri string, scope string, state string) (authorizeUrl string) {
 	params := url.Values{}
 	params.Add("appid", appid)
-	params.Add("redirectUri", redirectUri)
+	params.Add("redirect_uri", redirectUri)
 	params.Add("scope", scope)
 	params.Add("state", state)
 	return OauthAuthorizeServerUrl + apiAuthorize + "?" + params.Encode()
