@@ -94,6 +94,7 @@ func GetAccessToken(appid string, secret string, code string) (oauthAccessToken 
 	params.Add("appid", appid)
 	params.Add("secret", secret)
 	params.Add("code", code)
+	params.Add("code", "authorization_code")
 
 	uri := offiaccount.WXServerUrl + apiAccessToken + "?" + params.Encode()
 	response, err := http.Get(uri)
