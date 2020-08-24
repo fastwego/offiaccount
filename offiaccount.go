@@ -30,6 +30,9 @@ import (
 // GetAccessTokenFunc 获取 access_token 方法接口
 type GetAccessTokenFunc func(ctx *OffiAccount) (accessToken string, err error)
 
+// NoticeRefreshAccessTokenFunc 通知中控 刷新 access_token
+type NoticeRefreshAccessTokenFunc func(ctx *OffiAccount) (accessToken string, err error)
+
 /*
 OffiAccount 公众号实例
 */
@@ -45,8 +48,9 @@ type OffiAccount struct {
 AccessToken 管理器 处理缓存 和 刷新 逻辑
 */
 type AccessToken struct {
-	Cache                 cachego.Cache
-	GetAccessTokenHandler GetAccessTokenFunc
+	Cache                        cachego.Cache
+	GetAccessTokenHandler        GetAccessTokenFunc
+	GetRefreshAccessTokenHandler NoticeRefreshAccessTokenFunc
 }
 
 /*
@@ -66,8 +70,9 @@ func New(config Config) (offiAccount *OffiAccount) {
 	instance := OffiAccount{
 		Config: config,
 		AccessToken: AccessToken{
-			Cache:                 file.New(os.TempDir()),
-			GetAccessTokenHandler: GetAccessToken,
+			Cache:                        file.New(os.TempDir()),
+			GetAccessTokenHandler:        GetAccessToken,
+			GetRefreshAccessTokenHandler: NoticeRefreshAccessToken,
 		},
 	}
 
