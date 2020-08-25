@@ -103,3 +103,5 @@ FastWeGo 是一套完整的微信开发框架，包括公众号、开放平台�
 欢迎提交 pull request / issue / 文档，一起让微信开发更快更好！
 
 Faster we go together!
+
+[加入开发者交流群](https://github.com/fastwego/fastwego.dev)
