@@ -126,15 +126,15 @@ func TestGetAuthorizeUrl(t *testing.T) {
 		args             args
 		wantAuthorizeUrl string
 	}{
-		{name: "case1", args: args{appid: "appid", redirectUri: "https://fastwego.dev/api/weixin/oauth", scope: ScopeSnsapiUserinfo, state: "STATE"}, wantAuthorizeUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirectUri=https%3A%2F%2Ffastwego.dev%2Fapi%2Fweixin%2Foauth&scope=snsapi_userinfo&state=STATE"},
-		{name: "case2", args: args{appid: "appid", redirectUri: "https://fastwego.dev/api/weixin/oauth", scope: ScopeSnsapiBase, state: "STATE"}, wantAuthorizeUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirectUri=https%3A%2F%2Ffastwego.dev%2Fapi%2Fweixin%2Foauth&scope=snsapi_base&state=STATE"},
+		{name: "case1", args: args{appid: "appid", redirectUri: "https://fastwego.dev/api/weixin/oauth", scope: ScopeSnsapiUserinfo, state: "STATE"}, wantAuthorizeUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirect_uri=https%3A%2F%2Ffastwego.dev%2Fapi%2Fweixin%2Foauth&response_type=code&scope=snsapi_userinfo&state=STATE"},
+		{name: "case2", args: args{appid: "appid", redirectUri: "https://fastwego.dev/api/weixin/oauth", scope: ScopeSnsapiBase, state: "STATE"}, wantAuthorizeUrl: "https://open.weixin.qq.com/connect/oauth2/authorize?appid=appid&redirect_uri=https%3A%2F%2Ffastwego.dev%2Fapi%2Fweixin%2Foauth&response_type=code&scope=snsapi_base&state=STATE"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotAuthorizeUrl := GetAuthorizeUrl(tt.args.appid, tt.args.redirectUri, tt.args.scope, tt.args.state)
 			fmt.Println(gotAuthorizeUrl)
 			if gotAuthorizeUrl != tt.wantAuthorizeUrl {
-				t.Errorf("GetAuthorizeUrl() = %v, want %v", gotAuthorizeUrl, tt.wantAuthorizeUrl)
+				t.Errorf("GetAuthorizeUrl() = %v \n want %v", gotAuthorizeUrl, tt.wantAuthorizeUrl)
 			}
 		})
 	}
@@ -146,7 +146,7 @@ func TestGetUserInfo(t *testing.T) {
 		_, _ = w.Write([]byte(`{   
           "openid":"OPENID",
 		  "nickname": "NICKNAME",
-		  "sex":"1",
+		  "sex":1,
 		  "province":"PROVINCE",
 		  "city":"CITY",
 		  "country":"COUNTRY",
@@ -170,7 +170,7 @@ func TestGetUserInfo(t *testing.T) {
 		{name: "case1", args: args{access_token: "", openid: "", lang: LANG_zh_CN}, wantOauthUserInfo: OauthUserInfo{
 			Openid:     "OPENID",
 			Nickname:   "NICKNAME",
-			Sex:        "1",
+			Sex:        1,
 			Province:   "PROVINCE",
 			City:       "CITY",
 			Country:    "COUNTRY",
