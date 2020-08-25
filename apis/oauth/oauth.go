@@ -69,6 +69,8 @@ func GetAuthorizeUrl(appid string, redirectUri string, scope string, state strin
 	params.Add("redirect_uri", redirectUri)
 	params.Add("scope", scope)
 	params.Add("state", state)
+	params.Add("response_type", "code")
+
 	return OauthAuthorizeServerUrl + apiAuthorize + "?" + params.Encode()
 }
 
@@ -94,6 +96,7 @@ func GetAccessToken(appid string, secret string, code string) (oauthAccessToken 
 	params.Add("appid", appid)
 	params.Add("secret", secret)
 	params.Add("code", code)
+	params.Add("grant_type", "authorization_code")
 
 	uri := offiaccount.WXServerUrl + apiAccessToken + "?" + params.Encode()
 	response, err := http.Get(uri)
@@ -161,7 +164,7 @@ const (
 type OauthUserInfo struct {
 	Openid     string   `json:"openid"`
 	Nickname   string   `json:"nickname"`
-	Sex        string   `json:"sex"`
+	Sex        int      `json:"sex"`
 	Province   string   `json:"province"`
 	City       string   `json:"city"`
 	Country    string   `json:"country"`
