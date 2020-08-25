@@ -28,10 +28,9 @@ import (
 )
 
 var (
-	WXServerUrl = "https://api.weixin.qq.com" // 微信 api 服务器地址
-	UserAgent   = "[fastwego/offiaccount] A fast wechat offiaccount development sdk written in Golang"
-
-	errorAccessTokenExpire = errors.New("access token expire")
+	WXServerUrl            = "https://api.weixin.qq.com" // 微信 api 服务器地址
+	UserAgent              = "fastwego/offiaccount"
+	ErrorAccessTokenExpire = errors.New("access token expire")
 )
 
 /*
@@ -52,9 +51,8 @@ func (client *Client) HTTPGet(uri string) (resp []byte, err error) {
 	if err != nil {
 		return
 	}
-	req.Header.Add("User-Agent", UserAgent)
 
-	return client.HTTPDo(req)
+	return client.httpDo(req)
 }
 
 //HTTPPost POST 请求
@@ -68,14 +66,16 @@ func (client *Client) HTTPPost(uri string, payload io.Reader, contentType string
 	if err != nil {
 		return
 	}
-	req.Header.Add("User-Agent", UserAgent)
+
 	req.Header.Add("Content-Type", contentType)
 
-	return client.HTTPDo(req)
+	return client.httpDo(req)
 }
 
-//HTTPDo 执行 请求
-func (client *Client) HTTPDo(req *http.Request) (resp []byte, err error) {
+//httpDo 执行 请求
+func (client *Client) httpDo(req *http.Request) (resp []byte, err error) {
+	req.Header.Add("User-Agent", UserAgent)
+
 	if client.Ctx.Logger != nil {
 		client.Ctx.Logger.Printf("%s %s Headers %v", req.Method, req.URL.String(), req.Header)
 	}
@@ -89,7 +89,7 @@ func (client *Client) HTTPDo(req *http.Request) (resp []byte, err error) {
 	resp, err = responseFilter(response)
 
 	// 发现 access_token 过期
-	if err == errorAccessTokenExpire {
+	if err == ErrorAccessTokenExpire {
 
 		// 主动 通知 access_token 过期
 		err = client.Ctx.AccessToken.NoticeAccessTokenExpireHandler(client.Ctx)
@@ -104,7 +104,7 @@ func (client *Client) HTTPDo(req *http.Request) (resp []byte, err error) {
 			return
 		}
 
-		// 换新装
+		// 换新
 		q := req.URL.Query()
 		q.Set("access_token", accessToken)
 		req.URL.RawQuery = q.Encode()
@@ -168,9 +168,10 @@ func responseFilter(response *http.Response) (resp []byte, err error) {
 		return
 	}
 
-	// 42001 - access_token 超时，请检查 access_token 的有效期，请参考基础支持 - 获取 access_token 中，对 access_token 的详细机制说明
-	if errorResponse.Errcode == 42001 {
-		err = errorAccessTokenExpire
+	// 40001(覆盖刷新超过5min后，使用旧 access_token 报错) 获取 access_token 时 AppSecret 错误，或者 access_token 无效。请开发者认真比对 AppSecret 的正确性，或查看是否正在为恰当的公众号调用接口
+	// 42001(超过 7200s 后 报错) - access_token 超时，请检查 access_token 的有效期，请参考基础支持 - 获取 access_token 中，对 access_token 的详细机制说明
+	if errorResponse.Errcode == 42001 || errorResponse.Errcode == 40001 {
+		err = ErrorAccessTokenExpire
 		return
 	}
 	if errorResponse.Errcode != 0 {
@@ -209,8 +210,8 @@ func GetAccessToken(ctx *OffiAccount) (accessToken string, err error) {
 		return
 	}
 
-	// 提前过期 提供冗余时间
-	d := time.Duration(expiresIn-300) * time.Second
+	// 本地缓存 access_token
+	d := time.Duration(expiresIn) * time.Second
 	_ = ctx.AccessToken.Cache.Save(ctx.Config.Appid, accessToken, d)
 
 	if ctx.Logger != nil {

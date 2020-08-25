@@ -62,11 +62,14 @@ const (
 如果用户同意授权，页面将跳转至 redirect_uri/?code=CODE&state=STATE
 
 See: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html
+
+GET https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxf0e81c3bee622d60&redirect_uri=http%3A%2F%2Fnba.bluewebgame.com%2Foauth_response.php&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
 */
 func GetAuthorizeUrl(appid string, redirectUri string, scope string, state string) (authorizeUrl string) {
 	params := url.Values{}
 	params.Add("appid", appid)
-	params.Add("redirectUri", redirectUri)
+	params.Add("redirect_uri", redirectUri)
+	params.Add("response_type", "code")
 	params.Add("scope", scope)
 	params.Add("state", state)
 	return OauthAuthorizeServerUrl + apiAuthorize + "?" + params.Encode()
@@ -161,7 +164,7 @@ const (
 type OauthUserInfo struct {
 	Openid     string   `json:"openid"`
 	Nickname   string   `json:"nickname"`
-	Sex        string   `json:"sex"`
+	Sex        int64    `json:"sex"`
 	Province   string   `json:"province"`
 	City       string   `json:"city"`
 	Country    string   `json:"country"`
