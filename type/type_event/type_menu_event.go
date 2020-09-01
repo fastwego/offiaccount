@@ -100,10 +100,6 @@ type EventMenuScanCodeWaitMsg struct {
 	}
 }
 
-type Item struct {
-	PicMd5Sum string
-}
-
 /*
 <xml><ToUserName><![CDATA[gh_e136c6e50636]]></ToUserName>
 <FromUserName><![CDATA[oMgHVjngRipVsoxg6TuX3vz6glDg]]></FromUserName>
@@ -124,7 +120,9 @@ type EventMenuPicSysPhoto struct {
 	SendPicsInfo struct {
 		Count   string
 		PicList struct {
-			Item []Item `xml:"item"`
+			Item []struct {
+				PicMd5Sum string
+			} `xml:"item"`
 		}
 	}
 }
@@ -149,7 +147,9 @@ type EventMenuPicSysPhotoOrAlbum struct {
 	SendPicsInfo struct {
 		Count   string
 		PicList struct {
-			Item []Item `xml:"item"`
+			Item []struct {
+				PicMd5Sum string
+			} `xml:"item"`
 		}
 	}
 }
@@ -174,7 +174,9 @@ type EventMenuPicWeixin struct {
 	SendPicsInfo struct {
 		Count   string
 		PicList struct {
-			Item []Item `xml:"item"`
+			Item []struct {
+				PicMd5Sum string
+			} `xml:"item"`
 		}
 	}
 }
