@@ -62,11 +62,11 @@ func TestClient_getAccessToken(t *testing.T) {
 			gotAccessToken, err := GetAccessToken(client.Ctx)
 			fmt.Println(gotAccessToken, err)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("getAccessToken() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("GetAccessToken() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if gotAccessToken != tt.wantAccessToken {
-				t.Errorf("getAccessToken() gotAccessToken = %v, want %v", gotAccessToken, tt.wantAccessToken)
+				t.Errorf("GetAccessToken() gotAccessToken = %v, want %v", gotAccessToken, tt.wantAccessToken)
 			}
 		})
 	}

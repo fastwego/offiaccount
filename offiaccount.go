@@ -30,8 +30,8 @@ import (
 // GetAccessTokenFunc 获取 access_token 方法接口
 type GetAccessTokenFunc func(ctx *OffiAccount) (accessToken string, err error)
 
-// NoticeRefreshAccessTokenFunc 通知中控 刷新 access_token
-type NoticeRefreshAccessTokenFunc func(ctx *OffiAccount) (accessToken string, err error)
+// NoticeAccessTokenExpireFunc 通知中控 刷新 access_token
+type NoticeAccessTokenExpireFunc func(ctx *OffiAccount) (err error)
 
 /*
 OffiAccount 公众号实例
@@ -48,9 +48,9 @@ type OffiAccount struct {
 AccessToken 管理器 处理缓存 和 刷新 逻辑
 */
 type AccessToken struct {
-	Cache                        cachego.Cache
-	GetAccessTokenHandler        GetAccessTokenFunc
-	GetRefreshAccessTokenHandler NoticeRefreshAccessTokenFunc
+	Cache                          cachego.Cache
+	GetAccessTokenHandler          GetAccessTokenFunc
+	NoticeAccessTokenExpireHandler NoticeAccessTokenExpireFunc
 }
 
 /*
@@ -70,16 +70,16 @@ func New(config Config) (offiAccount *OffiAccount) {
 	instance := OffiAccount{
 		Config: config,
 		AccessToken: AccessToken{
-			Cache:                        file.New(os.TempDir()),
-			GetAccessTokenHandler:        GetAccessToken,
-			GetRefreshAccessTokenHandler: NoticeRefreshAccessToken,
+			Cache:                          file.New(os.TempDir()),
+			GetAccessTokenHandler:          GetAccessToken,
+			NoticeAccessTokenExpireHandler: NoticeAccessTokenExpire,
 		},
 	}
 
 	instance.Client = Client{Ctx: &instance}
 	instance.Server = Server{Ctx: &instance}
 
-	instance.Logger = log.New(os.Stdout, "[offiaccount] ", log.LstdFlags)
+	instance.Logger = log.New(os.Stdout, "[fastwego/offiaccount] ", log.LstdFlags|log.Llongfile)
 
 	return &instance
 }
@@ -100,6 +100,17 @@ SetGetAccessTokenHandler 设置 AccessToken 获取方法。默认 从本地缓�
 */
 func (offiAccount *OffiAccount) SetGetAccessTokenHandler(f GetAccessTokenFunc) {
 	offiAccount.AccessToken.GetAccessTokenHandler = f
+}
+
+/*
+SetNoticeAccessTokenExpireHandler 设置 AccessToken 过期 通知
+
+框架提供的默认机制是 删除本地缓存的 access_token，那么 retry 的时候 会触发 刷新
+
+如果有多实例服务，可以设置为 通知 中控服务器 去刷新
+*/
+func (offiAccount *OffiAccount) SetNoticeAccessTokenExpireHandler(f NoticeAccessTokenExpireFunc) {
+	offiAccount.AccessToken.NoticeAccessTokenExpireHandler = f
 }
 
 /*
