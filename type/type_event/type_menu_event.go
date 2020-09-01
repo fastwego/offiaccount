@@ -73,9 +73,10 @@ type EventMenuView struct {
 type EventMenuScanCodePush struct {
 	Event
 	EventKey     string
-	ScanCodeInfo string
-	ScanType     string
-	ScanResult   string
+	ScanCodeInfo struct {
+		ScanType   string
+		ScanResult string
+	}
 }
 
 /*
@@ -93,9 +94,10 @@ type EventMenuScanCodePush struct {
 type EventMenuScanCodeWaitMsg struct {
 	Event
 	EventKey     string
-	ScanCodeInfo string
-	ScanType     string
-	ScanResult   string
+	ScanCodeInfo struct {
+		ScanType   string
+		ScanResult string
+	}
 }
 
 /*
@@ -115,10 +117,14 @@ type EventMenuScanCodeWaitMsg struct {
 type EventMenuPicSysPhoto struct {
 	Event
 	EventKey     string
-	SendPicsInfo string
-	Count        string
-	PicList      string
-	PicMd5Sum    string
+	SendPicsInfo struct {
+		Count   string
+		PicList struct {
+			Item []struct {
+				PicMd5Sum string
+			} `xml:"item"`
+		}
+	}
 }
 
 /*
@@ -138,10 +144,14 @@ type EventMenuPicSysPhoto struct {
 type EventMenuPicSysPhotoOrAlbum struct {
 	Event
 	EventKey     string
-	SendPicsInfo string
-	Count        string
-	PicList      string
-	PicMd5Sum    string
+	SendPicsInfo struct {
+		Count   string
+		PicList struct {
+			Item []struct {
+				PicMd5Sum string
+			} `xml:"item"`
+		}
+	}
 }
 
 /*
@@ -161,10 +171,14 @@ type EventMenuPicSysPhotoOrAlbum struct {
 type EventMenuPicWeixin struct {
 	Event
 	EventKey     string
-	SendPicsInfo string
-	Count        string
-	PicList      string
-	PicMd5Sum    string
+	SendPicsInfo struct {
+		Count   string
+		PicList struct {
+			Item []struct {
+				PicMd5Sum string
+			} `xml:"item"`
+		}
+	}
 }
 
 /*
@@ -185,12 +199,13 @@ type EventMenuPicWeixin struct {
 type EventMenuLocationSelect struct {
 	Event
 	EventKey         string
-	SendLocationInfo string
-	Location_X       string
-	Location_Y       string
-	Scale            string
-	Label            string
-	Poiname          string
+	SendLocationInfo struct {
+		Location_X string
+		Location_Y string
+		Scale      string
+		Label      string
+		Poiname    string
+	}
 }
 
 /*
