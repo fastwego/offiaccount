@@ -18,6 +18,7 @@ package material
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"net/url"
 	"os"
@@ -119,30 +120,38 @@ func AddNews(ctx *offiaccount.OffiAccount, payload []byte) (resp []byte, err err
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html
 
-POST(@media) https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN
+POST https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN
 */
 func MediaUploadImg(ctx *offiaccount.OffiAccount, media string) (resp []byte, err error) {
-	r, w := io.Pipe()
-	m := multipart.NewWriter(w)
-	go func() {
-		defer w.Close()
-		defer m.Close()
 
-		part, err := m.CreateFormFile("media", path.Base(media))
-		if err != nil {
-			return
-		}
-		file, err := os.Open(media)
-		if err != nil {
-			return
-		}
-		defer file.Close()
-		if _, err = io.Copy(part, file); err != nil {
-			return
-		}
+	file, err := os.Open(media)
+	if err != nil {
+		return
+	}
+	fileContents, err := ioutil.ReadAll(file)
+	if err != nil {
+		return
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return
+	}
+	file.Close()
 
-	}()
-	return ctx.Client.HTTPPost(apiMediaUploadImg, r, m.FormDataContentType())
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("media", fi.Name())
+	if err != nil {
+		return
+	}
+	part.Write(fileContents)
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return ctx.Client.HTTPPost(apiMediaUploadImg, body, writer.FormDataContentType())
 }
 
 /*
@@ -152,36 +161,46 @@ func MediaUploadImg(ctx *offiaccount.OffiAccount, media string) (resp []byte, er
 
 See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html
 
-POST(@media|field=description) https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE
+POST https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE
 */
-func AddMaterial(ctx *offiaccount.OffiAccount, media string, payload []byte) (resp []byte, err error) {
-	r, w := io.Pipe()
-	m := multipart.NewWriter(w)
-	go func() {
-		defer w.Close()
-		defer m.Close()
+func AddMaterial(ctx *offiaccount.OffiAccount, media string, params url.Values, fields map[string]string) (resp []byte, err error) {
 
-		part, err := m.CreateFormFile("media", path.Base(media))
+	file, err := os.Open(media)
+	if err != nil {
+		return
+	}
+	fileContents, err := ioutil.ReadAll(file)
+	if err != nil {
+		return
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return
+	}
+	file.Close()
+
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("media", fi.Name())
+	if err != nil {
+		return
+	}
+	part.Write(fileContents)
+
+	// fields
+	for k, v := range fields {
+		err = writer.WriteField(k, v)
 		if err != nil {
 			return
 		}
-		file, err := os.Open(media)
-		if err != nil {
-			return
-		}
-		defer file.Close()
-		if _, err = io.Copy(part, file); err != nil {
-			return
-		}
+	}
 
-		// field
-		err = m.WriteField("description", string(payload))
-		if err != nil {
-			return
-		}
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
 
-	}()
-	return ctx.Client.HTTPPost(apiAddMaterial, r, m.FormDataContentType())
+	return ctx.Client.HTTPPost(apiAddMaterial+"?"+params.Encode(), body, writer.FormDataContentType())
 }
 
 /*

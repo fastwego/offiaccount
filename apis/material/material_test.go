@@ -182,6 +182,7 @@ func TestMediaUploadImg(t *testing.T) {
 	test.MockSvrHandler.HandleFunc(apiMediaUploadImg, func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(resp))
 	})
+	cwd, _ := os.Getwd()
 
 	type args struct {
 		ctx   *offiaccount.OffiAccount
@@ -193,7 +194,7 @@ func TestMediaUploadImg(t *testing.T) {
 		wantResp []byte
 		wantErr  bool
 	}{
-		{name: "case1", args: args{ctx: test.MockOffiAccount}, wantResp: mockResp["case1"], wantErr: false},
+		{name: "case1", args: args{ctx: test.MockOffiAccount, media: cwd + "/material_test.go"}, wantResp: mockResp["case1"], wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -219,10 +220,13 @@ func TestAddMaterial(t *testing.T) {
 		w.Write([]byte(resp))
 	})
 
+	cwd, _ := os.Getwd()
+
 	type args struct {
-		ctx     *offiaccount.OffiAccount
-		media   string
-		payload []byte
+		ctx    *offiaccount.OffiAccount
+		media  string
+		params url.Values
+		fields map[string]string
 	}
 	tests := []struct {
 		name     string
@@ -230,12 +234,12 @@ func TestAddMaterial(t *testing.T) {
 		wantResp []byte
 		wantErr  bool
 	}{
-		{name: "case1", args: args{ctx: test.MockOffiAccount}, wantResp: mockResp["case1"], wantErr: false},
+		{name: "case1", args: args{ctx: test.MockOffiAccount, media: cwd + "/material_test.go"}, wantResp: mockResp["case1"], wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := AddMaterial(tt.args.ctx, tt.args.media, tt.args.payload)
+			gotResp, err := AddMaterial(tt.args.ctx, tt.args.media, tt.args.params, tt.args.fields)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("AddMaterial() error = %v, wantErr %v", err, tt.wantErr)

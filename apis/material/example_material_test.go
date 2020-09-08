@@ -60,7 +60,7 @@ func ExampleAddNews() {
 func ExampleMediaUploadImg() {
 	var ctx *offiaccount.OffiAccount
 
-	media := ""
+	media := "/path/to/image.jpg"
 	resp, err := material.MediaUploadImg(ctx, media)
 
 	fmt.Println(resp, err)
@@ -69,9 +69,14 @@ func ExampleMediaUploadImg() {
 func ExampleAddMaterial() {
 	var ctx *offiaccount.OffiAccount
 
-	media := ""
-	payload := []byte("{}")
-	resp, err := material.AddMaterial(ctx, media, payload)
+	params := url.Values{}
+	params.Add("type", "video")
+
+	fields := map[string]string{
+		"description": `{"title":"title","introduction":"introduction"}`,
+	}
+
+	resp, err := material.AddMaterial(ctx, "/path/to/video.mp4", params, fields)
 
 	fmt.Println(resp, err)
 }
