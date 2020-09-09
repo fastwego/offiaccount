@@ -1,2 +1,11 @@
-###1. Q:我想关掉fastwego的log打印，该怎么做？
-####  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A:offiaccount.SetLogger(nil)
+#常见问题
+
+
+###如何关闭log？
+
+```go
+    var app *offiaccount.OffiAccount
+
+    //关闭日志
+    app.SetLogger(nil)
+```
