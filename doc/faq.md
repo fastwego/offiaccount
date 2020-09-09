@@ -1,11 +1,11 @@
-#常见问题
+# 常见问题
 
 
-###如何关闭log？
+### 如何关闭 log ？
 
 ```go
-    var app *offiaccount.OffiAccount
+// var app *offiaccount.OffiAccount
 
-    //关闭日志
-    app.SetLogger(nil)
+// 关闭日志
+app.SetLogger(nil)
 ```
