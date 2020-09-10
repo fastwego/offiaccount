@@ -25,8 +25,11 @@ import (
 func ExampleMediaUpload() {
 	var ctx *offiaccount.OffiAccount
 
-	media := ""
-	resp, err := material.MediaUpload(ctx, media)
+	params := url.Values{}
+	params.Add("type", "image")
+
+	media := "/path/to/img.jpg"
+	resp, err := material.MediaUpload(ctx, media, params)
 
 	fmt.Println(resp, err)
 }

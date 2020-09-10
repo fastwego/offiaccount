@@ -17,12 +17,10 @@ package material
 
 import (
 	"bytes"
-	"io"
 	"io/ioutil"
 	"mime/multipart"
 	"net/url"
 	"os"
-	"path"
 
 	"github.com/fastwego/offiaccount"
 )
@@ -50,28 +48,36 @@ See: https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_tempo
 
 POST(@media) https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE
 */
-func MediaUpload(ctx *offiaccount.OffiAccount, media string) (resp []byte, err error) {
-	r, w := io.Pipe()
-	m := multipart.NewWriter(w)
-	go func() {
-		defer w.Close()
-		defer m.Close()
+func MediaUpload(ctx *offiaccount.OffiAccount, media string, params url.Values) (resp []byte, err error) {
 
-		part, err := m.CreateFormFile("media", path.Base(media))
-		if err != nil {
-			return
-		}
-		file, err := os.Open(media)
-		if err != nil {
-			return
-		}
-		defer file.Close()
-		if _, err = io.Copy(part, file); err != nil {
-			return
-		}
+	file, err := os.Open(media)
+	if err != nil {
+		return
+	}
+	fileContents, err := ioutil.ReadAll(file)
+	if err != nil {
+		return
+	}
+	fi, err := file.Stat()
+	if err != nil {
+		return
+	}
+	file.Close()
 
-	}()
-	return ctx.Client.HTTPPost(apiMediaUpload, r, m.FormDataContentType())
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+	part, err := writer.CreateFormFile("media", fi.Name())
+	if err != nil {
+		return
+	}
+	part.Write(fileContents)
+
+	err = writer.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	return ctx.Client.HTTPPost(apiMediaUpload+"?"+params.Encode(), body, writer.FormDataContentType())
 }
 
 /*
