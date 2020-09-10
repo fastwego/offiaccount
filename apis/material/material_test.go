@@ -39,9 +39,11 @@ func TestMediaUpload(t *testing.T) {
 		w.Write([]byte(resp))
 	})
 
+	cwd, _ := os.Getwd()
 	type args struct {
-		ctx   *offiaccount.OffiAccount
-		media string
+		ctx    *offiaccount.OffiAccount
+		media  string
+		params url.Values
 	}
 	tests := []struct {
 		name     string
@@ -49,12 +51,12 @@ func TestMediaUpload(t *testing.T) {
 		wantResp []byte
 		wantErr  bool
 	}{
-		{name: "case1", args: args{ctx: test.MockOffiAccount}, wantResp: mockResp["case1"], wantErr: false},
+		{name: "case1", args: args{ctx: test.MockOffiAccount, media: cwd + "/material_test.go"}, wantResp: mockResp["case1"], wantErr: false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			resp = mockResp[tt.name]
-			gotResp, err := MediaUpload(tt.args.ctx, tt.args.media)
+			gotResp, err := MediaUpload(tt.args.ctx, tt.args.media, tt.args.params)
 			//fmt.Println(string(gotResp), err)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("MediaUpload() error = %v, wantErr %v", err, tt.wantErr)
