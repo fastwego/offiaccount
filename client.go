@@ -31,6 +31,7 @@ var (
 	WXServerUrl            = "https://api.weixin.qq.com" // 微信 api 服务器地址
 	UserAgent              = "fastwego/offiaccount"
 	ErrorAccessTokenExpire = errors.New("access token expire")
+	ErrorSystemBusy        = errors.New("system busy")
 )
 
 /*
@@ -110,7 +111,24 @@ func (client *Client) httpDo(req *http.Request) (resp []byte, err error) {
 		req.URL.RawQuery = q.Encode()
 
 		if client.Ctx.Logger != nil {
-			client.Ctx.Logger.Printf("retry %s %s Headers %v", req.Method, req.URL.String(), req.Header)
+			client.Ctx.Logger.Printf("%v retry %s %s Headers %v", ErrorAccessTokenExpire, req.Method, req.URL.String(), req.Header)
+		}
+
+		response, err = http.DefaultClient.Do(req)
+		if err != nil {
+			return
+		}
+		defer response.Body.Close()
+
+		resp, err = responseFilter(response)
+	}
+
+	// -1 系统繁忙，此时请开发者稍候再试
+	// 重试一次
+	if err == ErrorSystemBusy {
+
+		if client.Ctx.Logger != nil {
+			client.Ctx.Logger.Printf("%v : retry %s %s Headers %v", ErrorSystemBusy, req.Method, req.URL.String(), req.Header)
 		}
 
 		response, err = http.DefaultClient.Do(req)
@@ -174,6 +192,13 @@ func responseFilter(response *http.Response) (resp []byte, err error) {
 		err = ErrorAccessTokenExpire
 		return
 	}
+
+	//  -1	系统繁忙，此时请开发者稍候再试
+	if errorResponse.Errcode == -1 {
+		err = ErrorSystemBusy
+		return
+	}
+
 	if errorResponse.Errcode != 0 {
 		err = errors.New(string(resp))
 		return
