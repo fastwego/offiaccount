@@ -99,6 +99,8 @@
 		- [GetUserInfo (/sns/userinfo)](https://pkg.go.dev/github.com/fastwego/offiaccount/apis/oauth?tab=doc#GetUserInfo)
 	- [检验授权凭证（access_token）是否有效](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html) 
 		- [Auth (/sns/auth)](https://pkg.go.dev/github.com/fastwego/offiaccount/apis/oauth?tab=doc#Auth)
+	- [获取 jsapi_ticket](https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62) 
+		- [GetJSApiTicket (/cgi-bin/ticket/getticket)](https://pkg.go.dev/github.com/fastwego/offiaccount/apis/oauth?tab=doc#GetJSApiTicket)
 - 素材管理(material)
 	- [新增临时素材](https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html) 
 		- [MediaUpload (/cgi-bin/media/upload)](https://pkg.go.dev/github.com/fastwego/offiaccount/apis/material?tab=doc#MediaUpload)

@@ -40,11 +40,12 @@ import (
 var OauthAuthorizeServerUrl = "https://open.weixin.qq.com"
 
 const (
-	apiAuthorize    = "/connect/oauth2/authorize"
-	apiAccessToken  = "/sns/oauth2/access_token"
-	apiRefreshToken = "/sns/oauth2/refresh_token"
-	apiUserInfo     = "/sns/userinfo"
-	apiAuth         = "/sns/auth"
+	apiAuthorize      = "/connect/oauth2/authorize"
+	apiAccessToken    = "/sns/oauth2/access_token"
+	apiRefreshToken   = "/sns/oauth2/refresh_token"
+	apiUserInfo       = "/sns/userinfo"
+	apiAuth           = "/sns/auth"
+	apiGetJSApiTicket = "/cgi-bin/ticket/getticket"
 )
 
 const (
@@ -252,4 +253,32 @@ func Auth(access_token string, openid string) (isValid bool, err error) {
 	}
 
 	return
+}
+
+/*
+获取 jsapi_ticket
+
+sapi_ticket是公众号用于调用微信JS接口的临时票据。正常情况下，jsapi_ticket的有效期为7200秒，通过access_token来获取。由于获取jsapi_ticket的api调用次数非常有限，频繁刷新jsapi_ticket会导致api调用受限，影响自身业务，开发者必须在自己的服务全局缓存jsapi_ticket
+
+See: https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62
+
+GET https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=ACCESS_TOKEN&type=jsapi
+*/
+func GetJSApiTicket(ctx *offiaccount.OffiAccount) (jsapiTicket string, expiresIn int64, err error) {
+
+	jsapiTicketResp := struct {
+		Ticket    string `json:"ticket"`
+		ExpiresIn int64  `json:"expires_in"`
+	}{}
+	resp, err := ctx.Client.HTTPGet(apiGetJSApiTicket + "?type=jsapi")
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(resp, &jsapiTicketResp)
+	if err != nil {
+		return
+	}
+
+	return jsapiTicketResp.Ticket, jsapiTicketResp.ExpiresIn, nil
 }
