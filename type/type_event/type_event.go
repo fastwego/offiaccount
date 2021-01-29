@@ -56,6 +56,7 @@ type EventSubscribe struct {
 </xml>
 */
 type EventScan struct {
+	Event
 	EventKey string
 	Ticket   string
 }
