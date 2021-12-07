@@ -40,6 +40,19 @@ type Server struct {
 
 // EchoStr 服务器接口校验
 func (s *Server) EchoStr(writer http.ResponseWriter, request *http.Request) {
+	if s.IsSignatureValid(request) {
+		echoStr := request.URL.Query().Get("echostr")
+		if echoStr != "" {
+			io.WriteString(writer, echoStr)
+			if s.Ctx.Logger != nil {
+				s.Ctx.Logger.Println("echostr ", echoStr)
+			}
+		}
+	}
+}
+
+// IsSignatureValid 检查微信通知的签名
+func (s *Server) IsSignatureValid(request *http.Request) bool {
 	strs := []string{
 		request.URL.Query().Get("timestamp"),
 		request.URL.Query().Get("nonce"),
@@ -51,13 +64,10 @@ func (s *Server) EchoStr(writer http.ResponseWriter, request *http.Request) {
 	_, _ = io.WriteString(h, strings.Join(strs, ""))
 	signature := fmt.Sprintf("%x", h.Sum(nil))
 
-	echoStr := request.URL.Query().Get("echostr")
-	if echoStr != "" && signature == request.URL.Query().Get("signature") {
-		io.WriteString(writer, echoStr)
-		if s.Ctx.Logger != nil {
-			s.Ctx.Logger.Println("echostr ", echoStr)
-		}
-
+	if signature == request.URL.Query().Get("signature") {
+		return true
+	} else {
+		return false
 	}
 }
 
