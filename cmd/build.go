@@ -193,18 +193,28 @@ func build(group ApiGroup) {
 	fileContent := fmt.Sprintf(fileTpl, path.Base(group.Package), group.Name, path.Base(group.Package), strings.Join(consts, ``), strings.Join(funcs, ``))
 	filename := "./../apis/" + group.Package + "/" + path.Base(group.Package) + ".go"
 	_ = os.MkdirAll(path.Dir(filename), 0644)
-	ioutil.WriteFile(filename, []byte(fileContent), 0644)
+	err := ioutil.WriteFile(filename, []byte(fileContent), 0644)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 
 	// output Test
 	testFileContent := fmt.Sprintf(testFileTpl, path.Base(group.Package), strings.Join(testFuncs, ``))
 	//fmt.Println(testFileContent)
-	ioutil.WriteFile("./../apis/"+group.Package+"/"+path.Base(group.Package)+"_test.go", []byte(testFileContent), 0644)
-
+	err = ioutil.WriteFile("./../apis/"+group.Package+"/"+path.Base(group.Package)+"_test.go", []byte(testFileContent), 0644)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 	// output example
 	exampleFileContent := fmt.Sprintf(exampleFileTpl, path.Base(group.Package), strings.Join(exampleFuncs, ``))
 	//fmt.Println(testFileContent)
-	ioutil.WriteFile("./../apis/"+group.Package+"/example_"+path.Base(group.Package)+"_test.go", []byte(exampleFileContent), 0644)
-
+	err = ioutil.WriteFile("./../apis/"+group.Package+"/example_"+path.Base(group.Package)+"_test.go", []byte(exampleFileContent), 0644)
+	if err != nil {
+		fmt.Println(err.Error())
+		return
+	}
 }
 
 var constTpl = `
